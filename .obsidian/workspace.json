@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "LFP.md",
-                "mode": "preview",
+                "mode": "source",
                 "backlinks": true,
                 "source": false
               }
@@ -27,19 +27,6 @@
               "type": "markdown",
               "state": {
                 "file": "OB Sig-Transformations 2020.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "fe2cd74df64267bc",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "LFP.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -177,8 +164,8 @@
   "active": "753ddff03ae5824a",
   "lastOpenFiles": [
     "OB Sig-Transformations 2020.md",
-    "AON Context 2020.md",
     "LFP.md",
+    "AON Context 2020.md",
     "2023-07-31.md"
   ]
 }

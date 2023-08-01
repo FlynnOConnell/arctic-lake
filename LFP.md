@@ -21,5 +21,5 @@
 	- Great for non-linear, non-stationary data
 - Empirical Mode Decomposition (EMD)
 	- Same IMF's, based now on local time scales of the signal
-	- Hilbert Transform now gives instantaneous $f$ as a function of time 
+	- Hilbert-Transform now gives instantaneous $f$ as a function of time 
 
