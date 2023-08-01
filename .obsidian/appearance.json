@@ -1,4 +1,8 @@
 {
   "accentColor": "",
-  "interfaceFontFamily": "JetBrainsMono Nerd Font"
+  "interfaceFontFamily": "Sans Serif Collection",
+  "monospaceFontFamily": "JetBrainsMono Nerd Font Mono",
+  "translucency": true,
+  "enabledCssSnippets": [],
+  "cssTheme": "Catppuccin"
 }
