@@ -9,11 +9,11 @@
 - LFP signals are 
 	1) *amplified(600x)* 
 	2) *filtered(0.1-300hz)* 
-	3) *digitized(samp freq. 2000hz* 
+	3) *digitized(samp $f$ 2000hz)* 
 - Mortet Wavelet Transform: 
-	- Variable size window, wider for low f, narrow for high f
-	- good for LFP's, f changes over time
-	- more precise time-f rep because it adapts its time-f res to the f its analyzing
+	- Variable size window, wider for low $f$, narrow for high $f$
+	- good for LFP's, $f$ changes over time
+	- more precise time-$f$ rep because it adapts its time-$f$ res to the $f$ its analyzing
 - Hilbert-Huang Transform:
 	- Decompose into intrinsic mode functions (IMFs)
 	- Apply 'Hilbert Spectral Analysis' to these IMFs
@@ -21,5 +21,5 @@
 	- Great for non-linear, non-stationary data
 - Empirical Mode Decomposition (EMD)
 	- Same IMF's, based now on local time scales of the signal
-	- Hilbert Transform now gives instantaneous f as a function of time 
+	- Hilbert Transform now gives instantaneous $f$ as a function of time 
 

@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AON Context 2020.md",
-                "mode": "source",
+                "file": "LFP.md",
+                "mode": "preview",
                 "backlinks": true,
                 "source": false
               }
@@ -39,7 +39,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Overall concepts.md",
+                "file": "LFP.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -96,7 +96,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 596.5
+    "width": 233.5
   },
   "right": {
     "id": "fe4e188cd0409360",
@@ -112,7 +112,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AON Context 2020.md",
+                "file": "LFP.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -129,7 +129,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AON Context 2020.md",
+                "file": "LFP.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -152,7 +152,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AON Context 2020.md"
+                "file": "LFP.md"
               }
             }
           }
@@ -170,14 +170,15 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "68af8fd57dc514ab",
+  "active": "753ddff03ae5824a",
   "lastOpenFiles": [
     "OB Sig-Transformations 2020.md",
-    "Overall concepts.md",
     "AON Context 2020.md",
+    "LFP.md",
     "2023-07-31.md"
   ]
 }

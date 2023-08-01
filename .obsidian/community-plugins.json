@@ -1,5 +1,8 @@
 [
   "obsidian-vimrc-support",
   "obsidian-annotator",
-  "obsidian-git"
+  "obsidian-git",
+  "obsidian-excalidraw-plugin",
+  "obsidian-icon-folder",
+  "obsidian-style-settings"
 ]
