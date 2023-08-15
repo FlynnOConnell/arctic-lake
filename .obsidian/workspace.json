@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "753ddff03ae5824a",
+            "id": "da353649e5f37dd4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LFP.md",
+                "file": "RBO/Interview.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -21,38 +21,12 @@
             }
           },
           {
-            "id": "dfaa00bbcc5ad484",
+            "id": "9170d8f53299453c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "OB Sig-Transformations 2020.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "35a760a1b17158f9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AON Context 2020.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "475ee38e1353da09",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "OB Sig-Transformations 2020.md",
+                "file": "RBO/Questions.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -126,7 +100,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "OB Sig-Transformations 2020.md",
+                "file": "RBO/Questions.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -143,7 +117,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "OB Sig-Transformations 2020.md",
+                "file": "RBO/Questions.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -166,7 +140,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "OB Sig-Transformations 2020.md"
+                "file": "RBO/Questions.md"
               }
             }
           }
@@ -188,12 +162,17 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "dfaa00bbcc5ad484",
+  "active": "9170d8f53299453c",
   "lastOpenFiles": [
-    "LFP.md",
-    "OB Sig-Transformations 2020.md",
+    "RBO/Don't reinvent the wheel.md",
+    "RBO/Interview.md",
+    "RBO/Questions.md",
+    "Cornell",
+    "RBO",
+    "Cornell/LFP.md",
+    "Cornell/OB Sig-Transformations 2020.md",
+    "Cornell/AON Context 2020.md",
     "Excalidraw/Drawing 2023-08-01 00.06.22.excalidraw.md",
-    "AON Context 2020.md",
     "Excalidraw/Drawing 2023-07-31 23.45.42.excalidraw.md",
     "Excalidraw/Drawing 2023-07-31 23.32.58.excalidraw.md",
     "Excalidraw",

@@ -1,0 +1,4 @@
+- Inscopix Data Processing
+- CalmAn 
+- Movement artifact
+- Spatiotemporal balance 
