@@ -1,6 +1,5 @@
 - Emphasis on theoretical models, well vetted
-
-# OB and LFP (β activity)
+ OB and LFP (β activity)
 - Odors generate spatially specific patterns
 	- LFP -> β (15-40 Hz) and γ (60-90 Hz) bands
 	- Using electrodes in Mitral Cell Body Layer
@@ -22,4 +21,9 @@
 - Empirical Mode Decomposition (EMD)
 	- Same IMF's, based now on local time scales of the signal
 	- Hilbert-Transform now gives instantaneous $f$ as a function of time 
+
+ ## Frequency Bands: 
+```markdown
+![alt text](https://www.google.com/url?sa=i&url=https%3A%2F%2Fraphaelvallat.com%2Fbandpower.html&psig=AOvVaw2PGKqnH3QlmvbIKzuQiUUi&ust=1691026490826000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCPCdi6_rvIADFQAAAAAdAAAAABAG)
+```
 
