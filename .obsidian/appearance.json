@@ -4,5 +4,6 @@
   "monospaceFontFamily": "JetBrainsMono Nerd Font Mono",
   "translucency": true,
   "enabledCssSnippets": [],
-  "cssTheme": "Catppuccin"
+  "cssTheme": "Catppuccin",
+  "baseFontSize": 22
 }

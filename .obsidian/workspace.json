@@ -8,12 +8,16 @@
         "type": "tabs",
         "children": [
           {
+<<<<<<< HEAD
             "id": "f42dff0b633996db",
+=======
+            "id": "da353649e5f37dd4",
+>>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LFP.md",
+                "file": "RBO/Interview.md",
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -21,11 +25,16 @@
             }
           },
           {
+<<<<<<< HEAD
             "id": "35a760a1b17158f9",
+=======
+            "id": "9170d8f53299453c",
+>>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
+<<<<<<< HEAD
                 "file": "AON Context 2020.md",
                 "mode": "source",
                 "backlinks": true,
@@ -40,6 +49,9 @@
               "type": "markdown",
               "state": {
                 "file": "LFP.md",
+=======
+                "file": "RBO/Questions.md",
+>>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
                 "mode": "source",
                 "backlinks": true,
                 "source": false
@@ -113,7 +125,11 @@
             "state": {
               "type": "backlink",
               "state": {
+<<<<<<< HEAD
                 "file": "LFP.md",
+=======
+                "file": "RBO/Questions.md",
+>>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -130,7 +146,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+<<<<<<< HEAD
                 "file": "LFP.md",
+=======
+                "file": "RBO/Questions.md",
+>>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -153,7 +173,11 @@
             "state": {
               "type": "outline",
               "state": {
+<<<<<<< HEAD
                 "file": "LFP.md"
+=======
+                "file": "RBO/Questions.md"
+>>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
               }
             }
           }
@@ -174,6 +198,7 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
+<<<<<<< HEAD
   "active": "cccc80a336cbdaf7",
   "lastOpenFiles": [
     "AON Context 2020.md",
@@ -182,6 +207,19 @@
     "Excalidraw/Drawing 2023-08-01 01.24.27.excalidraw.md",
     "Three laws of motion.md",
     "Pasted image 20230801012614.png",
+=======
+  "active": "9170d8f53299453c",
+  "lastOpenFiles": [
+    "RBO/Don't reinvent the wheel.md",
+    "RBO/Interview.md",
+    "RBO/Questions.md",
+    "Cornell",
+    "RBO",
+    "Cornell/LFP.md",
+    "Cornell/OB Sig-Transformations 2020.md",
+    "Cornell/AON Context 2020.md",
+    "Excalidraw/Drawing 2023-08-01 00.06.22.excalidraw.md",
+>>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
     "Excalidraw/Drawing 2023-07-31 23.45.42.excalidraw.md",
     "Excalidraw/Drawing 2023-08-01 01.22.26.excalidraw.md",
     "Excalidraw/Drawing 2023-08-01 00.06.22.excalidraw.md",
