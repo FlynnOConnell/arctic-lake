@@ -1,7 +1,10 @@
 [
   "obsidian-vimrc-support",
   "obsidian-annotator",
-  "obsidian-git",
   "obsidian-excalidraw-plugin",
-  "cm-editor-syntax-highlight-obsidian"
+  "cm-editor-syntax-highlight-obsidian",
+  "obsidian-linter",
+  "obsidian-version-history-diff",
+  "obsidian-git",
+  "table-editor-obsidian"
 ]

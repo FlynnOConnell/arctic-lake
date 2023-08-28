@@ -1,79 +1,41 @@
 {
   "main": {
-    "id": "665ffc1686efe205",
+    "id": "1ef24095a57954ab",
     "type": "split",
     "children": [
       {
-        "id": "050e33d45cfa420b",
+        "id": "63a516bb350237d0",
         "type": "tabs",
         "children": [
           {
-<<<<<<< HEAD
-            "id": "f42dff0b633996db",
-=======
-            "id": "da353649e5f37dd4",
->>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
+            "id": "f035daaef86916b7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "RBO/Interview.md",
+                "file": "RBO/LBM-sample/Data Exploration.md",
                 "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-<<<<<<< HEAD
-            "id": "35a760a1b17158f9",
-=======
-            "id": "9170d8f53299453c",
->>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-<<<<<<< HEAD
-                "file": "AON Context 2020.md",
-                "mode": "source",
-                "backlinks": true,
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "cccc80a336cbdaf7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "LFP.md",
-=======
-                "file": "RBO/Questions.md",
->>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
-                "mode": "source",
-                "backlinks": true,
+                "backlinks": false,
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "stacked": true
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "d182b322f967686c",
+    "id": "4b1babd8577cf037",
     "type": "split",
     "children": [
       {
-        "id": "c1a8746116cb1077",
+        "id": "513f2da160eb9086",
         "type": "tabs",
         "children": [
           {
-            "id": "68af8fd57dc514ab",
+            "id": "14125dd70c08b3b7",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -83,7 +45,7 @@
             }
           },
           {
-            "id": "4822979672e9f9f6",
+            "id": "78d02b6129259a17",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -98,7 +60,7 @@
             }
           },
           {
-            "id": "38574a09d3398508",
+            "id": "6ad317a3fbb6681d",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -109,55 +71,31 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
-    "id": "fe4e188cd0409360",
+    "id": "ee958b2e4ef485bc",
     "type": "split",
     "children": [
       {
-        "id": "443c0126d67a77ac",
+        "id": "a05b77aad8523565",
         "type": "tabs",
         "children": [
           {
-            "id": "085b5c17bba2dc47",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-<<<<<<< HEAD
-                "file": "LFP.md",
-=======
-                "file": "RBO/Questions.md",
->>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              }
-            }
-          },
-          {
-            "id": "5c602d688b2a13c2",
+            "id": "c55f75a9fb3288bf",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-<<<<<<< HEAD
-                "file": "LFP.md",
-=======
-                "file": "RBO/Questions.md",
->>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
-                "linksCollapsed": false,
+                "file": "RBO/LBM-sample/Data Exploration.md",
+                "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "998c02f2b9b177be",
+            "id": "287c50cceaae5688",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -168,16 +106,12 @@
             }
           },
           {
-            "id": "2a67d340edbc1be4",
+            "id": "f9a27e65fc6a2cfb",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-<<<<<<< HEAD
-                "file": "LFP.md"
-=======
-                "file": "RBO/Questions.md"
->>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
+                "file": "RBO/LBM-sample/Data Exploration.md"
               }
             }
           }
@@ -185,47 +119,37 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-excalidraw-plugin:Create new drawing": false,
       "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
+      "graph:Open graph view": true,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false
+      "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-<<<<<<< HEAD
-  "active": "cccc80a336cbdaf7",
+  "active": "f035daaef86916b7",
   "lastOpenFiles": [
-    "AON Context 2020.md",
-    "LFP.md",
-    "(image.md",
-    "Excalidraw/Drawing 2023-08-01 01.24.27.excalidraw.md",
-    "Three laws of motion.md",
-    "Pasted image 20230801012614.png",
-=======
-  "active": "9170d8f53299453c",
-  "lastOpenFiles": [
-    "RBO/Don't reinvent the wheel.md",
-    "RBO/Interview.md",
+    "RBO/Presentation.md",
+    "RBO/LBM-sample/Data Exploration.md",
+    "RBO/LBM.md",
+    "RBO/VAZIRI_Fig1-resize-scaled.webp",
+    "Cornell.md",
+    "RBO/LBM-sample/Code/Pre_Processing_Executable/preProcessMAxiMum.m.md",
+    "RBO/LBM-sample/Code/Pre_Processing_Executable",
+    "RBO/LBM-sample/Code",
+    "RBO/LBM-sample",
+    "Neovim/To Fix.md",
     "RBO/Questions.md",
-    "Cornell",
-    "RBO",
-    "Cornell/LFP.md",
-    "Cornell/OB Sig-Transformations 2020.md",
-    "Cornell/AON Context 2020.md",
-    "Excalidraw/Drawing 2023-08-01 00.06.22.excalidraw.md",
->>>>>>> 27883ac4d074cf047ea4e62892a2a3ab07c270a1
-    "Excalidraw/Drawing 2023-07-31 23.45.42.excalidraw.md",
-    "Excalidraw/Drawing 2023-08-01 01.22.26.excalidraw.md",
-    "Excalidraw/Drawing 2023-08-01 00.06.22.excalidraw.md",
-    "Excalidraw/Drawing 2023-07-31 23.32.58.excalidraw.md",
-    "OB Sig-Transformations 2020.md",
-    "Excalidraw",
-    "2023-07-31.md"
+    "RBO/Interview.md",
+    "RBO/Current solutions.md",
+    "Neovim",
+    "RBO/Light beads microscopy.md"
   ]
 }
