@@ -8,15 +8,14 @@
 - C++ API is straight foreword 
 - Consistent naming:
 	- ROI/Strip, Frame/volume (framerate/volumerate), plane/channel
- - Inefficient array handling
-	 - Duplicate variables, many copied / duplicated matrices
+ - Memory management 
+	 - Save to disk 
+	 - Memory mapped files "np.memmap"
+	 - Better data types -> array vectorization rather than chunking
+	 - `Rust` for safe memory management
+		 - Dask deployment clusters with `futures`
+		 - Involve a resource manager, kubernetes
  
-
-***
-## Scalability
-*memory mapping*
-*parallel processing*
-*multithreading*
 ***
 ## **Matlab vs Python** 
 
@@ -24,28 +23,14 @@
 - Issue with parallel pool workers
 -  12 core limit in the future could be an issue
 
-
-	| Var             | Val.m    | Val.py |     |
-	| --------------- | ------------- | ---------- | --- |
-	| pixelResolution | 2.7778        |            |     |
-	| vol             | 669 x 660 x 30 x 65 |            |     |
-	| volumeRate      | 6.4496        |            |     |
-
 ##### `CaImAn.py`
 
 **The Mesoscope** 
 - Software is behind, `ScanImage.py` particularly 
 - JSON Encoding/Decoding (Very Slow)
 
-**.tif or .hdf5 files?**
-- .tif need to be sequentially loaded into memory
-- .hdf5 do not
+**.tiff or .hdf5 files?**
 
-*Matlab Engine for Python*
-- Immature, poorly maintained
-- Improper data-type conversions
-	- Cell Arrays != python arrays 
-	- Structure Arrays != dictionaries 
 
 - Matlab array slicing is less strict, more vulnerable to errors and less consistent/predictable
 	- Indexing outside of the bounds of an array, matlab increases the size of the array to accommodate the slice.. padding missing vals with zeros
@@ -55,6 +40,20 @@
 1) Spatial downsampling
 2) Frequency Filter / FFT
 3)  NormCorre Motion Correction
-4) Extract dF/F
-5) CNMFe / Cell Extraction
+4) CNMFe 
+5) Extract dF/F
 6) Event Detection, if necessary
+
+```
+roi_data - len(roi_data) = number of ROIs  
+- RoiData Object (class)  
+- zs (z stack)  
+- channels (channels, the same for each ROI) 
+- 
+- imageData (container)  
+	- len(imageData) = number of planes (z)  
+		- len(imageData[0]) = number of frames/volumes (time)  
+			- len(imageData[0][0]) = number of "slices", but this will always be 1 for us  
+				- imageData[0][0][0] = the actual 2D cross-section of the image
+
+```

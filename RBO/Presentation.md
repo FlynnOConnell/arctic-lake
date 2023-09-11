@@ -10,15 +10,10 @@ Video data saved as `HDF5` for analysis
 	- *Too many cells/oversegmentation*: CNMFe, reduce merging threshold
 	- *Not enough cells*: reduce minimum pixel correlation + mean peak:noise
 	- *Slow processing*: Parallel -> Sequential 
- 
-## Results
-High trial-by-trial viariability
 
-## Future Implication
+Labeling concentration, fluorophore brightness, phototoxicity, photobleaching
 
 ## Notes
-- Controversial, "brainstem" too difficult. Lot's of nit-picking.
-
 Voxels  - moving toward cellular resolution -> Computationally heavy
 
 10hz Frame Rate

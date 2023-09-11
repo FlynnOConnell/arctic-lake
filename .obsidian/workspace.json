@@ -4,18 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "63a516bb350237d0",
+        "id": "b64e0cb10a94d8e3",
         "type": "tabs",
         "children": [
           {
-            "id": "f035daaef86916b7",
+            "id": "efe2cf76c0a9d720",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "RBO/LBM-sample/Data Exploration.md",
+                "file": "RBO/Presentation.md",
                 "mode": "source",
-                "backlinks": false,
+                "backlinks": true,
                 "source": false
               }
             }
@@ -71,8 +71,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "ee958b2e4ef485bc",
@@ -88,7 +87,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "RBO/LBM-sample/Data Exploration.md",
+                "file": "RBO/Presentation.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -111,7 +110,24 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "RBO/LBM-sample/Data Exploration.md"
+                "file": "RBO/Presentation.md"
+              }
+            }
+          },
+          {
+            "id": "374ab715bc4ec7b0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "RBO/Presentation.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
               }
             }
           }
@@ -124,24 +140,50 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "obsidian-excalidraw-plugin:Create new drawing": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": true,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "table-editor-obsidian:Advanced Tables Toolbar": false
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "f035daaef86916b7",
+  "active": "efe2cf76c0a9d720",
   "lastOpenFiles": [
-    "RBO/Presentation.md",
-    "RBO/LBM-sample/Data Exploration.md",
+    "LFM Technical/Data Exploration.md",
     "RBO/LBM.md",
+    "LFM Technical/General.md",
+    "LFM Technical/Segmentation.md",
+    "Untitled.md",
+    "LFM Technical/Preprocessing.md",
+    "LFM Technical/Cell Extraction.md",
+    "RBO/Meetings.md",
+    "LFM Technical/img/inputzero.png",
+    "RBO/Presentation.md",
+    "LFM Technical/code",
     "RBO/VAZIRI_Fig1-resize-scaled.webp",
-    "Cornell.md",
+    "Volumes, Planes, Frames.canvas",
+    "Pasted image 20230831002508.png",
+    "Pasted image 20230831001653.png",
+    "Pasted image 20230831001645.png",
+    "Pasted image 20230831002425.png",
+    "Pasted image 20230831001213.png",
+    "LFM Technical/snippets/Collate frames for each tiff.md",
+    "LFM Technical/snippets/Process each plane.md",
+    "LFM Technical/img/mc.png",
+    "LFM Technical/img/assemble_frames.png",
+    "LFM Technical/img/carbon.png",
+    "LFM Technical/img",
+    "LFM Technical/New folder",
+    "LFM Technical/Motion Correction.md",
+    "LFM Technical/snippets",
+    "LFM Technical/LFM Technical",
+    "LFM Technical",
+    "New folder",
     "RBO/LBM-sample/Code/Pre_Processing_Executable/preProcessMAxiMum.m.md",
+    "Cornell.md",
     "RBO/LBM-sample/Code/Pre_Processing_Executable",
     "RBO/LBM-sample/Code",
     "RBO/LBM-sample",
@@ -149,7 +191,6 @@
     "RBO/Questions.md",
     "RBO/Interview.md",
     "RBO/Current solutions.md",
-    "Neovim",
     "RBO/Light beads microscopy.md"
   ]
 }
