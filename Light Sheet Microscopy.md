@@ -12,7 +12,15 @@ Key takeaways:
 - Spatial alignment of 4 focal planes
 - Capability: [400 x 200 x 200]um^3 
 
-3 challanges to overcome:
+Data Strategy:
+- Duel channel: functional  (GCaMP6s) , and a reference (tdTomato) 
+- Yields two-channel, multi-view image stacks 
+	- (~40 images per volume across 2–3 cameras) 
+	- ~1.0 μm lateral / 2.5 μm axial resolution in first-instar larvae, and 
+	- ~1.6 μm / 5.9 μm in third-instar larvae (larger, more scattering tissue) 
+	- Resolution higher in the ventral nerve cord than in the brain lobes due to shorter light paths in the cord
+
+3 challenges to overcome:
 1. Microscope
 	1. Multi-view: 25-fold better temporal resolution
 	2. Move the sheet, not the sample
@@ -114,16 +122,194 @@ Additional: Compare CNS to spinal corod via **Nonlinear Image Registration** to 
 ![[Pasted image 20250701161912.png|800]]![[Pasted image 20250701161939.png|800]]
 vs 2nd instar
 ![[Pasted image 20250701164046.png]]
-**Terminology:**
+
+These are acquired *after* the functional dual light-sheet imaging,(optimizes for speed), with a single light sheet for highest resolution.
+1. After fusing the images, a blob detector gets the centroid positions.
+	1. Effectively segmentation 
+	2. Very conservative (minimize false +)
+	3. This is used as a local "seed"
+2. Search for the brightest local pixel
+	1. Not correlated pixels, i.e. suite2p 
+	2. In a cube, find brightest pixel, accounts for anisotropy/duplicates
+3. For each XYZ nucleus, take an intensity profile (cross section) 
+	1. Modeled as a gaussian 
+	2. Sharper, narrow gaussian indicates higher resolution
+	3. std, how spread the brightness is
+	4. median of the sigmas (x+ x- y+ y-) gives spread in the plane
+	5. mean of z+ z- gives axial resolution
+	6. Convert to full-width-half-maximum 
+4. Remove ~0.38 um resolution of artifact from light scattering
+
+## Code Analysis
+`2048 x 752 pixels` 
+`79 z-planes`
+`5.13 um z-spacing`
+`1 Hz volumetric imaging (Sequential mode)`
+- 2 channels, 3 cameras / timepoint
+- clusterPT.m (processTimepoint.m)-> clusterMF.m -> clusterMT.m 
+	- Workhorse: multiFuse.m
+- metadata (dims, exposure time, ) saved as XML
+- .klb, .jp2, .tif
+- SPMXX/TMYYYYYY/…
+1. Data management
+	1. Compression/decompression
+	2. Cropping, missing timepoints, bg percentile values
+	3. read/write tiff stacks
+2. Multi-view image fusion 
+	1. clusterMF.m (multi-fusion)
+		1. Input dual-camera raw 
+		2. Fuses camera inputs (2 cameras up to 4? ) -> 3D stack per timepoint
+		3. Input: `SPM*/TM*/…klb`
+		4. Output: 3D stack for each timepoint `…/multiFused/...` 
+		5. What it does
+			1. Register cam N to N + 1 (gradient decent)
+			2. Split foreground / background
+				1. Default percentile is 5% (lowest 5% signal is background)
+	2. clusterTF.m (timepoint-fusion)
+	3. Match brightness levels 
+	4. collectProjections.m
+		1. xy, xz, yz
+3.  Functional Data Processing
+
+- `multiFuse.m` is run first, for all timepoints independently
+- `timeFuse.m` is run afterward to **align each fused volume to a reference timepoint**, using stored transformation offsets and masks
+## **multiFuse.m**
+- modes: 4-view, 2-view camera, 2-view channel
+	- Channels are td-tomato + GCaMP6s
+- 1. Align Channels (alignChannels.m)
+	- Mask background out of foreground
+		- Preprocess: spatial crop + gaussian filter
+		- get min intensity from min() or percentile()
+		- foreground mask 
+			- threshold=min+maskFactor⋅(mean−min)
+	- Align slices across cameras
+		- Take XZ slice 
+	- Channel registratioin 
+		- fun = @(x) transformChannel(...);
+		- [xSol, ...] = fminuncFA(...);
+		- save `.transformation.mat`
+- 2: Fuse Channels (fuseChannels.m)
+	- Load X-Z slices `*.xzMask`, `*.mask2D`
+	- Apply the rigid transformation saved previously
+		- Affine transform with rotation + z-offset 
+	- Check for / re-apply the mask/guassian filtering in step 1
+	- Normalize Channels: compute a correction factor that will match the dynamic range of the two channels
+	- Blending
+		- If fusionType=0/1 (linear blending)
+			- For each pixel, which channel dominates the mask, choose that pixel? 
+			- `fused = chan1 * weight1 + chan2 * weight2 ` `
+		- if fusionType = 2: Wavelet Function
+			- `wfusimg(..., 'db4', 5, 'mean', 'max')` 
+		- if fusionType = 3: Average
+		- `fused = (stack1 + stack2) / 2`
+	- Save fused stacks
+- 3: Camera alignment (alignCameras.m)
+	- Gaussian smooth, mask background
+	- Load substack, normalize intensities
+	- Iteratively shift and score normalized cross-correlation
+		- `scores(x, y, 3) = sum(data1 .* shifted_data2) / (sum1 * sum2)` 
+	- X shift, Y shift, Z rotation
+		- Z-rotation accounts for camera mounting? 
+- 4: Fuse Cameras (fuseCameras.m)
+	- Compute average mask
+		- maskFusion=0: overlap, intersection of both masks
+		- maskFusion=1: union of only valid regions
+	- (optional) Intensity correction
+	- if fusionType = 0/1: 
+		- weight = [0 → 0.5] for fading camera
+		- weight = [1 → 0.5] for dominant camera
+	- if fusionType = 2: wavelet per z-plane
+	- if fusionType = 3: average both stacks at each voxel
+	-  `.fusedStack`: the full fused 3D volume
+	- `*_xyProjection`, `*_xzProjection`, `*_yzProjection`: max projections
+
+### Inputs:
+`parameterDatabase` or `*.mat` with: camera IDs, channels, masks, stack paths, correction params
+
+- `*.xyMask`, `*.transformedMask3D`, `*.transformedMask2D`: 2D/3D masks computed during alignment (from `alignCameras.m` or earlier)
+- `*.minIntensity.mat`: for background estimation (if `dataType == 1`)
+
+### Intermediates:
+
+| File                     | Purpose                                                  |
+| ------------------------ | -------------------------------------------------------- |
+| `*.transformation.mat`   | Coarse-to-fine XY/rotation alignment between views       |
+| `*.fusionDataSlice`      | Local fusion slabs used to estimate intensity correction |
+| `*.stitchedStack`        | Fused stack without blending (pre-blend version)         |
+| `*.transformedGauss`     | Gaussian-filtered stack for mask creation                |
+| `*.transformedMask3D/2D` | Output of thresholding + cleanup for 3D segmentation     |
+### Outputs:
+
+|                             |                                                           |
+| --------------------------- | --------------------------------------------------------- |
+| `*.fusedStack`              | Final fused 3D volume                                     |
+| `*.fusedStack_xyProjection` | Max-Z XY projection                                       |
+| `*.fusedStack_xzProjection` | Max-Y XZ projection                                       |
+| `*.fusedStack_yzProjection` | Max-X YZ projection                                       |
+| `*.fusionMask`              | `averageMask(x,y)`: Z-index of fusion per pixel           |
+| `*.correctedStack`          | Background-corrected + intensity-scaled per-camera stacks |
+| `*.intensityCorrection.mat` | Background values, intensity sums, correction factor      |
+|                             |                                                           |
+## **timeFuse.m**
+- Rigid alignment (rotation + translation)
+- Intensity correction
+- Channel fusion (within each camera)
+- Camera fusion (between cameras)
+- Adaptive spatial blending
+- Optional wavelet or averaging fusion strategies
+- Similar setup to `multiFuse.m`
+
+| Variable            | Description                               |
+| ------------------- | ----------------------------------------- |
+| `parameterDatabase` | `.mat` file storing pipeline parameters   |
+| `t`                 | Time index into the `timepoints` array    |
+| `memoryEstimate`    | Memory allocation hint used in processing |
+
+
+### Inputs
+
+| Variable            | Description                               |
+| ------------------- | ----------------------------------------- |
+| `parameterDatabase` | `.mat` file storing pipeline parameters   |
+| `t`                 | Time index into the `timepoints` array    |
+| `memoryEstimate`    | Memory allocation hint used in processing |
+### Intermediates
+
+| Variable                 | Description                                       |
+| ------------------------ | ------------------------------------------------- |
+| `primaryDataArray`       | Raw and processed image stacks (camera × channel) |
+| `fusedStack`             | Final fused output volume                         |
+| `averageMask`            | Adaptive mask for blending regions                |
+| `currentTransformations` | Transform/correction values from lookup table     |
+| `xSize, ySize, zSize`    | Stack dimensions after cropping                   |
+
+### Outputs 
+- `.fusedStack.klb` (main output)
+- Intermediate stacks:
+    - `.stack`, `.transformedStack`, `.correctedStack`, `.stitchedStack`
+- Projection images (`XY`, `XZ`, `YZ`)
+- `*.intensityCorrection.mat`
+- `*.fusionDataSlice.klb`
+- `_jobCompleted.txt` marker
+
+
+### Reused in timeFuse:
+- `.fusedStack` (used as reference source)
+- `.fusionMask` (used for adaptive blending)
+- `.intensityCorrection.mat` (may be reused or recomputed)
+- `.correctedStack`, `.transformedStack` (used if not skipping steps)
+
+## **Terminology:**
 hemisegments, new favorite word
 neurite - only used in developmental biology!!!!
 
-**Computational References** 
+## **Computational References** 
 - [nonlinear (diffeomorphic) registration](https://www.frontiersin.org/journals/neuroinformatics/articles/10.3389/fninf.2013.00039/full)
 	- Curved, nonrigid deformations
 	- Models smooth warps
 	- Local: individual voxels are deformed
 	- Gaussian -> B-Spline basis function
 	- [ANTS: Github](https://github.com/ANTsX/ANTs)
+
 
 
