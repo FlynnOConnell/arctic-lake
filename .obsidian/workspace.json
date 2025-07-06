@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "9c64191cd6fdddff",
+        "id": "eeffa0877b05820f",
         "type": "tabs",
         "children": [
           {
-            "id": "2164af8867c1e566",
+            "id": "a71fa2ca4266a02c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "light_sheet_microscopy/Whole-central nervous system functional imaging larval Drosophila.md",
+                "file": "light_sheet_microscopy/amat_keller_2015/Efficient processing and analysis of large-scale light-sheet microscopy data  Nature Protocols.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Whole-central nervous system functional imaging larval Drosophila"
+              "title": "Efficient processing and analysis of large-scale light-sheet microscopy data  Nature Protocols"
             }
           }
         ],
@@ -89,8 +89,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 354,
-    "collapsed": true
+    "width": 443
   },
   "right": {
     "id": "ee958b2e4ef485bc",
@@ -106,7 +105,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "light_sheet_microscopy/Whole-central nervous system functional imaging larval Drosophila.md",
+                "file": "light_sheet_microscopy/lemon_keller_2015/Whole-central nervous system functional imaging larval Drosophila.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               },
@@ -135,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "light_sheet_microscopy/Whole-central nervous system functional imaging larval Drosophila.md",
+                "file": "light_sheet_microscopy/lemon_keller_2015/Whole-central nervous system functional imaging larval Drosophila.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -150,7 +149,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "light_sheet_microscopy/Whole-central nervous system functional imaging larval Drosophila.md",
+                "file": "light_sheet_microscopy/lemon_keller_2015/Whole-central nervous system functional imaging larval Drosophila.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -197,30 +196,33 @@
       "publish:Publish changes...": false
     }
   },
-  "active": "2164af8867c1e566",
+  "active": "14125dd70c08b3b7",
   "lastOpenFiles": [
-    "images/Pasted image 20250703120407.png",
-    "images/Pasted image 20250703115027.png",
-    "images/Pasted image 20250703114626.png",
-    "images/Pasted image 20250703114059.png",
-    "images/Pasted image 20250703113335.png",
-    "images/Pasted image 20250703113317.png",
-    "images/Pasted image 20250703113237.png",
-    "images/Pasted image 20250703112153.png",
-    "images/Pasted image 20250703111617.png",
-    "light_sheet_microscopy/supp_movie_2.mov",
-    "light_sheet_microscopy/supp_movie_1.mov",
-    "light_sheet_microscopy/Whole-central nervous system functional imaging larval Drosophila.md",
-    "images/Pasted image 20250703103749.png",
-    "images/Pasted image 20250703103849.png",
-    "light_sheet_microscopy/ncomms8924-1.pdf",
-    "light_sheet_microscopy/41467_2015_BFncomms8924_MOESM740_ESM.mov",
-    "light_sheet_microscopy/41467_2015_BFncomms8924_MOESM734_ESM.mov",
-    "light_sheet_microscopy/supp_movie_8.mov",
-    "light_sheet_microscopy/supp_movie_9.mov",
-    "light_sheet_microscopy/supp_movie_10.mov",
-    "light_sheet_microscopy/supp_movie_6.mov",
-    "light_sheet_microscopy/supp_movie_7.mov",
+    "publish.css~",
+    "publish.css",
+    "light_sheet_microscopy/amat_keller_2015/amat_2015.pdf",
+    "light_sheet_microscopy/amat_keller_2015/Efficient processing and analysis of large-scale light-sheet microscopy data  Nature Protocols.md",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig1_HTML.jpg",
+    "light_sheet_microscopy/amat_keller_2015/notes.md",
+    "light_sheet_microscopy/amat_keller_2015/amat_2015.md",
+    "references.bib",
+    "My Library.bib",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig4_HTML.jpg",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig3_HTML.jpg",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig2_HTML.jpg",
+    "static/custom.css",
+    "static/MillerBrainObservatory_logo.svg",
+    "static/mbo_hub_saph.svg",
+    "static",
+    "light_sheet_microscopy/lemon_keller_2015/Whole-central nervous system functional imaging larval Drosophila.md",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/image.svg+xml",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig7_HTML.jpg",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig6_HTML.jpg",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig5_HTML.jpg",
+    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015",
+    "light_sheet_microscopy/amat_keller_2015/images/k-7emQZLyIPWgWpxNTuMowRUIdURRySsoBvc1XROUOtM8sBaeQ.jpg",
+    "light_sheet_microscopy/amat_keller_2015/images/cookiematch (1).aspx",
+    "light_sheet_microscopy/amat_keller_2015/images/pixelCt.tpmn",
     "Excalidraw/Drawing 2025-07-01 17.28.27.excalidraw.md",
     "mbo/kevin.md",
     "mbo/suite3d.md",
@@ -233,7 +235,6 @@
     "RBO/LBM.md",
     "LFM Technical/General.md",
     "LFM Technical/Segmentation.md",
-    "Untitled.md",
     "LFM Technical/Preprocessing.md",
     "LFM Technical/Cell Extraction.md",
     "RBO/Meetings.md",
@@ -243,8 +244,6 @@
     "LFM Technical/snippets/Process each plane.md",
     "LFM Technical/Motion Correction.md",
     "RBO/LBM-sample/Code/Pre_Processing_Executable/preProcessMAxiMum.m.md",
-    "Cornell.md",
-    "Neovim/To Fix.md",
-    "RBO/Questions.md"
+    "Cornell.md"
   ]
 }

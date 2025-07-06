@@ -1,0 +1,4 @@
+.theme-dark {
+--text-normal: #ffffff; /* White text for dark mode */
+--background-primary: #1f2a3f; /* Dark background */
+}

@@ -41,5 +41,17 @@
       ],
       "key": "["
     }
+  ],
+  "obsidian-citation-plugin:insert-citation": [],
+  "obsidian-excalidraw-plugin:insert-link-to-element": [],
+  "obsidian-excalidraw-plugin:save": [],
+  "editor:open-search-replace": [],
+  "highlightr-plugin:Cool": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "H"
+    }
   ]
 }

@@ -1,6 +1,6 @@
 *William C. Lemon 1, , Stefan R. Pulver 1, *, Burkhard Ho¨ckendorf1 , Katie McDole1 , Kristin Branson1 , Jeremy Freeman1*
 *& Philipp J. Keller*
-
+![[Pasted image 20250701141251.png]]
 ## Key takeaways:
 - Whole CNS - Brain + Spinal Cord
 - Effectively measured full CNS in first 2 instar periods
@@ -26,29 +26,22 @@
 3. Computational pipeline
 	1. Several TB/experiment
 	2. Map functional  activity across CNS during specific behaviors
-
-## Fig 1: Light Sheet Microscopy + Compute Tools
-![[Pasted image 20250701141251.png]]
-![[Pasted image 20250703103749.png]]
-
 ## Fig 2: Whole CNS Functional Imaging
-![[Pasted image 20250703103849.png]]
+
+**![[Pasted image 20250703103849.png]]**
+
 - Imaging at 5 Hz, yet "constant imaging speed of 370 fps" 
 - So, full 3D volume @ 5 fps
 - Each volume ~75 z-planes
 - 72 zplanes in a volume, and do that 5 times per second, thus 5-hz 
 - 72 * 5 = 370fps
 
+![](supp_movie_5.mov)
 
-| Supp Movie 1          | Supp Movie 2          |
-| --------------------- | --------------------- |
-| ![[supp_movie_1.mov]] | ![[supp_movie_2.mov]] |
-| Supp movie 3          | Supp Movie 4          |
-| ![[supp_movie_3.mov]] | ![[supp_movie_4.mov]] |
-| ![[supp_movie_5.mov]] |                       |
 ### Supp. Figure 1: Multi-view coverage
 
-![[Pasted image 20250703111617.png]]
+![[Pasted image 20250701160830.png]]
+
 - Images taken by each camera for each light sheet (CamA = dorsal, CamB = Ventral)
 - Cameras have a complimentary light sheet
 - Max Projections (top), single z-planes (bottom)
@@ -56,7 +49,9 @@
 - Shows nuclear labeled nuclei
 
 ### Supp. Figure 2: Theoretically optimal light sheet config
+
 ![[Pasted image 20250703112153.png]]
+
 - Full-width-half-maximum: Measurement of resolution, smaller = sharper images
 - A: Experimental measurement of  how the beam thickens as you move away from the center
 	- A single light sheet produces good resolution only in the center when the sheet is sub ~3um?
@@ -65,8 +60,8 @@
 
 
 ### Fig 3. Fictive locomotion in CNS
-![[Pasted image 20250703113237.png]]
-![[Pasted image 20250703113317.png]]
+![[41467_2015_Article_BFncomms8924_Fig3_HTML.jpg]]
+
 - To assess how higher order structures (brain lobe) coordinate with motor centers (thorax / abdomen), analyze **activity timing relationships** between these structures
 - Is there synchrony between brain/belly that is *specific to a behavior* 
 - Movement foreward / backward is synched between 
@@ -80,9 +75,9 @@
 	- Amplitude and Phase in 2D space correspond to presence and direction of waves
 
 ### Fig 4. Mapping entire CNS during behaviors
-![[Pasted image 20250703114059.png]]
+![[41467_2015_Article_BFncomms8924_Fig4_HTML.jpg]]
 
-- A. data from a single voxel. This is done independantly for the entire volume.
+- A. data from a single voxel. This is done independently for the entire volume.
 	- Motor neurons are primarily located in dorsal (BL) regions, they should be faster and more prevelent 
 - Indeed they are (B)
 - Measure when / what extent peaks are in sync with waves
@@ -91,11 +86,15 @@
 
 ### Fig 5. Profile single-neuron during behaviors
 
-![[Pasted image 20250703114626.png]]
+
+**![[Pasted image 20250703114626.png]]**
+
 - Projection of manually segmented soma (a, n=200), and activity averages across all wave time windows (b) -8 to 8s around locomotive behavior
 
 ### Fig 6: Compare CNS to spinal cord via **Nonlinear Image Registration** to create a reference template. 
-![[Pasted image 20250703115027.png]]
+
+**![[Pasted image 20250703115027.png]]**
+
 - 6 independent CNS preps to assess / correct variability between specimen 
 - Get mean-intensity projections over time (Reference Volume)
 - Manually mask nerves so it doesn't contribute to registration
@@ -107,13 +106,18 @@
 	- Cross-correlation with neighbor radius of 6
 - Quality assessed via manually annotating 3D landmarks and measuring the distance they moved during registration
 ### Supp. Fig 4, 5, 6: Spatial Maps for each instar period
+
 1st instar
-![[Pasted image 20250701161912.png|800]]![[Pasted image 20250701161939.png|800]]
-![[supp_movie_6.mov]]
+**![[Pasted image 20250701161912.png|800]]
+![[Pasted image 20250701161939.png|800]]**
+**![[supp_movie_6.mov]]**
+
 
 vs 2nd instar
-![[Pasted image 20250701164046.png]]
+**![[ Pasted image 20250701164046.png]]**
+
 ![[supp_movie_7.mov]]
+
 
 These are acquired *after* the functional dual light-sheet imaging,(optimizes for speed), with a single light sheet for highest resolution.
 1. After fusing the images, a blob detector gets the centroid positions.
@@ -132,21 +136,18 @@ These are acquired *after* the functional dual light-sheet imaging,(optimizes fo
 	6. Convert to full-width-half-maximum 
 4. Remove ~0.38 um resolution of artifact from light scattering
 
-
-
 ### Fig 7: Multi-specimen neurons spatial locations
-![[Pasted image 20250703120407.png]]
+
+**![[Pasted image 20250703120407.png]]**
+
 - 3 spatially, non-affine registered CNS 
 - B shows close spatial relationship of soma's in different samples
 - Colors are specimen identity
 
+![[supp_movie_5.mov]] ![[supp_movie_6.mov]]
+![[ supp_movie_7.mov]]
+![[supp_movie_9.mov]]
 
-
-| Supp. Movie 5         | Supp. Movie 6         |
-| --------------------- | --------------------- |
-| ![[supp_movie_5.mov]] | ![[supp_movie_6.mov]] |
-| Supp. Movie 7         | Supp. Movie 8         |
-| ![[supp_movie_7.mov]] | ![[supp_movie_9.mov]] |
 
 ## Data Strategy:
 - Duel channel: functional  (GCaMP6s) , and a nuclear reference (tdTomato) 
@@ -211,7 +212,7 @@ These are acquired *after* the functional dual light-sheet imaging,(optimizes fo
 		5. What it does
 			1. Register cam N to N + 1 (gradient decent)
 			2. Split foreground / background
-				1. Default percentile is 5% (lowest 5% signal is background)
+- Default percentile is 5% (lowest 5% signal is background)
 	2. clusterTF.m (timepoint-fusion)
 	3. Match brightness levels 
 	4. collectProjections.m
@@ -348,5 +349,3 @@ These are acquired *after* the functional dual light-sheet imaging,(optimizes fo
 - multiFuse / timeFuse seem to be doing much of the same thing
 - Maximum allowed volume: [800 x 800 x 250 um^3]
 - Example: [1300 x 1300 x 1500 um^3] (at expense of frame rate)
-
-
