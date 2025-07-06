@@ -1,6 +1,8 @@
-*William C. Lemon 1, , Stefan R. Pulver 1, *, Burkhard Ho¨ckendorf1 , Katie McDole1 , Kristin Branson1 , Jeremy Freeman1*
-*& Philipp J. Keller*
+[nature.com](https://www.nature.com/articles/ncomms8924#MOESM733)
+[[light_sheet_microscopy/lemon_keller_2015/paper|paper]]
+
 ![[Pasted image 20250701141251.png]]
+# Whole-central nervous system functional imaging larval Drosophila
 ## Key takeaways:
 - Whole CNS - Brain + Spinal Cord
 - Effectively measured full CNS in first 2 instar periods

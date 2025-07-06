@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "eeffa0877b05820f",
+        "id": "92e531f611cf885e",
         "type": "tabs",
         "children": [
           {
-            "id": "a71fa2ca4266a02c",
+            "id": "e16de3b84a3964dc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "light_sheet_microscopy/amat_keller_2015/Efficient processing and analysis of large-scale light-sheet microscopy data  Nature Protocols.md",
+                "file": "light_sheet_microscopy/amat_keller_2015/paper.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Efficient processing and analysis of large-scale light-sheet microscopy data  Nature Protocols"
+              "title": "paper"
             }
           }
         ],
@@ -89,7 +89,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 443
+    "width": 200
   },
   "right": {
     "id": "ee958b2e4ef485bc",
@@ -196,33 +196,87 @@
       "publish:Publish changes...": false
     }
   },
-  "active": "14125dd70c08b3b7",
+  "floating": {
+    "id": "8cc03bb96185e244",
+    "type": "floating",
+    "children": [
+      {
+        "id": "dedb456a3c71154d",
+        "type": "window",
+        "children": [
+          {
+            "id": "a703621cc0f2b28c",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "0b5a795caa187a3c",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "light_sheet_microscopy/amat_keller_2015/notes.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": true,
+                    "backlinkOpts": {
+                      "collapseAll": false,
+                      "extraContext": false,
+                      "sortOrder": "alphabetical",
+                      "showSearch": false,
+                      "searchQuery": "",
+                      "backlinkCollapsed": false,
+                      "unlinkedCollapsed": true
+                    }
+                  },
+                  "icon": "lucide-file",
+                  "title": "notes"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 1442,
+        "y": 39,
+        "width": 473,
+        "height": 1036,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "e16de3b84a3964dc",
   "lastOpenFiles": [
-    "publish.css~",
-    "publish.css",
-    "light_sheet_microscopy/amat_keller_2015/amat_2015.pdf",
-    "light_sheet_microscopy/amat_keller_2015/Efficient processing and analysis of large-scale light-sheet microscopy data  Nature Protocols.md",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig1_HTML.jpg",
     "light_sheet_microscopy/amat_keller_2015/notes.md",
+    "light_sheet_microscopy/amat_keller_2015/paper.md",
+    "Untitled.canvas",
+    "light_sheet_microscopy/lemon_keller_2015/paper.md",
+    "software/rastermap/notes.md",
+    "software/rastermap/rastermap.md",
+    "software/rastermap/notes.md~",
+    "light_sheet_microscopy/amat_keller_2015/images/41596_2015_BFnprot2015111_Fig7_HTML.jpg",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience.md",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/image.svg+xml",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/41593_2024_1783_Fig8_HTML.png",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/41593_2024_1783_Fig7_HTML.png",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/41593_2024_1783_Fig6_HTML.png",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/41593_2024_1783_Fig5_HTML.png",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/41593_2024_1783_Fig4_HTML.png",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/41593_2024_1783_Fig3_HTML.png",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/41593_2024_1783_Fig2_HTML.png",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience/41593_2024_1783_Fig1_HTML.png",
+    "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience",
+    "software/rastermap",
+    "Untitled",
+    "software",
+    "light_sheet_microscopy/amat_keller_2015/images/41596_2015_BFnprot2015111_Fig6_HTML.jpg",
+    "light_sheet_microscopy/lemon_keller_2015/notes.md",
+    "light_sheet_microscopy/amat_keller_2015/amat_2015.pdf",
+    "light_sheet_microscopy/lemon_keller_2015/images/supp_movie_1.mov",
+    "light_sheet_microscopy/lemon_keller_2015/images",
+    "light_sheet_microscopy/lemon_keller_2015/Whole-central nervous system functional imaging in larval Drosophila  Nature Communications.md",
+    "images",
     "light_sheet_microscopy/amat_keller_2015/amat_2015.md",
-    "references.bib",
-    "My Library.bib",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig4_HTML.jpg",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig3_HTML.jpg",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig2_HTML.jpg",
-    "static/custom.css",
-    "static/MillerBrainObservatory_logo.svg",
-    "static/mbo_hub_saph.svg",
-    "static",
-    "light_sheet_microscopy/lemon_keller_2015/Whole-central nervous system functional imaging larval Drosophila.md",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/image.svg+xml",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig7_HTML.jpg",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig6_HTML.jpg",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015/41596_2015_BFnprot2015111_Fig5_HTML.jpg",
-    "light_sheet_microscopy/amat_keller_2015/amat_keller_2015",
-    "light_sheet_microscopy/amat_keller_2015/images/k-7emQZLyIPWgWpxNTuMowRUIdURRySsoBvc1XROUOtM8sBaeQ.jpg",
-    "light_sheet_microscopy/amat_keller_2015/images/cookiematch (1).aspx",
-    "light_sheet_microscopy/amat_keller_2015/images/pixelCt.tpmn",
     "Excalidraw/Drawing 2025-07-01 17.28.27.excalidraw.md",
     "mbo/kevin.md",
     "mbo/suite3d.md",
@@ -239,11 +293,6 @@
     "LFM Technical/Cell Extraction.md",
     "RBO/Meetings.md",
     "RBO/Presentation.md",
-    "Volumes, Planes, Frames.canvas",
-    "LFM Technical/snippets/Collate frames for each tiff.md",
-    "LFM Technical/snippets/Process each plane.md",
-    "LFM Technical/Motion Correction.md",
-    "RBO/LBM-sample/Code/Pre_Processing_Executable/preProcessMAxiMum.m.md",
-    "Cornell.md"
+    "Volumes, Planes, Frames.canvas"
   ]
 }

@@ -2,5 +2,7 @@
   "vimMode": true,
   "alwaysUpdateLinks": true,
   "promptDelete": false,
-  "attachmentFolderPath": "images"
+  "attachmentFolderPath": "pasted",
+  "showUnsupportedFiles": true,
+  "uriCallbacks": true
 }
