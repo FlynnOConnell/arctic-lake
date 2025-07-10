@@ -246,6 +246,7 @@
   },
   "active": "14125dd70c08b3b7",
   "lastOpenFiles": [
+    "README.md~",
     "mbo_laser_setup.md",
     "lab_meetings.md",
     "software/suite2p/notes.pdf",
@@ -292,7 +293,6 @@
     "Data Server.md",
     "README.md",
     "Suite2p.md",
-    "LFM Technical/Data Exploration.md",
     "Volumes, Planes, Frames.canvas"
   ]
 }
