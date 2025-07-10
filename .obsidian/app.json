@@ -2,7 +2,10 @@
   "vimMode": true,
   "alwaysUpdateLinks": true,
   "promptDelete": false,
-  "attachmentFolderPath": "pasted",
+  "attachmentFolderPath": "./images",
   "showUnsupportedFiles": true,
-  "uriCallbacks": true
+  "uriCallbacks": true,
+  "livePreview": false,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "src/_quick_note"
 }
