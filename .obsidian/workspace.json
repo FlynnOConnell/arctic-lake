@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "light_sheet_microscopy/chhetri_keller_2015/paper.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "paper"
+              "title": "README"
             }
           }
         ],
@@ -133,12 +133,11 @@
               "title": "notes"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 897
+    "width": 267
   },
   "right": {
     "id": "ee958b2e4ef485bc",
@@ -245,24 +244,27 @@
       "publish:Publish changes...": false
     }
   },
-  "active": "e16de3b84a3964dc",
+  "active": "14125dd70c08b3b7",
   "lastOpenFiles": [
+    "lab_meetings.md",
+    "software/suite2p/notes.pdf",
+    "software/rastermap/rastermap.md",
+    "software/rastermap/notes.md",
+    "software/rastermap/notes.pdf",
+    "light_sheet_microscopy/amat_keller_2015/notes.pdf",
+    "light_sheet_microscopy/lemon_keller_2015/notes.pdf",
+    "light_sheet_microscopy/amat_keller_2015/notes.md",
+    "light_sheet_microscopy/chhetri_keller_2015/notes.md",
     "index.md~",
-    "index.md",
+    "README.md",
     "notes.html",
     "sedqxN9UJ",
     "stripped_notes.md",
     "all_notes_combined.md",
     "temp.pdf",
-    "software/suite2p/notes.pdf",
-    "software/rastermap/notes.pdf",
-    "light_sheet_microscopy/lemon_keller_2015/notes.pdf",
-    "light_sheet_microscopy/amat_keller_2015/notes.pdf",
     "light_sheet_microscopy/chhetri_keller_2015/notes.pdf",
     "amat_keller_2015.pdf",
     "light_sheet_microscopy/chhetri_keller_2015/paper.md",
-    "light_sheet_microscopy/chhetri_keller_2015/notes.md",
-    "lab_meetings.md~",
     "light_sheet_microscopy/chhetri_keller_2015/images/bead_site2.png",
     "light_sheet_microscopy/chhetri_keller_2015/images/bead_site.png",
     "light_sheet_microscopy/chhetri_keller_2015/images/snap1.png",
@@ -273,14 +275,11 @@
     "light_sheet_microscopy/chhetri_keller_2015/images/41592_2015_Article_BFnmeth3632_Fig4_HTML.jpg",
     "light_sheet_microscopy/chhetri_keller_2015/images/41592_2015_Article_BFnmeth3632_Fig3_HTML.jpg",
     "light_sheet_microscopy/chhetri_keller_2015/images/41592_2015_Article_BFnmeth3632_Fig2_HTML.jpg",
-    "light_sheet_microscopy/amat_keller_2015/notes.md",
     "light_sheet_microscopy/amat_keller_2015/paper.md",
     "light_sheet_microscopy/lemon_keller_2015/notes.md",
     "light_sheet_microscopy/chhetri_keller_2015/Whole-animal functional and developmental imaging with isotropic spatial resolution  Nature Methods.md",
     "Untitled.canvas",
     "light_sheet_microscopy/lemon_keller_2015/paper.md",
-    "software/rastermap/notes.md",
-    "software/rastermap/rastermap.md",
     "software/rastermap/Rastermap a discovery method for neural population recordings  Nature Neuroscience.md",
     "light_sheet_microscopy/lemon_keller_2015/Whole-central nervous system functional imaging in larval Drosophila  Nature Communications.md",
     "light_sheet_microscopy/amat_keller_2015/amat_2015.md",

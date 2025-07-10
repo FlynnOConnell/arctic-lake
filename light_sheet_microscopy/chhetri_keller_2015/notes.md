@@ -29,4 +29,3 @@
 ### Location Matters
 - signal strengths at locations near the surface of the embryo (< 20 μm depth, vs the center ~100 μm depth),
 - bead fluorescence intensities decrease on average by a factor of 5 in the raw views and by a factor of 6 in the multi-view deconvolved IsoView data
-- 
