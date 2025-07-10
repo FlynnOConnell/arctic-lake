@@ -2,12 +2,7 @@
 title: Home
 tags: [landing, index]
 ---
-
-# Research Vault: Computation & Imaging
-
-Welcome to your structured workspace for light sheet microscopy, software tools, and lab protocols.
-
----
+# Computation & Imaging
 
 ## Light Sheet Microscopy
 
