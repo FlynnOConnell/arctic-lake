@@ -5,7 +5,7 @@
   "attachmentFolderPath": "./images",
   "showUnsupportedFiles": true,
   "uriCallbacks": true,
-  "livePreview": false,
+  "livePreview": true,
   "newFileLocation": "folder",
   "newFileFolderPath": "src/_quick_note"
 }

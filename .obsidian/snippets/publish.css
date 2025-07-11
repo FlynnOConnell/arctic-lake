@@ -1,24 +1,3 @@
-/*
-
-Obsidian Publish theme by @lkadre
-This theme was set up for my own personal use but I'm sharing it in case it helps someone!
-
-Inspirations:
-https://github.com/kepano/obsidian-minimal 
-https://github.com/jdanielmourao/obsidian-sanctum
-https://github.com/obsidian-ezs/obsidian-ursa
-
-Catppuccin Colour Palettes
-https://github.com/catppuccin/catppuccin
-Latte for light theme and Frappé for dark theme
-Accent color: Flamingo
-Bold: Maroon
-Italic: Yellow
-External links: Teal
-Unresolved links: Pink
-
-*/
-
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans+Arabic&family=IBM+Plex+Sans+Condensed&family=IBM+Plex+Serif&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,700;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
@@ -837,3 +816,5 @@ ul.contains-task-list p {
     font-size: 1em;
     font-family: var(--font-quran);
 }
+
+
