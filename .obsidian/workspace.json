@@ -8,17 +8,61 @@
         "type": "tabs",
         "children": [
           {
-            "id": "91eb0cad2eca991b",
+            "id": "a6cab5b1753e21e2",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "src/Laser Startup Procedure.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Laser Startup Procedure"
             }
           }
         ],
         "stacked": true
+      },
+      {
+        "id": "73b8aa0a24690c98",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a055f4adb5c46408",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "src/_quick_note/to-do.md.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "to-do.md"
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -50,7 +94,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "cellpose",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -181,12 +225,23 @@
               "icon": "lucide-archive",
               "title": "All properties"
             }
+          },
+          {
+            "id": "f3d4e7041c40a7f8",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {},
+              "icon": "spreadsheet",
+              "title": "Advanced Tables"
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 200,
     "collapsed": true
   },
   "left-ribbon": {
@@ -197,61 +252,60 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
       "publish:Publish changes...": false,
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "14125dd70c08b3b7",
+  "active": "a055f4adb5c46408",
   "lastOpenFiles": [
-    "templates/meeting_notes.md~",
-    "templates/meeting_notes.md",
-    "src/_quick_note/Untitled.md",
-    "src/_quick_note/TODO.md",
-    "templates/templates/TODO.md",
-    "Excalidraw/Drawing 2025-07-11 11.58.28.excalidraw.md",
-    "src/Calcium Imaging Pipelines.md",
-    "src/movies/example.md",
-    "src/movies",
-    "src/_quick_note/Linux and Networking.md",
-    "src/_quick_note/NumPy Shapes and Data Buffers.md",
-    "src/Compute.md",
-    "src/_quick_note/performance review.md",
+    "src/images/2025-07-11 16-41-33.mp4",
+    "src/_quick_note/pollen_exploration.md",
+    "src/_quick_note/images/Pasted image 20250711160259.png",
+    "src/_quick_note/images",
+    "src/_quick_note/Weekly Meeting Notes.md",
+    "src/_quick_note/Cellpose.md",
+    "src/_quick_note/2025-07-11.md",
+    "test.canvas",
+    "src/_quick_note/to-do.md.md",
+    "src/_quick_note/Untitled 1.md",
     "src/Laser Startup Procedure.md",
-    "src/images/Pasted image 20250710232211.png",
-    "src/images",
-    "Excalidraw/Drawing 2025-07-10 13.53.24.excalidraw.md",
-    "Excalidraw",
-    "README.md~",
-    "templates/templates/web-clipper/github-clipper.json",
-    "templates/templates/web-clipper/default-clipper.json",
-    "templates/templates/monthly/Montly Note.md",
-    "templates/templates/daily/Daily Note.md",
-    "templates/templates/daily/Daily Note  - System.md",
-    "templates/templates/web-clipper",
-    "templates/templates/quote.md",
-    "templates/templates/monthly",
-    "templates/templates/daily",
-    "templates/templates/Yearly Reading list.md",
-    "templates/templates/Thought.md",
-    "templates/templates/Term.md",
-    "templates/templates/Tag.md",
-    "templates/templates/Resource.md",
-    "templates/templates/Reading List.md",
-    "templates/templates/Quote File.md",
-    "templates/templates/Question.md",
-    "templates/templates",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703120407.png",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703115027.png",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703114626.png",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703114059.png",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703113335.png",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703113237.png",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703112153.png",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703111617.png",
-    "src/literature/lemon_keller_2015/images/Pasted image 20250703103849.png",
-    "Untitled.canvas",
+    "src/Compute.md",
+    "src/Calcium Imaging Pipelines.md",
+    "src/_quick_note/NumPy Shapes and Data Buffers.md",
+    "src/_quick_note/Linux and Networking.md",
+    "export/src/Linux and Networking.md",
+    "export/metadata_summary.md",
+    "export/Excalidraw/Drawing 2025-07-11 11.58.28.excalidraw.md",
+    "export/Excalidraw",
+    "export/src/Compute.md",
+    "export/README.md",
+    "export/static/mbo_hub_saph.svg",
+    "export/static/custom.css",
+    "export/static/MillerBrainObservatory_logo.svg",
+    "export/static",
+    "export/src/_quick_note/images/Pasted image 20250711160259.png",
+    "export/src/_quick_note/pollen_exploration.md",
+    "export/src/_quick_note/performance review.md",
+    "export/src/_quick_note/images",
+    "export/src/_quick_note/Weekly Meeting Notes.md",
+    "export/src/_quick_note/Cellpose.md",
+    "export/src/_quick_note/2025-07-11.md",
+    "export/src/_quick_note",
+    "export/templates/meeting_notes.md",
+    "export/templates",
+    "export/publish.css",
+    "export/references.bib",
+    "export/src/literature/lemon_keller_2015/images/supp_movie_9.mov",
+    "export/src/literature/lemon_keller_2015/images/Pasted image 20250703120407.png",
+    "export/src/literature/lemon_keller_2015/images/Pasted image 20250703115027.png",
+    "export/src/literature/lemon_keller_2015/images/Pasted image 20250703114626.png",
+    "export/src/literature/lemon_keller_2015/images/Pasted image 20250703114059.png",
+    "export/src/literature/lemon_keller_2015/images/Pasted image 20250703113335.png",
+    "export/src/literature/lemon_keller_2015/images/Pasted image 20250703113237.png",
+    "export/src/literature/suite2p/notes.md",
+    "export/src/literature/rastermap/rastermap.md",
+    "export/src/literature/rastermap/notes.md",
     "Volumes, Planes, Frames.canvas"
   ]
 }

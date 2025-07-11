@@ -7,5 +7,6 @@
   "uriCallbacks": true,
   "livePreview": true,
   "newFileLocation": "folder",
-  "newFileFolderPath": "src/_quick_note"
+  "newFileFolderPath": "src/_quick_note",
+  "showInlineTitle": false
 }
