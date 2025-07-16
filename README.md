@@ -2,22 +2,29 @@
 created_date: 10/07/2025
 updated_date: 10/07/2025
 ---
-
 # DASHBOARD
 
-## Recently Opened Notes
 ```dataview
-table from "notes"
-where file.name != "Homepage"
-sort file.mtime desc
-limit 15
+table file.link as "Note"
+from "src"
+where category and !contains(file.path, "src/literature")
+group by category
+sort category asc
 ```
 
-## This
+```dataview
+table file.link as "Note"
+from "src"
+flatten file.tags as tag
+where tag and !contains(file.path, "src/literature")
+group by tag
+sort tag asc
+```
 
 ```dataview
-TABLE category AS "Section", title AS "Title", file.link AS "Note"
-FROM "src"
-WHERE category
-SORT category asc, title asc
+table
+from "src"
+where !contains(file.path, "src/literature")
+sort file.mtime desc
+limit 15
 ```

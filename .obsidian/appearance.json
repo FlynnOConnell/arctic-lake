@@ -7,5 +7,5 @@
   "cssTheme": "Catppuccin",
   "baseFontSize": 23,
   "showViewHeader": false,
-  "showRibbon": true
+  "showRibbon": false
 }

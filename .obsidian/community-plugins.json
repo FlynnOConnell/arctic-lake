@@ -1,16 +1,17 @@
 [
-  "obsidian-vimrc-support",
-  "obsidian-annotator",
-  "obsidian-excalidraw-plugin",
-  "cm-editor-syntax-highlight-obsidian",
-  "obsidian-linter",
-  "obsidian-git",
-  "table-editor-obsidian",
   "dataview",
-  "obsidian-icon-folder",
+  "templater-obsidian",
+  "obsidian-tasks-plugin",
+  "table-editor-obsidian",
+  "calendar",
   "obsidian-style-settings",
+  "obsidian-icon-folder",
+  "omnisearch",
+  "obsidian-admonition",
+  "homepage",
+  "editing-toolbar",
   "tag-wrangler",
-  "obsidian-citation-plugin",
+  "obsidian-linter",
   "obsidian-advanced-uri",
-  "highlightr-plugin"
+  "obsidian-pandoc"
 ]
