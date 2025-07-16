@@ -8,5 +8,12 @@
   "livePreview": true,
   "newFileLocation": "folder",
   "newFileFolderPath": "src/_quick_note",
-  "showInlineTitle": false
+  "showInlineTitle": false,
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  }
 }
