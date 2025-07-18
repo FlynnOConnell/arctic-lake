@@ -13,5 +13,6 @@
   "tag-wrangler",
   "obsidian-linter",
   "obsidian-advanced-uri",
-  "obsidian-pandoc"
+  "obsidian-pandoc",
+  "obsidian-vimrc-support"
 ]
