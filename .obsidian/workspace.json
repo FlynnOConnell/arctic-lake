@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "src/_quick_note/To-Do.md",
+                "file": "src/personal/Dont Forget.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,35 +28,10 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "To-Do"
-            }
-          },
-          {
-            "id": "7302475099b8f739",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "src/_quick_note/IsoView Processing.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "IsoView Processing"
+              "title": "Dont Forget"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -227,10 +202,14 @@
       "homepage:Open homepage": false
     }
   },
-  "active": "7302475099b8f739",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
     "src/_quick_note/To-Do.md",
+    "src/personal/Dont Forget.md",
+    "src/_quick_note/IsoView_aim1.md",
     "src/_quick_note/IsoView Processing.md",
+    "src/_quick_note/images/Pasted image 20250718160107.png",
+    "src/Compute.md",
     "src/_quick_note/maskNMF.md",
     "src/_quick_note/Pollen Calibration.md",
     "README.md",

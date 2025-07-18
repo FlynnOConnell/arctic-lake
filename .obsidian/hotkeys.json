@@ -70,5 +70,42 @@
       ],
       "key": "P"
     }
+  ],
+  "workspace:goto-last-tab": [],
+  "workspace:next-tab": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "N"
+    }
+  ],
+  "file-explorer:new-file": [],
+  "file-explorer:new-file-in-new-pane": [],
+  "file-explorer:new-file-in-current-tab": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "N"
+    }
+  ],
+  "command-palette:open": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "P"
+    }
+  ],
+  "workspace:previous-tab": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "P"
+    }
   ]
 }
