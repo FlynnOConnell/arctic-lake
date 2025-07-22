@@ -1,6 +1,11 @@
 {
   "siteId": "b83b9b6dac16cbda7fa2fdf61be550f7",
   "host": "publish-01.obsidian.md",
-  "included": [],
-  "excluded": []
+  "included": [
+    "hub"
+  ],
+  "excluded": [
+    "templates",
+    "hub/personal"
+  ]
 }

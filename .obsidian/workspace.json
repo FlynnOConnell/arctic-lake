@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "src/personal/Dont Forget.md",
+                "file": "hub/docket/To-Do.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,10 +28,59 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "Dont Forget"
+              "title": "To-Do"
+            }
+          },
+          {
+            "id": "98ecb90367fde1e1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "hub/docket/scratch.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "scratch"
+            }
+          },
+          {
+            "id": "8f35e47877591101",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "hub/docket/To-Do.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "To-Do"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -181,16 +230,28 @@
               "icon": "calendar-with-checkmark",
               "title": "Calendar"
             }
+          },
+          {
+            "id": "43d371a46a118f06",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {},
+              "icon": "spreadsheet",
+              "title": "Advanced Tables"
+            }
           }
-        ]
+        ],
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 344,
     "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
+      "omnisearch:Omnisearch": false,
       "switcher:Open quick switcher": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
@@ -199,27 +260,57 @@
       "publish:Publish changes...": false,
       "templater-obsidian:Templater": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "homepage:Open homepage": false
+      "homepage:Open homepage": false,
+      "graph:Open graph view": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "e7a7b303c61786dc",
+  "active": "ac8c8bb2fbd28579",
   "lastOpenFiles": [
-    "src/_quick_note/To-Do.md",
-    "src/personal/Dont Forget.md",
-    "src/_quick_note/IsoView_aim1.md",
-    "src/_quick_note/IsoView Processing.md",
-    "src/_quick_note/images/Pasted image 20250718160107.png",
-    "src/Compute.md",
-    "src/_quick_note/maskNMF.md",
-    "src/_quick_note/Pollen Calibration.md",
+    "hub/docket/index.md",
+    "hub/docket/To-Do.md",
+    "hub/Linux and Networking.md",
+    "hub/docket/mROI contrast Testing.md",
+    "hub/docket/IsoView Processing.md",
+    "hub/docket/merge suite2p datasets.md",
+    "hub/docket/scratch.md",
+    "hub/docket/images/Pasted image 20250721191732.png",
+    "hub/docket/images/Pasted image 20250721191324.png",
+    "hub/File Permissions (Windows).md",
+    "hub/docket/light-sheet-code.md",
+    "hub/docket/images/Pasted image 20250720212804.png",
+    "hub/docket/images/Pasted image 20250720212553.png",
+    "hub/docket/images/Pasted image 20250720211027.png",
+    "hub/docket/images/Pasted image 20250720210737.png",
+    "hub/docket/images/Pasted image 20250720210604.png",
+    "hub/docket/images/Pasted image 20250720205317.png",
+    "hub/docket/images/Pasted image 20250720204845.png",
+    "hub/docket/images/Pasted image 20250720200101.png",
+    "hub/personal/apartments.md",
+    "hub/docket/imagej.md",
+    "hub/docket/image fusion.md",
+    "hub/personal/Dont Forget.md",
+    "hub/personal/images/annotated_cropped_IMG_3049.md",
+    "hub/personal/Performance Review.md",
+    "hub/personal/images/cropped_IMG_3049.md",
+    "hub/personal/images",
+    "src/literature/lemon_keller_2015/images",
+    "src/literature/lemon_keller_2015",
+    "src/literature",
+    "src",
+    "hub/literature/lemon_keller_2015/paper.md",
+    "hub/literature/lemon_keller_2015/notes.pdf",
+    "hub/literature/lemon_keller_2015/notes.md",
+    "light_sheet_microscopy/lemon_keller_2015/notes.md",
+    "light_sheet_microscopy/lemon_keller_2015",
+    "light_sheet_microscopy",
+    "hub/docket/IsoView_aim1.md",
+    "hub/docket/TODO.md",
     "README.md",
-    "metadata_summary.md",
-    "src/Calcium Imaging Pipelines.md",
-    "src/_quick_note/Cellpose.md",
-    "src/_quick_note/NumPy Shapes and Data Buffers.md",
-    "src/_quick_note/Performance Review.md",
-    "src/personal/Brain.md",
-    "src/_quick_note/Weekly Meeting Notes.md",
-    "src/_quick_note/to-do.md.md"
+    "templates/Default.md",
+    "templates/Task.md",
+    "hub/docket/maskNMF.md",
+    "hub/HPC File Transfer.md",
+    "templates/Untitled"
   ]
 }

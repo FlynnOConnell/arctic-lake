@@ -7,7 +7,7 @@
   "uriCallbacks": true,
   "livePreview": true,
   "newFileLocation": "folder",
-  "newFileFolderPath": "src/_quick_note",
+  "newFileFolderPath": "hub/docket",
   "showInlineTitle": false,
   "pdfExportSettings": {
     "includeName": true,
