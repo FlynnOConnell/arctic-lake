@@ -47,18 +47,17 @@ Each IsoView channel (viewing axis) is treated as a separate SiMView dataset.
 - **Script:** `clusterPT.m`
 - **Function:** Deadpixel correction, foreground segmentation, lossless compression
 - **Status:** ✅ Done (Starting notes after this step)
-
 ### 2. Image Fusion
 [[image fusion]]
 - **Step 1:** `clusterMF.m` – Per-timepoint multiview fusion  
+	- **Status:** ✅ Done
 - **Step 2:** `localAP.m`, `analyzeParameters.m` – Temporal transformation parameters  
+	- **Status:** 🔄 In Progress
 - **Step 3:** `clusterTF.m` – Time-fused multiview fusion
-- **Status:** 🔄 In Progress
-
+	- **Status:** ⏳ Queued
 ### 3. Image Registration and Drift Correction
 - **Pre-processing:** `localEC.m`
 - **Drift Correction:** `clusterCS.m`
-
 ### 4. Functional Imaging and dF/F Computation
 - **Registration:** `clusterRS.m`
 - **Reference Baseline:** `localCR.m`

@@ -10,11 +10,12 @@
           {
             "id": "e7a7b303c61786dc",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
                 "file": "hub/docket/To-Do.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -27,36 +28,13 @@
                   "unlinkedCollapsed": true
                 }
               },
+              "pinned": true,
               "icon": "lucide-file",
               "title": "To-Do"
             }
           },
           {
-            "id": "98ecb90367fde1e1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "hub/docket/scratch.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "scratch"
-            }
-          },
-          {
-            "id": "8f35e47877591101",
+            "id": "77e8343c3aafa4f8",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -80,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -265,52 +243,52 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "ac8c8bb2fbd28579",
+  "active": "77e8343c3aafa4f8",
   "lastOpenFiles": [
-    "hub/docket/index.md",
-    "hub/docket/To-Do.md",
-    "hub/Linux and Networking.md",
-    "hub/docket/mROI contrast Testing.md",
-    "hub/docket/IsoView Processing.md",
-    "hub/docket/merge suite2p datasets.md",
     "hub/docket/scratch.md",
-    "hub/docket/images/Pasted image 20250721191732.png",
-    "hub/docket/images/Pasted image 20250721191324.png",
+    "hub/docket/To-Do.md",
+    "hub/docket/mROI contrast Testing.md",
+    "hub/personal/Shower Thoughts.md",
+    "hub/docket/Image Transformations.md",
+    "hub/docket/image fusion.md",
+    "hub/docket/IsoView Processing.md",
+    "hub/docket/lbm merge rois (suite2p).md",
+    "hub/docket/multiview deconvolution.md",
+    "hub/literature/guo_shroff_2020/images/Richardson-Lucy_deconvolution.gif",
+    "hub/literature/guo_shroff_2020/images",
+    "hub/literature/guo_shroff_2020/File_Richardson-Lucy_deconvolution.gif",
+    "src/literature/lemon_keller_2015/images",
+    "src/literature/lemon_keller_2015",
+    "src/literature",
+    "src",
+    "hub/literature/guo_shroff_2020/Rapid image deconvolution and multiview fusion for optical microscopy.md",
+    "hub/literature/amat_keller_2015/notes.md",
+    "hub/docket/switch.md",
+    "hub/literature/amat_keller_2015/notes.pdf",
+    "hub/literature/guo_shroff_2020",
+    "hub/docket/images/Pasted image 20250722145044.png",
+    "hub/docket/images/Pasted image 20250722144946.png",
+    "hub/docket/images/Pasted image 20250722144737.png",
+    "hub/docket/images/Pasted image 20250722144338.png",
+    "hub/docket/images/Pasted image 20250722143741.png",
+    "hub/docket/images/Pasted image 20250722142929.png",
+    "hub/docket/images/Pasted image 20250722142846.png",
+    "hub/docket/images/Pasted image 20250722142751.png",
+    "hub/docket/Media Note - isoview_alignment_comparison.md",
+    "hub/images/isoview_alignment_comparison.mp4",
+    "hub/images/alignment_comparison.mp4",
+    "hub/docket/index.md",
+    "hub/Linux and Networking.md",
     "hub/File Permissions (Windows).md",
     "hub/docket/light-sheet-code.md",
-    "hub/docket/images/Pasted image 20250720212804.png",
-    "hub/docket/images/Pasted image 20250720212553.png",
-    "hub/docket/images/Pasted image 20250720211027.png",
-    "hub/docket/images/Pasted image 20250720210737.png",
-    "hub/docket/images/Pasted image 20250720210604.png",
-    "hub/docket/images/Pasted image 20250720205317.png",
-    "hub/docket/images/Pasted image 20250720204845.png",
-    "hub/docket/images/Pasted image 20250720200101.png",
     "hub/personal/apartments.md",
     "hub/docket/imagej.md",
-    "hub/docket/image fusion.md",
     "hub/personal/Dont Forget.md",
     "hub/personal/images/annotated_cropped_IMG_3049.md",
     "hub/personal/Performance Review.md",
     "hub/personal/images/cropped_IMG_3049.md",
     "hub/personal/images",
-    "src/literature/lemon_keller_2015/images",
-    "src/literature/lemon_keller_2015",
-    "src/literature",
-    "src",
     "hub/literature/lemon_keller_2015/paper.md",
-    "hub/literature/lemon_keller_2015/notes.pdf",
-    "hub/literature/lemon_keller_2015/notes.md",
-    "light_sheet_microscopy/lemon_keller_2015/notes.md",
-    "light_sheet_microscopy/lemon_keller_2015",
-    "light_sheet_microscopy",
-    "hub/docket/IsoView_aim1.md",
-    "hub/docket/TODO.md",
-    "README.md",
-    "templates/Default.md",
-    "templates/Task.md",
-    "hub/docket/maskNMF.md",
-    "hub/HPC File Transfer.md",
-    "templates/Untitled"
+    "hub/literature/lemon_keller_2015/notes.md"
   ]
 }

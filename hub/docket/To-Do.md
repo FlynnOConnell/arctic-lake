@@ -20,19 +20,19 @@ category: mbo
 		* [x] Make 2
 	* [x] Main Page Images
 - [ ] IsoView Processing [[IsoView Processing]]
-* [ ] Pollen Beads [[mROI contrast Testing]] 
+* [x] Pollen Beads [[mROI contrast Testing]] ✅ 2025-07-22
   * [x] Pull Data
-  * [ ] Analyze
+  * [x] Analyze ✅ 2025-07-22
 	  * [x] Check metadata, roi locations (python) ✅ 2025-07-17
-	  * [ ] Fix `output_xslices` on overlapping mROIs
+	  * [x] Fix `output_xslices` on overlapping mROIs ✅ 2025-07-22
 	  * [x] Does MATLAB pollen_calibration utilities work? ✅ 2025-07-17
 	  * [x] mean-subtracted image
 	  * [x] PMD to Amol ✅ 2025-07-17
 * [ ] mbo_utilities - toward `mbo_utilities v2.0`
 	* [ ] z-plane alignment
-	* [ ] roi merging
-		* [x] [[merge suite2p datasets]] ✅ 2025-07-21
-		* [ ] plane01_roi1 -> plane01_roi01
+	* [x] roi merging ✅ 2025-07-22
+		* [x] [[lbm merge rois (suite2p)]] ✅ 2025-07-21
+		* [x] planeN combined folders ✅ 2025-07-21
 	* [x] Metadata parser ✅ 2025-07-19
 	* [x] run_plane ✅ 2025-07-19
 	* [x] run_volume ✅ 2025-07-19
@@ -45,7 +45,7 @@ category: mbo
 	* [ ] Fix GUI statistics per-zplane when there is a single z-plane
 * [ ] Santis dataset
 	* [x] Run Santis params (floor threshold, Functional) ✅ 2025-07-19
-	* [ ] check contrast between rois 
+	* [x] check contrast between rois ✅ 2025-07-22
 	* [ ] Compare with `Cellpose3/Cellpose-SAM`
 * [ ] Documentation (and guides i want to add)
 	* [ ] DF/F

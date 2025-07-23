@@ -7,7 +7,7 @@ tags:
   - calcium-imaging
 aliases:
 ---
-## merging roi 1 and roi 2, processed separately
+## Merging roi 1 and roi 2, processed separately
 
 #suite2p #calcium-imaging #lbm 
 **First pain point**
