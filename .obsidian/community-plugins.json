@@ -16,5 +16,6 @@
   "obsidian-pandoc",
   "obsidian-vimrc-support",
   "obsidian-excalidraw-plugin",
-  "oz-image-plugin"
+  "oz-image-plugin",
+  "obsidian-git"
 ]

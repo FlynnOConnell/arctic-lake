@@ -6,6 +6,9 @@ tags:
 updated_date: <% tp.date.now("YYYY-MM-DD") %>
 ---
 # maskNMF
+Current issue:
+- Neuronal Jitter when viewing the *mean-subtracted* timeseries
+	- 
 - Registration with Suite2p did not help
 - pmd: Penalized Matrix Decomposition
 	- Essentially run SVD in blocks, where each block has only the local background to deal with
@@ -87,21 +90,7 @@ updated_date: <% tp.date.now("YYYY-MM-DD") %>
 - Consequences:
   - ROI-based signal extraction will be contaminated
   - Undetected by users in traditional pipelines
-
----
-
-## Task Tracker
-
-| Task                                                 | Assignee | ETA             |
-| ---------------------------------------------------- | -------- | --------------- |
-| Build a volumetric demixing UI (T over Z-planes)     | —        | —               |
-| Fix 2 bugs reported by Flynn (issues open on GitHub) | Amol     | Week of June 16 |
-| Add NN denoiser on top of PMD for Light Beads        | Amol     | Week of June 16 |
-| Provide IBL demixing results for Raghav              | Amol     | Week of June 16 |
-| Fix signal space demixing widget                     | Amol     | Week of June 16 |
-
----
-
+  
 ## Notes
 
 - Fastplotlib is core to visual transparency: helps users identify problems early

@@ -15,7 +15,7 @@
               "type": "markdown",
               "state": {
                 "file": "hub/docket/To-Do.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false,
                 "backlinks": true,
                 "backlinkOpts": {
@@ -32,33 +32,8 @@
               "icon": "lucide-file",
               "title": "To-Do"
             }
-          },
-          {
-            "id": "77e8343c3aafa4f8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "hub/docket/To-Do.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "To-Do"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -115,7 +90,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 276
   },
   "right": {
     "id": "18793f65744bb51e",
@@ -229,6 +204,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "omnisearch:Omnisearch": false,
       "switcher:Open quick switcher": false,
       "daily-notes:Open today's daily note": false,
@@ -240,55 +216,57 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false,
       "homepage:Open homepage": false,
       "graph:Open graph view": false,
-      "obsidian-excalidraw-plugin:New drawing": false
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "77e8343c3aafa4f8",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "hub/docket/scratch.md",
-    "hub/docket/To-Do.md",
+    "hub/docket/lbm align planes.md",
     "hub/docket/mROI contrast Testing.md",
-    "hub/personal/Shower Thoughts.md",
-    "hub/docket/Image Transformations.md",
-    "hub/docket/image fusion.md",
-    "hub/docket/IsoView Processing.md",
     "hub/docket/lbm merge rois (suite2p).md",
-    "hub/docket/multiview deconvolution.md",
-    "hub/literature/guo_shroff_2020/images/Richardson-Lucy_deconvolution.gif",
-    "hub/literature/guo_shroff_2020/images",
-    "hub/literature/guo_shroff_2020/File_Richardson-Lucy_deconvolution.gif",
-    "src/literature/lemon_keller_2015/images",
-    "src/literature/lemon_keller_2015",
-    "src/literature",
-    "src",
-    "hub/literature/guo_shroff_2020/Rapid image deconvolution and multiview fusion for optical microscopy.md",
-    "hub/literature/amat_keller_2015/notes.md",
-    "hub/docket/switch.md",
-    "hub/literature/amat_keller_2015/notes.pdf",
-    "hub/literature/guo_shroff_2020",
-    "hub/docket/images/Pasted image 20250722145044.png",
-    "hub/docket/images/Pasted image 20250722144946.png",
-    "hub/docket/images/Pasted image 20250722144737.png",
-    "hub/docket/images/Pasted image 20250722144338.png",
-    "hub/docket/images/Pasted image 20250722143741.png",
-    "hub/docket/images/Pasted image 20250722142929.png",
-    "hub/docket/images/Pasted image 20250722142846.png",
-    "hub/docket/images/Pasted image 20250722142751.png",
-    "hub/docket/Media Note - isoview_alignment_comparison.md",
-    "hub/images/isoview_alignment_comparison.mp4",
-    "hub/images/alignment_comparison.mp4",
-    "hub/docket/index.md",
-    "hub/Linux and Networking.md",
+    "hub/docket/Windows-Server Client Access Licenses.md",
+    "hub/docket/mbo server.md",
+    "hub/docket/To-Do.md",
+    "hub/images/Pasted image 20251006131735.png",
+    "hub/literature/rastermap/2024_Stringer_Pachitariu_Rastermap.md",
+    "hub/literature/rastermap/rastermap.md",
+    "hub/Cellpose.md",
+    "hub/docket/scratch.md",
+    "hub/images/Pasted image 20250924145420.png",
+    "hub/Calcium Imaging Pipelines.md",
+    "hub/docket/LogonError.md",
+    "hub/docket/IsoView - Processing.md",
+    "hub/personal/Numpy.md",
+    "hub/2025_Haydaroglu_Carandini_Suite3D_bioRxiv.md",
+    "hub/EXTRACT.md",
     "hub/File Permissions (Windows).md",
-    "hub/docket/light-sheet-code.md",
-    "hub/personal/apartments.md",
-    "hub/docket/imagej.md",
-    "hub/personal/Dont Forget.md",
-    "hub/personal/images/annotated_cropped_IMG_3049.md",
-    "hub/personal/Performance Review.md",
-    "hub/personal/images/cropped_IMG_3049.md",
-    "hub/personal/images",
-    "hub/literature/lemon_keller_2015/paper.md",
-    "hub/literature/lemon_keller_2015/notes.md"
+    "hub/HPC - General Usage.md",
+    "hub/Linux and Networking.md",
+    "hub/docket/IsoView - Talks, Lectures.md",
+    "hub/docket/Py-NWB hackathon.md",
+    "hub/docket/IsoView - MATLAB Pipeline.md",
+    "hub/NVIDIA-CUDA-GPU.md",
+    "hub/docket/maskNMF.md",
+    "hub/docket/multiview deconvolution.md",
+    "hub/images/Pasted image 20250918100732.png",
+    "hub/images/Pasted image 20250918100648.png",
+    "hub/images/Pasted image 20250918100132.png",
+    "hub/images/Pasted image 20250917181722.png",
+    "hub/images/Pasted image 20250917181651.png",
+    "hub/images/Pasted image 20250917170303.png",
+    "hub/images/Pasted image 20250917170033.png",
+    "hub/images/Pasted image 20250917165904.png",
+    "hub/literature/amat_keller_2015/amat_keller_2015.pdf",
+    "hub/literature/amat_keller_2015/amat_keller_2015.md",
+    "hub/literature/tomer_keller_2012/nmeth.2062.pdf",
+    "hub/literature/suite2p/notes.pdf",
+    "hub/literature/rastermap/notes.pdf",
+    "light_sheet_microscopy/amat_keller_2015",
+    "light_sheet_microscopy",
+    "hub/literature/shroff_2020",
+    "hub/literature/lemon_keller_2015/notes.pdf",
+    "hub/literature/amat_keller_2015/notes.pdf",
+    "hub/literature/tomer_keller_2012/images"
   ]
 }

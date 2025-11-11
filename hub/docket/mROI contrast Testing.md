@@ -43,3 +43,30 @@ kbarber: mk350 07/17
 
 ![[Pasted image 20250720212804.png]]
 
+# Pollen Beads Jitter
+
+## Takeaways
+- There are blurred edges indicating some movement artifact even in pollen
+- 
+## TODO
+- Collect pollen beads on tilted stage
+- Prep for call with Amol early next week:
+	- Pollen Beads, tilted stage
+	- Run maskNMF on Wills dataset (same scope, different dataset)
+	- Run maskNMF on a single strip from santis dataset (different scope, different parameters)
+
+##  STD Image
+ZPlane 1: Std.dev. Image
+![[Pasted image 20250724091203.png]]
+![[Pasted image 20250724091113.png|400]]!
+
+### Plane 1, 7, 14: Mean-Subtracted Image
+![[Zplane_1_7_14_PollenBeads_pmd_meansub.mp4]]
+
+### Z-Plane 1: No Jitter on Edge Phase Artifact
+![[Zplane_7_PollenBeads_EdgeFOV.mp4]]
+### Z-Plane 1: No Jitter?
+![[Zplane_14_PollenBeads_Zoomed_NoWobbles.mp4]]
+
+### Z-Plane 1: Noticable Jitter
+![[Zplane_1_PollenBeads_wobbles.mp4]]

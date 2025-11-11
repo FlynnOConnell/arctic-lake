@@ -10,34 +10,24 @@ created_date: <% tp.file.creation_date("YYYY-MM-DD") %>
 category: mbo
 ---
 # TO DO
-
-* [ ] Wordpress Fixes
-	* [x] LBM Images ✅ 2025-07-19
-		* [x] main changes
-		* [x] figure caption for red/blue/yellow, what are these?
-		* [ ] new pics of microscopes
-	* [x] IsoView Images ✅ 2025-07-19
-		* [x] Make 2
-	* [x] Main Page Images
-- [ ] IsoView Processing [[IsoView Processing]]
-* [x] Pollen Beads [[mROI contrast Testing]] ✅ 2025-07-22
-  * [x] Pull Data
-  * [x] Analyze ✅ 2025-07-22
-	  * [x] Check metadata, roi locations (python) ✅ 2025-07-17
-	  * [x] Fix `output_xslices` on overlapping mROIs ✅ 2025-07-22
-	  * [x] Does MATLAB pollen_calibration utilities work? ✅ 2025-07-17
-	  * [x] mean-subtracted image
-	  * [x] PMD to Amol ✅ 2025-07-17
+- Keep the job_parameters file next to / traveling with data 
+- RBO-S1 
+	- Double check links - format properly 
+	- Move over extract outputs
+- [ ] MultiView Deconvolution
+	- Cuda 9.0?
 * [ ] mbo_utilities - toward `mbo_utilities v2.0`
-	* [ ] z-plane alignment
-	* [x] roi merging ✅ 2025-07-22
+	* [ ] roi merging
 		* [x] [[lbm merge rois (suite2p)]] ✅ 2025-07-21
 		* [x] planeN combined folders ✅ 2025-07-21
-	* [x] Metadata parser ✅ 2025-07-19
-	* [x] run_plane ✅ 2025-07-19
-	* [x] run_volume ✅ 2025-07-19
+		* [ ] Allow merging N rois  
+		* [ ] fit into pipeline (mbo_utilities)
+		* [ ] rebuild rois that were cut off
+			* [ ] need to think about this
+			* [ ] could also lessen maxregshift param
+			* [ ] can probably just re-seed edge mask
 	* [ ] figure output bugfixes
-		* [ ] df/f traces
+		* [x] df/f traces ✅ 2025-08-21
 		* [ ] noise histogram
 		* [ ] segmentation color coding
 	* [ ] docstrings
@@ -60,7 +50,6 @@ category: mbo
 - [[mbo server]]
 - User accounts: grant perms in user_data folder
 - Rename RBO - Projects
-- W1 Archives are filling drives
 
 ## Future Ideas
 - [ ] DATABASE: Organized database of dataset and metadata for that dataset

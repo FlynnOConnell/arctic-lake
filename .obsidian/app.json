@@ -2,7 +2,7 @@
   "vimMode": true,
   "alwaysUpdateLinks": true,
   "promptDelete": false,
-  "attachmentFolderPath": "./images",
+  "attachmentFolderPath": "hub/images",
   "showUnsupportedFiles": true,
   "uriCallbacks": true,
   "livePreview": true,

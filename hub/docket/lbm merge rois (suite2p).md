@@ -10,7 +10,9 @@ aliases:
 ## Merging roi 1 and roi 2, processed separately
 
 #suite2p #calcium-imaging #lbm 
+
 **First pain point**
+
 suite2p results for 2 datasets that need to be stitched together. The first dataset is the left half of the FOV, the second dataset is the right half of the FOV.
 
 The problem is that suite2p crops the summary image differently depending on the motion in each dataset.
@@ -55,3 +57,13 @@ Suite2p gui expects cropped summary images to match range:
 ![[Pasted image 20250721191324.png]]
 - Correlation map
 ![[Pasted image 20250721191732.png]]
+
+Suite2p registration?
+- yoff, xoff, corrXY, refImg
+Metrics?
+- ops["nframes"] > 1500
+
+Frame limits:
+- ops["nframes] > 50: Wont Run
+- ops["nframes] > 200: Inconsistent
+- ops["nframes] > 1500: No registration metrics
