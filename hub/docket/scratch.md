@@ -44,7 +44,7 @@ The OME-NGFF layouts supported by this package is limited. Most notably:
 - MAX-EX upgrade to 2p-ram
 - PSF1 and 14 look very similar
 	- Axial: 6mm theory, 5.99 +/- 0.08 mm
-	- Lateral: 240um theory, 240.6 
+	- Lateral: 240um theory, 240.6
 	- Aim is 4% power falloff, measured 6.21 +/- 0.44
 - More abberation on edge beads than in the center beads
 	- Cavity A/B are identicle (roughly)
@@ -60,7 +60,7 @@ Discriminablity index (d')
 	- How long is the delay of "persistent activity"
 - Odor association task, A/B + C/D = Lick, otherwise don't, fast learning ~5-10 days
 - L5 ~500um
-- L5 is highly delayed in choice selective neurons 
+- L5 is highly delayed in choice selective neurons
 - Thursday @4pm, Imaging Journal club to finish this up
 
 ## Kevin 8/26
@@ -73,7 +73,7 @@ Discriminablity index (d')
 		- stimulus, choice, outcome
 	- Session Level
 		- Repeated trials
-		- Mice might fluctuate decision making strategies 
+		- Mice might fluctuate decision making strategies
 	- Multi-Trial Level
 	- Behavioral Scales
 		- Different stim strengths, contrasts effect response time
@@ -93,7 +93,7 @@ Discriminablity index (d')
 	- Evaluate with per-trial log-likelyhood
 	- -0.04 log likelyhood
 	- static over movie, need something dynamic (Hidden marcov)
-- Latent neural embeddings to guide model selection? 
+- Latent neural embeddings to guide model selection?
 - SPARKS (sequential predictive autoencoder;)
 
 # Fourier Ring Correlation
@@ -106,6 +106,62 @@ Discriminablity index (d')
 ## WHOLISTIC
 
 ![[Pasted image 20250903084016.png]]
+
+# NVIDIA / GPU
+
+Resources
+- https://www.leadergpu.com/articles/504-check-nvlink-in-windows
+- https://techcommunity.microsoft.com/discussions/compute/nv-series---wddm-vs-tcc/143568
+
+
+- **NC, NCv2, and ND** sizes are optimized for compute-intensive and network-intensive applications and algorithms, including CUDA- and OpenCL-based applications and simulations, AI, and Deep Learning.
+- **NV** sizes are optimized and designed for remote visualization, streaming, gaming, encoding, and VDI scenarios utilizing frameworks such as OpenGL and DirectX.
+
+- TCC: Tensor Compute Cluster
+	- Disables windows graphics driver
+- WDDM: Windows Display Driver Model
+- TCC being useful for compute workloads (NC or ND size) vs WDDM being appropriate for graphics workloads (NV size). In my experience, when the GPU is in TCC mode, RDP sessions are not able to leverage the GPU. Using the nvidia-smi tool to change the mode to WDDM:
+
+`nvidia-smi -g {_GPU_ID_} -dm 0`
+
+- GPU changing settings is likely due to settings being stored in the EEPROM of the GPU
+- Windows operates in WDDM mode **by default**
+![[Pasted image 20250908104433.png]]
+## WDDM to TCC
+
+For instance, if you want to run C/C++ CUDA® applications, you need to switch the driver on each GPU to a different operating mode: TCC (Tesla® Compute Cluster):
+
+```
+>> nvidia-smi -i 0 -dm TCC
+
+Set driver model to TCC for GPU 00000000:03:00.0.
+All done.
+Reboot required.
+```
+
+Here, 0 is an ID of the GPU. You can see all IDs (started from 0) in the nvidia-smi output (first column). Apply this action to each GPU and finally reboot the server.
+
+### Back to WDDM?
+`nvidia-smi -i 0 -dm WDDM`
+
+- Some cases require a hybrid method, potentially GPU0 for WDDM GPU1 for TCC
+
+## GPU on RDP
+Samples: https://github.com/NVIDIA/cuda-samples/archive/refs/heads/master.zip
+Resource: https://www.leadergpu.com/articles/513-gpu-rendering-in-rdp
+
+Might need to enable **RemoteFX** to allow GPU rendering over RDP
+
+CTRL + R -> gpedit.msc
+```
+Administrative Templates > Windows Components > Remote Desktop Services > Remote Desktop Session Host > Remote Session Environment > RemoteFX for Windows Server
+```
+Select the **Configure RemoteFX** option and right-click on it. Select **Edit**:
+![[Pasted image 20250908105159.png]]
+
+Do the same for the **Optimize visual experience for Remote Desktop Service Sessions** item. Select **Edit** from the context menu:
+
+![[Pasted image 20250908105226.png]]
 
 ## microImageLib
 
@@ -127,8 +183,8 @@ Fixing 2:
 3. libAPI: Properties -> CUDA/C++ -> Command Line -> Additional Options: -allow-unsupported-compiler
 
 Only FG/BG for sharpness
-- what are superfluous 
-- 
+- what are superfluous
+-
 
 ![[Pasted image 20250924145420.png]]
 
