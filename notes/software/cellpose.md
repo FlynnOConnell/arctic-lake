@@ -153,12 +153,12 @@ From Marius Pachitariu on image.sc:
 
 ### Architecture Changes
 
-| Component | Original Cellpose | Cellpose-SAM |
-|-----------|-------------------|--------------|
-| Encoder | U-Net with ResNet blocks | SAM's ViT-L (305M parameters) |
-| Decoder | U-Net decoder + skip connections | Lightweight upsampling |
-| Output | Flow fields + cell probability | Same (flow fields + probability) |
-| Mask reconstruction | Gradient tracking | Same |
+| Component           | Original Cellpose                | Cellpose-SAM                     |
+| ------------------- | -------------------------------- | -------------------------------- |
+| Encoder             | U-Net with ResNet blocks         | SAM's ViT-L (305M parameters)    |
+| Decoder             | U-Net decoder + skip connections | Lightweight upsampling           |
+| Output              | Flow fields + cell probability   | Same (flow fields + probability) |
+| Mask reconstruction | Gradient tracking                | Same                             |
 
 The key insight: SAM's encoder learned powerful image representations from 11 million images. By replacing only the encoder and keeping Cellpose's flow-based output and gradient tracking, you get the best of both worlds.
 
@@ -190,12 +190,12 @@ Cellpose-SAM approaches the human-consensus bound, meaning its errors are largel
 
 ## Model Progression Summary
 
-| Version | Model Names | Key Feature | When to Use |
-|---------|-------------|-------------|-------------|
-| 1.0 | `cyto`, `nuclei` | Original generalist | Legacy, simple cases |
-| 2.0 | `cyto2` | Human-in-the-loop training | Custom fine-tuning |
-| 3.0 | `cyto3` | Image restoration | Noisy/blurry/undersampled images |
-| SAM | `cpsam` | Superhuman generalization | Best out-of-box performance |
+| Version | Model Names      | Key Feature                | When to Use                      |
+| ------- | ---------------- | -------------------------- | -------------------------------- |
+| 1.0     | `cyto`, `nuclei` | Original generalist        | Legacy, simple cases             |
+| 2.0     | `cyto2`          | Human-in-the-loop training | Custom fine-tuning               |
+| 3.0     | `cyto3`          | Image restoration          | Noisy/blurry/undersampled images |
+| SAM     | `cpsam`          | Superhuman generalization  | Best out-of-box performance      |
 
 For new projects, start with `cpsam`. Fall back to `cyto3` + restoration if speed is critical. Use human-in-the-loop training if out-of-box performance is insufficient.
 

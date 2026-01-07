@@ -1,7 +1,11 @@
 ---
 title: Agarose Protocol
-tags: [agarose, chemistry, biology]
-category: protocols
+tags:
+  - agarose
+  - chemistry
+  - biology
+  - protocol
+category: SOP
 ---
 
 # Agarose Protocol

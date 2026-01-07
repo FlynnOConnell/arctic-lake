@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "notes/software/IsoView - Code Snippets.md",
+                "file": "notes/software/cellpose.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "IsoView - Code Snippets"
+              "title": "cellpose"
             }
           }
         ]
@@ -220,8 +220,21 @@
   },
   "active": "a021ec83cea32212",
   "lastOpenFiles": [
-    "hub/docket/scratch.md",
+    "notes/software/EXTRACT.md",
     "notes/software/IsoView - Code Snippets.md",
+    "notes/software/IsoView - MATLAB Pipeline.md",
+    "notes/software/IsoView - Processing.md",
+    "notes/software/IsoView - python.md",
+    "notes/software/IsoView - Talks, Lectures.md",
+    "notes/software/maskNMF.md",
+    "notes/sop/sop_laser_startup.md",
+    "notes/HPC - General Usage.md",
+    "notes/sop",
+    "notes/software/cellpose.md",
+    "notes/sop/sop_agarose_bead-prep.md",
+    "notes/software/suite3d.md",
+    "notes/software/multiview deconvolution.md",
+    "hub/docket/scratch.md",
     "hub/_quick_note/images/Pasted image 20250711194105.png",
     "hub/_quick_note/To-Do.md",
     "hub/_quick_note/pollen_exploration.md",
@@ -233,23 +246,12 @@
     "notes/events/vaziri-lab-meeting.md",
     "hub/_quick_note/Vaziri-lab-meeting.md",
     "hub/_quick_note/todo-list.md",
-    "notes/software/IsoView - Processing.md",
     "hub/_quick_note/Weekly Meeting Notes.md",
     "hub/_quick_note/Linux and Networking.md",
     "hub/_quick_note/DeepCaImX.md",
-    "notes/software/IsoView - MATLAB Pipeline.md",
-    "notes/software/IsoView - Talks, Lectures.md",
     "notes/images/2025-07-11 16-41-33.mp4",
     "notes/images/Pasted image 20250711194105.png",
-    "hub/docket/lbm align planes.md",
-    "hub/docket/lbm merge rois (suite2p).md",
-    "hub/docket/mbo server.md",
-    "hub/docket/Windows-Server Client Access Licenses.md",
-    "notes/software/ome-zarr.md",
-    "hub/docket/mROI contrast Testing.md",
     "notes/events",
-    "notes/cellpose-overview.md",
-    "notes/sop_laser_startup.md",
     "notes/software",
     "notes/images/Pasted image 20251203105536.png",
     "static/MillerBrainObservatory_logo.svg",
@@ -263,7 +265,6 @@
     "notes/literature/tomer_keller_2012/nmeth.2062.pdf",
     "notes/literature/suite2p/notes.pdf",
     "notes/literature/rastermap/notes.pdf",
-    "light_sheet_microscopy/amat_keller_2015",
-    "light_sheet_microscopy"
+    "light_sheet_microscopy/amat_keller_2015"
   ]
 }
