@@ -2,7 +2,9 @@
 
 ## GPU/CUDA
 
-All of the GPU nodes on the cluster have CUDA toolkit installed. The L40 nodes in particular have been tested with different toolkit versions (cuda-11.2 to cuda-12.4).
+All of the GPU nodes on the cluster have CUDA toolkit installed.
+
+The L40 nodes in particular have been tested with different toolkit versions (cuda-11.2 to cuda-12.4).
 
 You can use the `sinfo -p` command to see the L40 nodes:
 - on the RHEL7 cluster: `sinfo -p hpcl40,hpc_l40_bigmem`
@@ -13,13 +15,13 @@ You can use the `sinfo -p` command to see the L40 nodes:
 On your local machine, create the following entries in `~/.ssh/config` :
 ```
 Host ruhpc_vsc
-	HostName login05-hpc.rockefeller.edu
-	User <USERNAME>
-	
+HostName login05-hpc.rockefeller.edu
+User <USERNAME>
+
 Host ruhpc_vsc_x
-	ProxyCommand ssh ruhpc_vsc "nc $(squeue --me --name=VSCode_tunnel --states=R -h -O NodeList,Comment)"
-	StrictHostKeyChecking no
-	User <USERNAME>
+ProxyCommand ssh ruhpc_vsc "nc $(squeue --me --name=VSCode_tunnel --states=R -h -O NodeList,Comment)"
+StrictHostKeyChecking no
+User <USERNAME>
 ```
 
 ## Send File
@@ -125,5 +127,5 @@ apptainer shell --bind /rugpfs/fs0/vzri_lab/scratch:/vzri_scratch matlab_r2022a.
 apptainer overlay create --size 2048 matlab_r2022a_overlay_nofakeroot.img
 
 apptainer shell --overlay matlab_r2022a_overlay_nofakeroot.img \
-  --bind /rugpfs/fs0/vzri_lab/scratch:/vzri_scratch matlab_r2022a.sif
+--bind /rugpfs/fs0/vzri_lab/scratch:/vzri_scratch matlab_r2022a.sif
 ```
