@@ -8,13 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e7a7b303c61786dc",
+            "id": "a021ec83cea32212",
             "type": "leaf",
-            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
-                "file": "hub/docket/To-Do.md",
+                "file": "notes/software/IsoView - Code Snippets.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,9 +27,8 @@
                   "unlinkedCollapsed": true
                 }
               },
-              "pinned": true,
               "icon": "lucide-file",
-              "title": "To-Do"
+              "title": "IsoView - Code Snippets"
             }
           }
         ]
@@ -90,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 276
+    "width": 426
   },
   "right": {
     "id": "18793f65744bb51e",
@@ -180,8 +178,8 @@
             "state": {
               "type": "calendar",
               "state": {},
-              "icon": "calendar-with-checkmark",
-              "title": "Calendar"
+              "icon": "lucide-ghost",
+              "title": "calendar"
             }
           },
           {
@@ -190,8 +188,8 @@
             "state": {
               "type": "advanced-tables-toolbar",
               "state": {},
-              "icon": "spreadsheet",
-              "title": "Advanced Tables"
+              "icon": "lucide-ghost",
+              "title": "advanced-tables-toolbar"
             }
           }
         ],
@@ -205,68 +203,67 @@
   "left-ribbon": {
     "hiddenItems": {
       "bases:Create new base": false,
-      "omnisearch:Omnisearch": false,
       "switcher:Open quick switcher": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "markdown-importer:Open format converter": false,
       "publish:Publish changes...": false,
+      "graph:Open graph view": false,
       "templater-obsidian:Templater": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "omnisearch:Omnisearch": false,
       "homepage:Open homepage": false,
-      "graph:Open graph view": false,
       "obsidian-excalidraw-plugin:New drawing": false,
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e7a7b303c61786dc",
+  "active": "a021ec83cea32212",
   "lastOpenFiles": [
-    "hub/docket/lbm align planes.md",
-    "hub/docket/mROI contrast Testing.md",
-    "hub/docket/lbm merge rois (suite2p).md",
-    "hub/docket/Windows-Server Client Access Licenses.md",
-    "hub/docket/mbo server.md",
-    "hub/docket/To-Do.md",
-    "hub/images/Pasted image 20251006131735.png",
-    "hub/literature/rastermap/2024_Stringer_Pachitariu_Rastermap.md",
-    "hub/literature/rastermap/rastermap.md",
-    "hub/Cellpose.md",
     "hub/docket/scratch.md",
-    "hub/images/Pasted image 20250924145420.png",
-    "hub/Calcium Imaging Pipelines.md",
-    "hub/docket/LogonError.md",
-    "hub/docket/IsoView - Processing.md",
-    "hub/personal/Numpy.md",
-    "hub/2025_Haydaroglu_Carandini_Suite3D_bioRxiv.md",
-    "hub/EXTRACT.md",
-    "hub/File Permissions (Windows).md",
-    "hub/HPC - General Usage.md",
-    "hub/Linux and Networking.md",
-    "hub/docket/IsoView - Talks, Lectures.md",
-    "hub/docket/Py-NWB hackathon.md",
-    "hub/docket/IsoView - MATLAB Pipeline.md",
-    "hub/NVIDIA-CUDA-GPU.md",
-    "hub/docket/maskNMF.md",
-    "hub/docket/multiview deconvolution.md",
-    "hub/images/Pasted image 20250918100732.png",
-    "hub/images/Pasted image 20250918100648.png",
-    "hub/images/Pasted image 20250918100132.png",
-    "hub/images/Pasted image 20250917181722.png",
-    "hub/images/Pasted image 20250917181651.png",
-    "hub/images/Pasted image 20250917170303.png",
-    "hub/images/Pasted image 20250917170033.png",
-    "hub/images/Pasted image 20250917165904.png",
-    "hub/literature/amat_keller_2015/amat_keller_2015.pdf",
-    "hub/literature/amat_keller_2015/amat_keller_2015.md",
-    "hub/literature/tomer_keller_2012/nmeth.2062.pdf",
-    "hub/literature/suite2p/notes.pdf",
-    "hub/literature/rastermap/notes.pdf",
+    "notes/software/IsoView - Code Snippets.md",
+    "hub/_quick_note/images/Pasted image 20250711194105.png",
+    "hub/_quick_note/To-Do.md",
+    "hub/_quick_note/pollen_exploration.md",
+    "hub/_quick_note/Pollen Calibration.md",
+    "notes/RBO-W1 Server Debugging.md",
+    "notes/algos/fourier-ring-correlation.md",
+    "hub/docket/To-Do.md",
+    "notes/algos",
+    "notes/events/vaziri-lab-meeting.md",
+    "hub/_quick_note/Vaziri-lab-meeting.md",
+    "hub/_quick_note/todo-list.md",
+    "notes/software/IsoView - Processing.md",
+    "hub/_quick_note/Weekly Meeting Notes.md",
+    "hub/_quick_note/Linux and Networking.md",
+    "hub/_quick_note/DeepCaImX.md",
+    "notes/software/IsoView - MATLAB Pipeline.md",
+    "notes/software/IsoView - Talks, Lectures.md",
+    "notes/images/2025-07-11 16-41-33.mp4",
+    "notes/images/Pasted image 20250711194105.png",
+    "hub/docket/lbm align planes.md",
+    "hub/docket/lbm merge rois (suite2p).md",
+    "hub/docket/mbo server.md",
+    "hub/docket/Windows-Server Client Access Licenses.md",
+    "notes/software/ome-zarr.md",
+    "hub/docket/mROI contrast Testing.md",
+    "notes/events",
+    "notes/cellpose-overview.md",
+    "notes/sop_laser_startup.md",
+    "notes/software",
+    "notes/images/Pasted image 20251203105536.png",
+    "static/MillerBrainObservatory_logo.svg",
+    "static/mbo_hub_saph.svg",
+    "notes/images/Pasted image 20251006131735.png",
+    "notes/images/Pasted image 20250924145420.png",
+    "notes/images/Pasted image 20250918100732.png",
+    "notes/images/Pasted image 20250918100648.png",
+    "notes/images/Pasted image 20250918100132.png",
+    "notes/literature/amat_keller_2015/amat_keller_2015.pdf",
+    "notes/literature/tomer_keller_2012/nmeth.2062.pdf",
+    "notes/literature/suite2p/notes.pdf",
+    "notes/literature/rastermap/notes.pdf",
     "light_sheet_microscopy/amat_keller_2015",
-    "light_sheet_microscopy",
-    "hub/literature/shroff_2020",
-    "hub/literature/lemon_keller_2015/notes.pdf",
-    "hub/literature/amat_keller_2015/notes.pdf",
-    "hub/literature/tomer_keller_2012/images"
+    "light_sheet_microscopy"
   ]
 }
