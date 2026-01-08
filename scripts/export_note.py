@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """
-Export Obsidian/Markdown notes to self-contained HTML and PDF.
+Export Obsidian/Markdown notes and Jupyter notebooks to self-contained HTML and PDF.
 
 All images are embedded as base64 data URIs, making the output
 completely portable with no external dependencies.
 
 Usage:
-    # Export to project folder (reads 'project' from frontmatter)
+    # Export markdown to project folder (reads 'project' from frontmatter)
     uv run export-note "notes/software/Calcium Imaging Pipelines.md"
+
+    # Export Jupyter notebook
+    uv run export-note "2025-12-18_metadata-test.ipynb"
 
     # Override project destination
     uv run export-note notes/suite3d.md --project lbm
@@ -20,6 +23,7 @@ Usage:
 
 Frontmatter:
     Add 'project: lbm' (or isoview, explore) to route exports to Y:/projects/{project}/
+    For notebooks, frontmatter in the first markdown cell is detected.
 """
 
 import argparse
@@ -45,6 +49,14 @@ try:
 except ImportError:
     print("ERROR: 'markdown' package not found. Install with: pip install markdown")
     sys.exit(1)
+
+try:
+    from nbconvert import HTMLExporter
+    from nbconvert.preprocessors import ExecutePreprocessor
+    import nbformat
+    NBCONVERT_AVAILABLE = True
+except ImportError:
+    NBCONVERT_AVAILABLE = False
 
 # Weasyprint is optional - requires GTK on Windows which is complex to set up
 WEASYPRINT_AVAILABLE = False
@@ -606,14 +618,81 @@ def export_note(
     return results
 
 
+def export_notebook(
+    nb_file: Path,
+    output_dir: Path,
+    generate_html: bool = True,
+    generate_pdf: bool = True
+) -> dict:
+    """
+    Export a Jupyter notebook to HTML and/or PDF.
+
+    Returns dict with paths to generated files.
+    """
+    if not NBCONVERT_AVAILABLE:
+        print("ERROR: nbconvert not available. Install with: pip install nbconvert")
+        return {}
+
+    if not nb_file.exists():
+        raise FileNotFoundError(f"Notebook file not found: {nb_file}")
+
+    print(f"Processing notebook: {nb_file}")
+
+    # read notebook
+    with open(nb_file, 'r', encoding='utf-8') as f:
+        notebook = nbformat.read(f, as_version=4)
+
+    # configure HTML exporter
+    html_exporter = HTMLExporter()
+    html_exporter.embed_images = True
+
+    # convert to HTML
+    html_content, resources = html_exporter.from_notebook_node(notebook)
+
+    # ensure output directory exists
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # generate output filename with timestamp
+    timestamp = datetime.now().strftime("%Y%m%d")
+    base_name = f"{nb_file.stem}_{timestamp}"
+
+    results = {}
+
+    # write HTML
+    if generate_html:
+        html_path = output_dir / f"{base_name}.html"
+        html_path.write_text(html_content, encoding='utf-8')
+        results['html'] = html_path
+        print(f"Created HTML: {html_path}")
+
+    # write PDF
+    if generate_pdf:
+        if WEASYPRINT_AVAILABLE and HTML_CLASS:
+            pdf_path = output_dir / f"{base_name}.pdf"
+            try:
+                HTML_CLASS(string=html_content).write_pdf(pdf_path)
+                results['pdf'] = pdf_path
+                print(f"Created PDF: {pdf_path}")
+            except Exception as e:
+                print(f"ERROR creating PDF: {e}")
+        else:
+            print("Skipping PDF (weasyprint not available - requires GTK on Windows)")
+            print("  HTML file can be printed to PDF from any browser")
+
+    return results
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description="Export Obsidian/Markdown notes to self-contained HTML and PDF",
+        description="Export Obsidian/Markdown notes and Jupyter notebooks to self-contained HTML and PDF",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-    # Export using frontmatter 'project' field
+    # Export markdown using frontmatter 'project' field
     uv run export-note notes/software/Calcium\\ Imaging\\ Pipelines.md
+
+    # Export Jupyter notebook
+    uv run export-note 2025-12-18_metadata-test.ipynb
 
     # Override project destination
     uv run export-note notes/suite3d.md --project lbm
@@ -624,7 +703,7 @@ Examples:
     # List configured projects
     uv run export-note --list-projects
 
-Frontmatter example:
+Frontmatter example (markdown or first notebook cell):
     ---
     project: lbm
     title: My Analysis Notes
@@ -633,7 +712,8 @@ Frontmatter example:
 The script will:
 - Read 'project' from frontmatter to route to Y:/projects/{project}/
 - Embed all images as base64 (fully portable, no broken links)
-- Convert Obsidian syntax to standard HTML
+- Convert Obsidian syntax to standard HTML (markdown files)
+- Convert Jupyter notebooks with embedded outputs
         """
     )
 
@@ -641,7 +721,8 @@ The script will:
         'markdown_file',
         type=Path,
         nargs='?',
-        help="Path to the markdown file to export"
+        metavar='FILE',
+        help="Path to the markdown (.md) or notebook (.ipynb) file to export"
     )
 
     parser.add_argument(
@@ -695,20 +776,37 @@ The script will:
             print("  (Y: drive not mounted)")
         return
 
-    # Require markdown_file if not listing projects
+    # Require input file if not listing projects
     if not args.markdown_file:
-        parser.error("markdown_file is required")
+        parser.error("input file is required")
 
     # Resolve input path
-    md_file = args.markdown_file.resolve()
+    input_file = args.markdown_file.resolve()
 
-    if not md_file.exists():
-        print(f"ERROR: File not found: {md_file}")
+    if not input_file.exists():
+        print(f"ERROR: File not found: {input_file}")
         sys.exit(1)
 
+    # Detect file type
+    is_notebook = input_file.suffix.lower() == '.ipynb'
+
     # Read frontmatter to determine project
-    content = md_file.read_text(encoding='utf-8')
-    frontmatter, _ = parse_frontmatter(content)
+    frontmatter = {}
+    if is_notebook:
+        # try to extract project from first markdown cell
+        if NBCONVERT_AVAILABLE:
+            try:
+                with open(input_file, 'r', encoding='utf-8') as f:
+                    nb = nbformat.read(f, as_version=4)
+                for cell in nb.cells:
+                    if cell.cell_type == 'markdown':
+                        frontmatter, _ = parse_frontmatter(cell.source)
+                        break
+            except Exception:
+                pass
+    else:
+        content = input_file.read_text(encoding='utf-8')
+        frontmatter, _ = parse_frontmatter(content)
 
     # Resolve output directory
     output_dir = resolve_output_dir(
@@ -722,12 +820,20 @@ The script will:
     generate_pdf = not args.html_only
 
     try:
-        results = export_note(
-            md_file,
-            output_dir,
-            generate_html=generate_html,
-            generate_pdf=generate_pdf
-        )
+        if is_notebook:
+            results = export_notebook(
+                input_file,
+                output_dir,
+                generate_html=generate_html,
+                generate_pdf=generate_pdf
+            )
+        else:
+            results = export_note(
+                input_file,
+                output_dir,
+                generate_html=generate_html,
+                generate_pdf=generate_pdf
+            )
 
         print(f"\nExported to: {output_dir}")
         for fmt, path in results.items():
