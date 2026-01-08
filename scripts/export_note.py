@@ -6,12 +6,20 @@ All images are embedded as base64 data URIs, making the output
 completely portable with no external dependencies.
 
 Usage:
-    python export_note.py <markdown_file> [--output-dir <dir>]
-    python export_note.py notes/software/IsoView.md
-    python export_note.py notes/weekly.md --output-dir "C:/Users/flynn/OneDrive/MBO_DATA/weekly_meeting"
+    # Export to project folder (reads 'project' from frontmatter)
+    uv run export-note "notes/software/Calcium Imaging Pipelines.md"
 
-Requirements:
-    pip install markdown weasyprint pygments
+    # Override project destination
+    uv run export-note notes/suite3d.md --project lbm
+
+    # Export to specific directory
+    uv run export-note notes/weekly.md -o ./exports
+
+    # List available projects
+    uv run export-note --list-projects
+
+Frontmatter:
+    Add 'project: lbm' (or isoview, explore) to route exports to Y:/projects/{project}/
 """
 
 import argparse
@@ -19,8 +27,17 @@ import base64
 import mimetypes
 import re
 import sys
+import yaml
 from datetime import datetime
 from pathlib import Path
+
+from scripts.config import (
+    get_project_path,
+    list_available_projects,
+    discover_server_projects,
+    WEEKLY_MEETING_DIR,
+    LOCAL_EXPORT_DIR,
+)
 
 try:
     import markdown
@@ -59,11 +76,64 @@ def _try_import_weasyprint():
 _try_import_weasyprint()
 
 
-# Default output directory (OneDrive weekly meeting folder)
-DEFAULT_OUTPUT_DIR = Path.home() / "OneDrive" / "MBO_DATA" / "weekly_meeting"
-
 # Image extensions to handle
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp'}
+
+
+def parse_frontmatter(content: str) -> tuple[dict, str]:
+    """
+    Parse YAML frontmatter from markdown content.
+
+    Returns (frontmatter_dict, content_without_frontmatter)
+    """
+    if not content.startswith('---'):
+        return {}, content
+
+    end = content.find('---', 3)
+    if end == -1:
+        return {}, content
+
+    frontmatter_text = content[3:end].strip()
+    body = content[end + 3:].lstrip()
+
+    try:
+        frontmatter = yaml.safe_load(frontmatter_text) or {}
+    except yaml.YAMLError:
+        frontmatter = {}
+
+    return frontmatter, body
+
+
+def resolve_output_dir(
+    frontmatter: dict,
+    cli_project: str | None,
+    cli_output_dir: Path | None,
+) -> Path:
+    """
+    Determine output directory from CLI args or frontmatter.
+
+    Priority:
+    1. --output-dir (explicit path)
+    2. --project (CLI override)
+    3. frontmatter 'project' field
+    4. Default to local exports
+    """
+    # Explicit output dir takes precedence
+    if cli_output_dir:
+        return cli_output_dir
+
+    # CLI project override
+    project = cli_project or frontmatter.get('project')
+
+    if project:
+        project_path = get_project_path(project)
+        if project_path:
+            return project_path
+        else:
+            print(f"WARNING: Unknown project '{project}', using local exports")
+            print(f"  Available: {', '.join(list_available_projects())}")
+
+    return LOCAL_EXPORT_DIR
 
 # HTML template with embedded CSS for nice rendering
 HTML_TEMPLATE = """<!DOCTYPE html>
@@ -391,11 +461,8 @@ def convert_standard_images(content: str, md_file: Path, images_dir: Path) -> st
 
 def strip_frontmatter(content: str) -> str:
     """Remove YAML frontmatter from markdown content."""
-    if content.startswith('---'):
-        end = content.find('---', 3)
-        if end != -1:
-            return content[end + 3:].lstrip()
-    return content
+    _, body = parse_frontmatter(content)
+    return body
 
 
 def convert_wikilinks(content: str) -> str:
@@ -545,30 +612,56 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-    python export_note.py notes/weekly.md
-    python export_note.py notes/software/IsoView.md --output-dir ./exports
-    python export_note.py notes/meeting.md --html-only
-    python export_note.py notes/report.md --pdf-only
+    # Export using frontmatter 'project' field
+    uv run export-note notes/software/Calcium\\ Imaging\\ Pipelines.md
+
+    # Override project destination
+    uv run export-note notes/suite3d.md --project lbm
+
+    # Export to specific directory
+    uv run export-note notes/weekly.md -o ./exports
+
+    # List configured projects
+    uv run export-note --list-projects
+
+Frontmatter example:
+    ---
+    project: lbm
+    title: My Analysis Notes
+    ---
 
 The script will:
-1. Find and embed all images as base64 data URIs
-2. Convert Obsidian syntax (![[image.png]]) to standard HTML
-3. Generate self-contained HTML and/or PDF files
-4. Output to OneDrive/MBO_DATA/weekly_meeting by default
+- Read 'project' from frontmatter to route to Y:/projects/{project}/
+- Embed all images as base64 (fully portable, no broken links)
+- Convert Obsidian syntax to standard HTML
         """
     )
 
     parser.add_argument(
         'markdown_file',
         type=Path,
+        nargs='?',
         help="Path to the markdown file to export"
     )
 
     parser.add_argument(
         '--output-dir', '-o',
         type=Path,
-        default=DEFAULT_OUTPUT_DIR,
-        help=f"Output directory (default: {DEFAULT_OUTPUT_DIR})"
+        default=None,
+        help="Output directory (overrides project routing)"
+    )
+
+    parser.add_argument(
+        '--project', '-p',
+        type=str,
+        default=None,
+        help="Project name (overrides frontmatter). Routes to Y:/projects/{project}/"
+    )
+
+    parser.add_argument(
+        '--list-projects',
+        action='store_true',
+        help="List available projects and exit"
     )
 
     parser.add_argument(
@@ -585,9 +678,44 @@ The script will:
 
     args = parser.parse_args()
 
-    # Resolve paths
+    # Handle --list-projects
+    if args.list_projects:
+        print("Configured projects:")
+        for proj in list_available_projects():
+            path = get_project_path(proj)
+            status = "OK" if path and path.exists() else "not mounted"
+            print(f"  {proj}: {path} ({status})")
+
+        print("\nServer projects (Y:/projects/):")
+        server_projects = discover_server_projects()
+        if server_projects:
+            for proj in server_projects:
+                print(f"  {proj}")
+        else:
+            print("  (Y: drive not mounted)")
+        return
+
+    # Require markdown_file if not listing projects
+    if not args.markdown_file:
+        parser.error("markdown_file is required")
+
+    # Resolve input path
     md_file = args.markdown_file.resolve()
-    output_dir = args.output_dir.resolve()
+
+    if not md_file.exists():
+        print(f"ERROR: File not found: {md_file}")
+        sys.exit(1)
+
+    # Read frontmatter to determine project
+    content = md_file.read_text(encoding='utf-8')
+    frontmatter, _ = parse_frontmatter(content)
+
+    # Resolve output directory
+    output_dir = resolve_output_dir(
+        frontmatter,
+        cli_project=args.project,
+        cli_output_dir=args.output_dir,
+    )
 
     # Determine what to generate
     generate_html = not args.pdf_only
@@ -601,9 +729,9 @@ The script will:
             generate_pdf=generate_pdf
         )
 
-        print("\nExport complete!")
+        print(f"\nExported to: {output_dir}")
         for fmt, path in results.items():
-            print(f"  {fmt.upper()}: {path}")
+            print(f"  {fmt.upper()}: {path.name}")
 
     except FileNotFoundError as e:
         print(f"ERROR: {e}")
