@@ -218,8 +218,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a021ec83cea32212",
+  "active": "ac8c8bb2fbd28579",
   "lastOpenFiles": [
+    "daily/2026-01-08.md~",
+    "daily/2026-01-08.md",
+    "README.md~",
+    "daily/2026-01-07.md~",
+    "daily/2026-01-07.md",
+    "daily",
     "notes/software/EXTRACT.md",
     "notes/software/IsoView - Code Snippets.md",
     "notes/software/IsoView - MATLAB Pipeline.md",
@@ -246,9 +252,6 @@
     "notes/events/vaziri-lab-meeting.md",
     "hub/_quick_note/Vaziri-lab-meeting.md",
     "hub/_quick_note/todo-list.md",
-    "hub/_quick_note/Weekly Meeting Notes.md",
-    "hub/_quick_note/Linux and Networking.md",
-    "hub/_quick_note/DeepCaImX.md",
     "notes/images/2025-07-11 16-41-33.mp4",
     "notes/images/Pasted image 20250711194105.png",
     "notes/events",
@@ -262,9 +265,6 @@
     "notes/images/Pasted image 20250918100648.png",
     "notes/images/Pasted image 20250918100132.png",
     "notes/literature/amat_keller_2015/amat_keller_2015.pdf",
-    "notes/literature/tomer_keller_2012/nmeth.2062.pdf",
-    "notes/literature/suite2p/notes.pdf",
-    "notes/literature/rastermap/notes.pdf",
-    "light_sheet_microscopy/amat_keller_2015"
+    "notes/literature/tomer_keller_2012/nmeth.2062.pdf"
   ]
 }
