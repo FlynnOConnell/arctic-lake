@@ -6,6 +6,8 @@ tags:
   - biology
   - protocol
 category: SOP
+aliases: []
+id: sop_agarose_bead-prep
 ---
 
 # Agarose Protocol
