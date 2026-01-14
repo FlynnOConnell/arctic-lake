@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
-$RepoDir = $env:DOCS_REPO_DIR ?? "$HOME\docs"
-$SharedDir = $env:DOCS_SHARED_DIR ?? "Y:\foconnell\docs"
+$RepoDir = $env:DOCS_REPO_DIR ?? "$HOME\repos\docs"
+$SharedDir = $env:DOCS_SHARED_DIR ?? "Y:\foconnell\notes"
 $LogFile = $env:DOCS_SYNC_LOG ?? "$HOME\.local\log\docs-sync.log"
 $Remote = "origin"
 $Branch = "master"
@@ -19,6 +19,14 @@ if (!(Test-Path $SharedDir)) {
 }
 
 Set-Location $RepoDir
+
+# if shared is empty, just populate it from repo
+$sharedFiles = Get-ChildItem $SharedDir -Recurse -File
+if (!$sharedFiles) {
+    Log "Initial sync: populating shared from repo"
+    robocopy $RepoDir $SharedDir /MIR /XD .git /NFL /NDL /NJH /NJS /nc /ns /np
+    exit 0
+}
 
 # pull changes from shared storage into git repo
 robocopy $SharedDir $RepoDir /MIR /XD .git /NFL /NDL /NJH /NJS /nc /ns /np
