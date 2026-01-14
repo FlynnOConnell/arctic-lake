@@ -1,0 +1,10 @@
+[Unit]
+Description=Docs repo git sync
+After=network-online.target remote-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/docs/scripts/docs-sync.sh
+Environment="DOCS_REPO_DIR=%h/docs"
+Environment="DOCS_SHARED_DIR=/mnt/mbospace/foconnell/docs"
+Environment="DOCS_SYNC_LOG=%h/.local/log/docs-sync.log"
