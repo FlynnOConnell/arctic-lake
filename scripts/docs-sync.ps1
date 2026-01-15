@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$RepoDir = $env:DOCS_REPO_DIR ?? "Y:\foconnell\notes"
+$RepoDir = $env:DOCS_REPO_DIR ?? "Y:\foconnell\docs"
 $LogFile = $env:DOCS_SYNC_LOG ?? "$HOME\.local\log\docs-sync.log"
 $Remote = "origin"
 $Branch = "master"
