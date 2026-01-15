@@ -15,6 +15,7 @@ dependencies = [
 
 [project.scripts]
 export-note = "scripts.export_note:main"
+export-weekly = "scripts.export_weekly:main"
 
 [build-system]
 requires = ["hatchling"]
