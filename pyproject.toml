@@ -5,6 +5,7 @@ description = "Export Obsidian/Markdown notes to self-contained HTML and PDF"
 readme = "README.md"
 requires-python = ">=3.12.9"
 dependencies = [
+    "marimo>=0.19.1",
     "markdown>=3.10",
     "nbconvert>=7.0",
     "pygments>=2.19.2",
