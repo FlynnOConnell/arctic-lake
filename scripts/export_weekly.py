@@ -57,19 +57,25 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <title>{title}</title>
     <style>
         :root {{
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --code-bg: #f5f5f5;
-            --border-color: #e0e0e0;
-            --link-color: #0066cc;
-            --heading-color: #111111;
-            --accent-color: #4a90d9;
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted: #9e9e9e;
+            --border-color: #333;
+            --link-color: #82aaff;
+            --link-hover: #b0c4ff;
+            --heading-color: #ffffff;
+            --accent-color: #82aaff;
+            --code-bg: #0d1117;
+            --code-text: #c9d1d9;
+            --inline-code-bg: #161b22;
+            color-scheme: dark;
         }}
 
         * {{ box-sizing: border-box; }}
 
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
@@ -86,68 +92,107 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         h1 {{
-            font-size: 2em;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.3em;
+            font-size: 1.8em;
+            text-decoration: underline;
+            border: none;
+            padding-bottom: 0;
         }}
 
         h2 {{
-            font-size: 1.5em;
+            font-size: 1.4em;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 0.2em;
         }}
 
+        h3 {{ font-size: 1.2em; }}
+
         a {{ color: var(--link-color); text-decoration: none; }}
-        a:hover {{ text-decoration: underline; }}
+        a:hover {{ color: var(--link-hover); text-decoration: underline; }}
 
         img {{
-            max-width: 100%;
+            max-width: 550px;
             height: auto;
             display: block;
             margin: 1em auto;
             border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }}
 
         code {{
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 0.9em;
-            background-color: var(--code-bg);
-            padding: 0.2em 0.4em;
-            border-radius: 3px;
+            font-size: 0.82rem;
+            background-color: var(--inline-code-bg);
+            color: var(--code-text);
+            padding: 2px 6px;
+            border-radius: 4px;
         }}
 
         pre {{
             background-color: var(--code-bg);
-            padding: 1em;
-            border-radius: 6px;
+            padding: 12px 24px;
+            border-radius: 4px;
             overflow-x: auto;
-            border: 1px solid var(--border-color);
+            border: none;
+            font-size: 0.82rem;
         }}
 
-        pre code {{ background: none; padding: 0; }}
+        pre code {{
+            background: transparent;
+            padding: 0;
+        }}
 
         blockquote {{
-            border-left: 4px solid var(--border-color);
+            border-left: 3px solid var(--accent-color);
             margin-left: 0;
             padding-left: 1em;
-            color: #666;
+            color: var(--text-muted);
         }}
 
         table {{
+            background-color: var(--surface-color);
             border-collapse: collapse;
             width: 100%;
-            margin: 1em 0;
+            margin: 0.5em 0;
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 0.78rem;
+            line-height: 1.3;
         }}
 
-        th, td {{
-            border: 1px solid var(--border-color);
-            padding: 0.5em 1em;
+        thead {{
+            background-color: #2d2d2d;
+            border-bottom: 1px solid #424242;
+        }}
+
+        th {{
+            background-color: #2d2d2d;
+            color: #fff;
+            font-weight: 600;
+            padding: 5px 6px;
             text-align: left;
+            border: none;
+            font-size: 0.78rem;
         }}
 
-        th {{ background-color: var(--code-bg); font-weight: 600; }}
-        tr:nth-child(even) {{ background-color: #fafafa; }}
+        tbody tr {{
+            background-color: var(--surface-color);
+            border-bottom: 1px solid #2a2a2a;
+        }}
+
+        tbody tr:nth-child(even) {{
+            background-color: #252525;
+        }}
+
+        tbody tr:hover {{
+            background-color: #333;
+        }}
+
+        td {{
+            color: var(--text-color);
+            padding: 3px 6px;
+            border: none;
+            vertical-align: top;
+            font-size: 0.78rem;
+        }}
 
         ul, ol {{ padding-left: 1.5em; }}
         li {{ margin: 0.25em 0; }}
@@ -158,45 +203,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             margin: 2em 0;
         }}
 
-        .header {{
-            margin-bottom: 2em;
-            padding-bottom: 1em;
-            border-bottom: 2px solid var(--accent-color);
-        }}
-
-        .header h1 {{
-            margin: 0;
-            border: none;
-        }}
-
-        .header .meta {{
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 0.5em;
-        }}
-
-        .toc {{
-            background-color: var(--code-bg);
-            padding: 1em 1.5em;
-            border-radius: 6px;
-            margin-bottom: 2em;
-        }}
-
-        .toc h2 {{
-            margin-top: 0;
-            font-size: 1.1em;
-            border: none;
-        }}
-
-        .toc ul {{
-            margin: 0;
-            padding-left: 1.2em;
-        }}
-
-        .toc li {{ margin: 0.3em 0; }}
-        .toc a {{ color: var(--text-color); }}
-        .toc a:hover {{ color: var(--link-color); }}
-
         .weekly-section {{
             margin-bottom: 3em;
         }}
@@ -204,15 +210,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         .daily-section {{
             margin-top: 3em;
             padding-top: 2em;
-            border-top: 3px solid var(--accent-color);
+            border-top: 2px solid var(--accent-color);
         }}
 
         .daily-note {{
             margin-bottom: 2em;
             padding: 1.5em;
-            background-color: #fafafa;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent-color);
+            background-color: var(--surface-color);
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-color);
         }}
 
         .daily-note h3 {{
@@ -221,7 +227,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         .daily-note-empty {{
-            color: #999;
+            color: var(--text-muted);
             font-style: italic;
         }}
 
@@ -235,16 +241,25 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         .missing-image {{
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
+            background-color: #332b00;
+            border: 1px solid #665500;
             padding: 1em;
             border-radius: 4px;
-            color: #856404;
+            color: #ffcb6b;
             text-align: center;
         }}
 
         @media print {{
-            body {{ max-width: none; padding: 1cm; }}
+            body {{
+                max-width: none;
+                padding: 1cm;
+                background-color: #fff;
+                color: #000;
+            }}
+            .daily-note {{
+                background-color: #f5f5f5;
+                border-left-color: #333;
+            }}
             img {{ max-height: 400px; page-break-inside: avoid; }}
             h1, h2, h3 {{ page-break-after: avoid; }}
             pre, blockquote {{ page-break-inside: avoid; }}
