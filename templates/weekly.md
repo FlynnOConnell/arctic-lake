@@ -9,9 +9,7 @@ date: {{date}}
 ## Previous TO DO
 - [ ]
 
-## Updates
-
-### Main Projects
+## Main Projects
 
 #### mbo_utilities
 -
@@ -22,13 +20,13 @@ date: {{date}}
 #### IsoView
 -
 
-### Offshoot Projects
+## Offshoot Projects
 -
 
-### Collaborations
+## Collaborations
 -
 
-### Compute/Storage Server Usage
+## Compute/Storage Server Usage
 -
 
 ## Data: `MBO_DATA`
