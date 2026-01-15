@@ -375,36 +375,8 @@ def build_weekly_report(week_id: str) -> str | None:
 
     parts = []
 
-    # header
-    parts.append(f'''
-<div class="header">
-    <h1>Week {week} Report</h1>
-    <div class="meta">{week_range}</div>
-</div>
-''')
-
-    # table of contents
-    toc_items = []
-    if weekly_file:
-        toc_items.append('<li><a href="#weekly-notes">Weekly Notes</a></li>')
-    if daily_notes:
-        toc_items.append('<li><a href="#daily-notes">Daily Notes</a>')
-        toc_items.append('<ul>')
-        for date, _ in daily_notes:
-            anchor = date.strftime("%Y-%m-%d")
-            label = date.strftime("%A, %B %d")
-            toc_items.append(f'<li><a href="#{anchor}">{label}</a></li>')
-        toc_items.append('</ul></li>')
-
-    if toc_items:
-        parts.append(f'''
-<div class="toc">
-    <h2>Contents</h2>
-    <ul>
-        {"".join(toc_items)}
-    </ul>
-</div>
-''')
+    # main title
+    parts.append(f'<h1>Weekly Meeting – {week_range}</h1>')
 
     # weekly notes section
     if weekly_file:
@@ -455,7 +427,7 @@ def build_weekly_report(week_id: str) -> str | None:
         parts.append('</div>')
 
     return HTML_TEMPLATE.format(
-        title=f"Week {week} Report - {week_range}",
+        title=f"Weekly Meeting – {week_range}",
         content="".join(parts)
     )
 
