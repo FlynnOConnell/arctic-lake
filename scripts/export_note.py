@@ -375,21 +375,26 @@ def image_to_base64(image_path: Path) -> str | None:
 
 def find_image(image_name: str, md_file: Path, images_dir: Path) -> Path | None:
     """
-    Find an image file given its name.
+    Find an image file given its name or relative path.
 
     Search order:
-    1. Relative to the markdown file
-    2. In the images directory (notes/images/)
-    3. In subdirectories of images/
+    1. Relative path from markdown file's parent directory
+    2. Relative path from parent's parent (for notes/sop -> notes/literature)
+    3. Just filename in same directory as markdown file
+    4. In local images/ subfolder
+    5. In global images directory
+    6. Recursively in images directory
     """
-    # Clean up the image name (remove any path components for Obsidian-style links)
-    image_name = Path(image_name).name
+    image_path = Path(image_name)
+    just_name = image_path.name
 
     # Search locations
     search_paths = [
-        md_file.parent / image_name,                    # Same directory as .md
-        md_file.parent / "images" / image_name,         # Local images/ subfolder
-        images_dir / image_name,                        # Global images directory
+        md_file.parent / image_name,                    # Relative path from .md dir
+        md_file.parent.parent / image_name,             # Relative from parent's parent
+        md_file.parent / just_name,                     # Same directory as .md
+        md_file.parent / "images" / just_name,          # Local images/ subfolder
+        images_dir / just_name,                         # Global images directory
     ]
 
     for path in search_paths:
@@ -398,7 +403,7 @@ def find_image(image_name: str, md_file: Path, images_dir: Path) -> Path | None:
 
     # Search recursively in images directory
     if images_dir.exists():
-        for found in images_dir.rglob(image_name):
+        for found in images_dir.rglob(just_name):
             return found
 
     return None

@@ -1,13 +1,17 @@
 ---
 tags: [weekly, meeting, log]
 template: Weekly Meetings
-date: {{date}}
+date: <% tp.date.now("YYYY-MM-DD") %>
 ---
 
-# Weekly Meeting – {{week_range}}
+# Weekly Meeting – <% tp.date.now("MMMM DD") %> - <% tp.date.now("MMMM DD, YYYY", 6) %>
 
-## Previous TO DO
+## (previous) TO-DO
+*from [[<% tp.date.now("YYYY-[W]WW", -7) %>]]*
 - [ ]
+
+## Weekly Overview
+
 
 ## Main Projects
 
@@ -38,5 +42,6 @@ date: {{date}}
 ## Misc
 -
 
-## TO DO
+## (Next) TO-DO
+*for [[<% tp.date.now("YYYY-[W]WW", 7) %>]]*
 - [ ]
