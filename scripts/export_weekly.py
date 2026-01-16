@@ -775,6 +775,7 @@ def render_markdown(content: str) -> str:
 
 def build_weekly_report(
     week_id: str,
+    output_dir: Path,
     prev_week: str | None = None,
     next_week: str | None = None
 ) -> str | None:
@@ -825,7 +826,7 @@ def build_weekly_report(
         # remove dataviewjs Links section (rendered separately below daily notes)
         weekly_content = remove_dataviewjs_links_section(weekly_content)
 
-        processed = process_markdown(weekly_content, weekly_file)
+        processed = process_markdown(weekly_content, weekly_file, output_dir)
         html = render_markdown(processed)
 
         parts.append(f'''
@@ -845,7 +846,7 @@ def build_weekly_report(
             print(f"  processing daily: {daily_file.name}")
 
             daily_content = daily_file.read_text(encoding='utf-8')
-            processed = process_markdown(daily_content, daily_file)
+            processed = process_markdown(daily_content, daily_file, output_dir)
 
             if processed.strip():
                 html = render_markdown(processed)
@@ -929,7 +930,7 @@ def export_week(
     if all_weeks:
         prev_week, next_week = get_adjacent_weeks(week_id, all_weeks)
 
-    html = build_weekly_report(week_id, prev_week, next_week)
+    html = build_weekly_report(week_id, output_dir, prev_week, next_week)
     if html is None:
         print(f"  no content found for {week_id}")
         return None
@@ -1128,6 +1129,47 @@ def copy_html_directory(source_dir: Path, output_dir: Path, subdir: str, categor
     return exported
 
 
+def copy_media_directory(source_dir: Path, output_dir: Path, subdir: str, category: str, pattern: str = "*.mp4") -> list[dict]:
+    """copy media files and create viewer pages."""
+    exported = []
+    if not source_dir.exists():
+        print(f"  skipping {source_dir} (not found)")
+        return exported
+
+    out_path = output_dir / subdir
+    out_path.mkdir(parents=True, exist_ok=True)
+
+    for media_file in sorted(source_dir.glob(pattern), reverse=True):
+        dest = out_path / media_file.name
+        shutil.copy2(media_file, dest)
+        print(f"  copied media: {dest}")
+
+        # create simple viewer page
+        title = media_file.stem.replace('-', ' ').replace('_', ' ').title()
+        viewer_html = HTML_TEMPLATE.format(
+            title=title,
+            content=f'''
+<nav class="week-nav">
+    <span class="nav-prev"></span>
+    <a href="../../compute/index.html" class="nav-index">← Back</a>
+    <span class="nav-next"></span>
+</nav>
+<h1>{title}</h1>
+<video src="{media_file.name}" controls style="max-width:100%;"></video>
+'''
+        )
+        viewer_path = out_path / f"{media_file.stem}.html"
+        viewer_path.write_text(viewer_html, encoding='utf-8')
+
+        exported.append({
+            "path": f"{subdir}/{media_file.stem}.html",
+            "title": title,
+            "category": category
+        })
+
+    return exported
+
+
 def export_additional_pages(output_dir: Path) -> list[dict]:
     """export additional pages from exports.toml config."""
     config = load_exports_config()
@@ -1172,6 +1214,16 @@ def export_additional_pages(output_dir: Path) -> list[dict]:
 
         print(f"copying HTML from {source_dir}...")
         exported.extend(copy_html_directory(source_dir, output_dir, subdir, category, pattern))
+
+    # media directories (videos, etc)
+    for dir_config in config.get("media_directories", []):
+        source_dir = Path(dir_config["source"])
+        subdir = dir_config.get("output_subdir", "media")
+        category = dir_config.get("category", "Media")
+        pattern = dir_config.get("pattern", "*.mp4")
+
+        print(f"copying media from {source_dir}...")
+        exported.extend(copy_media_directory(source_dir, output_dir, subdir, category, pattern))
 
     return exported
 
