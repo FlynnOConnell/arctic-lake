@@ -23,8 +23,10 @@ usage:
 """
 
 import argparse
+import os
 import re
 import shutil
+import subprocess
 import sys
 import tomllib
 from datetime import datetime, timedelta
@@ -34,6 +36,8 @@ from scripts.export_note import (
     parse_frontmatter,
     convert_obsidian_images,
     convert_standard_images,
+    convert_obsidian_videos,
+    convert_standard_videos,
     convert_wikilinks,
     strip_frontmatter,
 )
@@ -217,6 +221,14 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
         img {{
             max-width: 550px;
+            height: auto;
+            display: block;
+            margin: 1em auto;
+            border-radius: 4px;
+        }}
+
+        video {{
+            max-width: 100%;
             height: auto;
             display: block;
             margin: 1em auto;
@@ -738,12 +750,15 @@ def remove_dataviewjs_links_section(content: str) -> str:
     return pattern.sub('', content)
 
 
-def process_markdown(content: str, source_file: Path) -> str:
-    """process markdown content, converting images and obsidian syntax."""
+def process_markdown(content: str, source_file: Path, output_dir: Path | None = None) -> str:
+    """process markdown content, converting images/videos and obsidian syntax."""
     content = strip_frontmatter(content)
     content = filter_empty_sections(content)
     content = convert_obsidian_images(content, source_file, IMAGES_DIR)
     content = convert_standard_images(content, source_file, IMAGES_DIR)
+    if output_dir:
+        content = convert_obsidian_videos(content, source_file, output_dir)
+        content = convert_standard_videos(content, source_file, output_dir)
     content = convert_wikilinks(content)
     content = convert_callouts(content)
     content = convert_task_lists(content)
@@ -1442,6 +1457,26 @@ date: {monday.strftime('%Y-%m-%d')}
     return next_file
 
 
+def open_in_firefox(path: Path) -> None:
+    """open a file in Firefox."""
+    if not path.exists():
+        print(f"  cannot open: {path} (not found)")
+        return
+    # try common Firefox locations on Windows
+    firefox_paths = [
+        r"C:\Program Files\Mozilla Firefox\firefox.exe",
+        r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe",
+    ]
+    for firefox in firefox_paths:
+        if os.path.exists(firefox):
+            subprocess.Popen([firefox, str(path)])
+            print(f"  opened in Firefox: {path}")
+            return
+    # fallback to system default
+    os.startfile(path)
+    print(f"  opened: {path}")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="export weekly notes with embedded daily notes as static HTML",
@@ -1530,6 +1565,12 @@ destinations:
         help="create next week's note with current week's TO-DOs (local only)"
     )
 
+    parser.add_argument(
+        '--open',
+        action='store_true',
+        help="open the index.html in Firefox after export"
+    )
+
     args = parser.parse_args()
 
     # handle --list
@@ -1568,16 +1609,22 @@ destinations:
         print(f"\nsynced to:")
         print(f"  OneDrive: {ONEDRIVE_WEEKLY}")
         print(f"  Network:  {NETWORK_WEEKLY}")
+        if args.open:
+            open_in_firefox(NETWORK_WEEKLY / "index.html")
         return
 
     if args.onedrive:
         sync_to_onedrive(force=args.force)
         print(f"\nsynced to OneDrive: {ONEDRIVE_WEEKLY}")
+        if args.open:
+            open_in_firefox(ONEDRIVE_WEEKLY / "index.html")
         return
 
     if args.network:
         sync_to_network(force=args.force)
         print(f"\nsynced to network: {NETWORK_WEEKLY}")
+        if args.open:
+            open_in_firefox(NETWORK_WEEKLY / "index.html")
         return
 
     # determine output directory
@@ -1588,6 +1635,8 @@ destinations:
         if results:
             build_index(output_dir)
             print(f"\nexported {len(results)} weeks to: {output_dir}")
+            if args.open:
+                open_in_firefox(output_dir / "index.html")
     else:
         week_id = args.week or get_current_week_id()
         try:
@@ -1600,6 +1649,8 @@ destinations:
         result = export_week(week_id, output_dir, all_weeks=weeks, force=args.force)
         if result:
             print(f"\nexported to: {result}")
+            if args.open:
+                open_in_firefox(result)
         else:
             print(f"no content found for {week_id}")
             sys.exit(1)
