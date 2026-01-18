@@ -1,98 +1,92 @@
 ---
-tags:
-  - "#pipelines"
-  - image-processing
-  - calcium-imaging
-updated_date: <% tp.date.now("YYYY-MM-DD") %>
+title: MaskNMF
+tags: [calcium-imaging, masknmf, denoising]
 ---
-# maskNMF
-Current issue:
-- Neuronal Jitter when viewing the *mean-subtracted* timeseries
-	- 
-- Registration with Suite2p did not help
-- pmd: Penalized Matrix Decomposition
-	- Essentially run SVD in blocks, where each block has only the local background to deal with
 
-## MaskNMF Overview
+# MaskNMF
 
-**MaskNMF** is an end-to-end system for functional imaging data analysis, offering enhanced performance and interpretability over traditional pipelines such as Suite2p, CaImAn, and EXTRACT.
+end-to-end system for functional imaging data analysis
+
+---
+
+## Overview
+
+enhanced performance and interpretability over Suite2p, CaImAn, EXTRACT
 
 ### Key Features
 
-1. **Motion Correction**
-   - Rigid and piecewise nonrigid correction
-   - Includes subpixel scan-phase correction (to be implemented)
-
-2. **Denoising + Compression**
-   - Boosts SNR and reveals dim signals otherwise undetectable
-   - Essential step that mainstream pipelines lack
-
-3. **Demixing**
-   - Separates true neural signal from background contamination and noise
-   - Enhanced by high-quality preprocessing
-
-4. **Visualization**
-   - GPU-accelerated (via **fastplotlib**)
-   - Enables visualization of all intermediates (e.g. mean-subtracted frames)
-   - Data never leaves the GPU; CPU mode available if CUDA is not present
-
-5. **Speed**
-   - Fast processing with optional GPU acceleration
+1. **Motion Correction** - rigid and piecewise nonrigid, subpixel scan-phase correction (planned)
+2. **Denoising + Compression** - boosts SNR, reveals dim signals otherwise undetectable
+3. **Demixing** - separates true neural signal from background contamination
+4. **Visualization** - GPU-accelerated via fastplotlib, all intermediates viewable
+5. **Speed** - fast processing with optional GPU acceleration
 
 ---
 
 ## Comparison to Existing Tools
 
-| Feature                  | MaskNMF | Suite2p | CaImAn | EXTRACT |
-|--------------------------|---------|---------|--------|---------|
-| Subpixel motion correction | ✔ (planned) | ✘       | ✘      | ✘       |
-| Denoising before demixing | ✔       | ✘       | ✘      | ✘       |
-| Interactive intermediate visualizations | ✔ | ✘       | ✘      | ✘       |
-| GPU-native processing     | ✔       | Partial | ✘      | ✘       |
+| Feature | MaskNMF | Suite2p | CaImAn | EXTRACT |
+|---------|---------|---------|--------|---------|
+| subpixel motion correction | planned | no | no | no |
+| denoising before demixing | yes | no | no | no |
+| interactive intermediate viz | yes | no | no | no |
+| GPU-native processing | yes | partial | no | no |
 
 ---
 
-## Current Status for LBM Datasets
+## Current Status for LBM
 
-- **~80% complete** toward a user-friendly pipeline
-- Inputs: `Txy` time series (compatible with `mbo_utilities`)
-- Easy visualization of intermediate stages using `fastplotlib`
-- Excellent demixing results when motion is stable
+~80% complete toward user-friendly pipeline
+
+- inputs: `Txy` timeseries (compatible with mbo_utilities)
+- easy visualization of intermediates using fastplotlib
+- excellent demixing results when motion is stable
 
 ### Missing Features
-- Manual curation UI (accept/reject cells)
-- Signal quality thresholds (e.g., adjustable SNR slider)
-- Documentation
+
+- manual curation UI (accept/reject cells)
+- signal quality thresholds (e.g., adjustable SNR slider)
+- documentation
 
 ---
 
-## LBM Use Cases and Benefits
+## LBM Use Cases
 
-- Evaluate **minimum imaging resolution** at which demixing remains feasible
-- Automatically detect and visualize data problems:
-  - Scan-phase artifacts
-  - Residual motion
-- Inform **data acquisition strategies**
-- Long-term goal: package MaskNMF as a **real-time microscope module**
+- evaluate minimum imaging resolution where demixing remains feasible
+- automatically detect and visualize data problems:
+  - scan-phase artifacts
+  - residual motion
+- inform data acquisition strategies
+- long-term goal: package as real-time microscope module
 
 ---
 
-## Data Quality Observations
+## Data Quality Notes
 
-### Demixing Video 1
-- Shows successful demixing under stable motion
+### PMD (Penalized Matrix Decomposition)
 
-### Demixing Video 2
-- Highlights artifacts such as:
-  - Line artifacts
-  - Scan-phase-induced "wobble" in active cells
-- These are only visible after **PMD + mean subtraction**, not in raw data
-- Consequences:
-  - ROI-based signal extraction will be contaminated
-  - Undetected by users in traditional pipelines
-  
-## Notes
+- essentially run SVD in blocks, where each block has only local background to deal with
+- after PMD + mean subtraction, artifacts become visible that are hidden in raw data:
+  - line artifacts
+  - scan-phase-induced "wobble" in active cells
+- consequences: ROI-based signal extraction will be contaminated, undetected in traditional pipelines
 
-- Fastplotlib is core to visual transparency: helps users identify problems early
-- Emphasis on modular design: each step can be debugged and tuned independently
-- Goal is not just automation, but **interpretable analysis**
+### Current Issue
+
+neuronal jitter visible in mean-subtracted timeseries - registration with suite2p didn't help
+
+---
+
+## Philosophy
+
+- fastplotlib is core to visual transparency: helps users identify problems early
+- emphasis on modular design: each step can be debugged and tuned independently
+- goal is not just automation, but interpretable analysis
+
+---
+
+## Links
+
+- [[calcium-imaging]] - main index
+- [[suite2p]] - alternative pipeline
+- [[caiman]] - alternative pipeline

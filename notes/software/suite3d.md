@@ -1,30 +1,69 @@
-# # Suite3D: Volumetric cell detection for two-photon microscopy
+---
+title: Suite3D
+tags: [calcium-imaging, suite3d, volumetric]
+---
 
-https://www.biorxiv.org/content/10.1101/2025.03.26.645628v1
+# Suite3D
 
-## Registration
+[paper](https://www.biorxiv.org/content/10.1101/2025.03.26.645628v1) | [github](https://github.com/alihaydaroglu/suite3d) | Carandini Lab, UCL
 
-- Takes the same FFT-based registration algorithm from Suite2p -> Extends to 3D
-- Collects a volumetric reference image, rather than plane-by-plane
-- For inter-plane shifts, uses subset ~200-400 frames
-- Extend spatially tapered masks to 3D as well
+volumetric cell detection for two-photon microscopy
 
-***Volumetric registration leads to:***
+---
+
+## Overview
+
+extends suite2p to 3D - same FFT-based registration algorithm
+
+### Key Differences from Suite2p
+
+- collects volumetric reference image, not plane-by-plane
+- for inter-plane shifts, uses subset ~200-400 frames
+- extends spatially tapered masks to 3D
+
+### Benefits of Volumetric Registration
+
 1. reduced noise
 2. improved estimates of brain motion
 
 ![[Pasted image 20250918100132.png]]
 
-Volumetric Cell Detection
-![[Pasted image 20250918100732.png]]
+---
 
 ## Core Processing Steps
-1. 3D Motion Correction
-	1. lateral and axial brain movements (XYZ)
-2. 3D Cell Detection
-	1. spatial/temporal filtering
-	2. normalization
-	3. thresholding
-3. 3D Segmentation
-	1. Voxels assigned to distinct ROI's
 
+### 1. 3D Motion Correction
+- lateral and axial brain movements (XYZ)
+
+### 2. 3D Cell Detection
+- spatial/temporal filtering
+- normalization
+- thresholding
+
+![[Pasted image 20250918100732.png]]
+
+### 3. 3D Segmentation
+- voxels assigned to distinct ROIs
+
+---
+
+## Crosstalk Removal
+
+suite3d has built-in crosstalk removal:
+
+- scan values of `m ∈ [0.01, 1.0]`
+- compute negative log-likelihood per value
+- choose `m` minimizing NLL
+
+---
+
+## Status
+
+preliminary exploration - tuning in progress
+
+---
+
+## Links
+
+- [[calcium-imaging]] - main index
+- [[suite2p]] - 2D predecessor

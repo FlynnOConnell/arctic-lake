@@ -249,3 +249,10 @@ Start with cpsam (Cellpose-SAM)
 2. Pachitariu, M., & Stringer, C. (2022). Cellpose 2.0: how to train your own model. *Nature Methods*, 19(12), 1634-1641.
 3. Stringer, C., & Pachitariu, M. (2025). Cellpose3: one-click image restoration for improved cellular segmentation. *Nature Methods*.
 4. Pachitariu, M., Rariden, M., & Stringer, C. (2025). Cellpose-SAM: superhuman generalization for cellular segmentation. *bioRxiv*.
+
+---
+
+## Links
+
+- [[calcium-imaging]] - main index for calcium imaging pipelines
+- [[suite2p]] - from the same lab

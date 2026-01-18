@@ -98,8 +98,6 @@ Laser Warmup Time: ~3 hours
 * Get stage, place at 3mm working distance
 * Get green fluoresence slide
 
-![300](literature/lemon_keller_2015/images/IMG_2999.jpg)
-
 * adjust the dichroic (right, move to the right)
 * Turn PMT On, PMT Green On
   * PMT Gain Knob: 0.8 sweet spot, 0.9 maximum
@@ -128,14 +126,8 @@ Laser Warmup Time: ~3 hours
    1. 12%pockle cell
    1. frame rolling avg factor (attempt 10, not sure where we started)
 
-![300](literature/lemon_keller_2015/images/IMG_3001.jpg)
-![300](literature/lemon_keller_2015/images/IMG_3003.jpg)
-![300](literature/lemon_keller_2015/images/IMG_3004.jpg)
-![300](literature/lemon_keller_2015/images/IMG_3005.jpg)
-
 ## Cleanup
 
 * From top to bottom: off
 * For top box, first turn off red/green PMT channel, then back of box, then middle box, then bottom box
-  ![300](literature/lemon_keller_2015/images/IMG_2998.jpg)
 * Put power meter back in front of laser
