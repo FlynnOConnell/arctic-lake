@@ -7,13 +7,13 @@ tags: [calcium-imaging, suite2p]
 
 [github](https://github.com/MouseLand/suite2p) | [docs](https://suite2p.readthedocs.io)
 
-actively developed by Stringer Lab at Janelia
+actively developed by stringer lab at janelia
 
 ---
 
-## Key Parameters
+## key parameters
 
-| Parameter | Description | Notes |
+| parameter | description | notes |
 |-----------|-------------|-------|
 | `tau` | decay time constant | fixed, not scaled with frame-rate |
 | `block_size` | registration block size | tweak if black background affects registration |
@@ -21,7 +21,7 @@ actively developed by Stringer Lab at Janelia
 | `max_overlap` | overlapping ROIs | |
 | `threshold_scaling` | detection threshold | lower for dim signals |
 
-### Recommended `tau` Values
+### recommended `tau` values
 - GCaMP6f: 0.7
 - GCaMP6m: 1.0
 - GCaMP6s: 1.25-1.5
@@ -29,9 +29,9 @@ actively developed by Stringer Lab at Janelia
 
 ---
 
-## Helpful GitHub Issues
+## helpful github issues
 
-| Issue | Topic |
+| issue | topic |
 |-------|-------|
 | [#921](https://github.com/MouseLand/suite2p/issues/921) | black background affects registration; tweak `block_size`/`spatial_taper` |
 | [#880](https://github.com/MouseLand/suite2p/issues/880) | running on cluster |
@@ -60,7 +60,7 @@ actively developed by Stringer Lab at Janelia
 
 ---
 
-## Links
+## links
 
 - [[calcium-imaging]] - main index
 - [[caiman]] - alternative pipeline

@@ -7,20 +7,20 @@ tags: [calcium-imaging, caiman, cnmf]
 
 [github](https://github.com/flatironinstitute/CaImAn) | [docs](https://caiman.readthedocs.io)
 
-## Pipeline Steps
+## pipeline steps
 
 1. spatial downsampling
 2. frequency filter / FFT
-3. NormCorre motion correction
-4. CNMFe
+3. normcorre motion correction
+4. cnmfe
 5. extract dF/F
 6. event detection (if necessary)
 
 ---
 
-## NormCorre: MATLAB vs Python
+## normcorre: matlab vs python
 
-| Feature | MATLAB | Python |
+| feature | matlab | python |
 |---------|--------|--------|
 | online template updating | yes | no |
 | available shifts | FFT, cubic linear | FFT, cubic |
@@ -36,9 +36,9 @@ tags: [calcium-imaging, caiman, cnmf]
 
 ---
 
-## Key Parameters
+## key parameters
 
-### Motion Correction
+### motion correction
 ```python
 max_shifts = (6, 6)      # maximum shift in pixels
 strides = (48, 48)       # patch size for pw-rigid
@@ -48,7 +48,7 @@ gSig_filt = (2, 2)       # gaussian filter for template
 border_nan = "copy"      # how to handle borders
 ```
 
-### CNMF
+### cnmf
 ```python
 K = 50                   # expected number of neurons
 gSig = (4, 4)            # expected neuron half-width in pixels
@@ -62,7 +62,7 @@ method_init = "greedy_roi"
 
 ---
 
-## Quantitative Registration
+## quantitative registration
 
 smoothness metric:
 ```python
@@ -73,9 +73,9 @@ sum of squared gradients measures pixel-to-pixel variation
 
 ---
 
-## LBM-CaImAn-Python
+## lbm-caiman-python
 
-our wrapper for LBM data processing
+our wrapper for lbm data processing
 
 ```python
 import lbm_caiman_python as lcp
@@ -100,7 +100,7 @@ for ops_path in results:
 
 ---
 
-## Links
+## links
 
 - [[calcium-imaging]] - main index
 - [[suite2p]] - alternative pipeline

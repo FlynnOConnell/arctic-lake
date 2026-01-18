@@ -3,19 +3,19 @@ title: File Formats
 tags: [file-formats, ome-zarr, bigdataviewer]
 ---
 
-# File Formats
+# file formats
 
 notes on imaging file formats for large-scale microscopy data
 
 ---
 
-## OME-Zarr
+## ome-zarr
 
-OME-Zarr reading support for BigDataViewer and BigStitcher
+ome-zarr reading support for bigdataviewer and bigstitcher
 
 requires `bdv.multimg.zarr` format reference in `dataset.xml`
 
-### Limitations
+### limitations
 
 - only OME-NGFF v0.4 supported
 - only full 5D OME-Zarr (t, ch, z, y, x axes) supported
@@ -30,7 +30,7 @@ requires `bdv.multimg.zarr` format reference in `dataset.xml`
 
 ---
 
-## BigDataViewer XML
+## bigdataviewer xml
 
 standard format for multi-view, multi-timepoint datasets
 
@@ -55,9 +55,9 @@ standard format for multi-view, multi-timepoint datasets
 
 ---
 
-## KLB Format
+## klb format
 
-used by IsoView pipeline - lossless compression optimized for microscopy
+used by isoview pipeline - lossless compression optimized for microscopy
 
 header info:
 ```matlab
@@ -71,9 +71,9 @@ headerInformation = readKLBheader(fullFilePath);
 
 ---
 
-## Recommended Formats by Use Case
+## recommended formats by use case
 
-| Use Case | Format | Notes |
+| use case | format | notes |
 |----------|--------|-------|
 | archival storage | OME-Zarr | cloud-friendly, chunked |
 | BigDataViewer | HDF5 or Zarr | need dataset.xml |
@@ -83,18 +83,18 @@ headerInformation = readKLBheader(fullFilePath);
 
 ---
 
-## Resources
+## resources
 
-- [OME-NGFF spec](https://ngff.openmicroscopy.org/)
-- [BigDataViewer](https://imagej.net/plugins/bdv/)
-- [Janelia File Format Guidelines](https://datastandards.janelia.org/posts/file_formats_introduction.html)
-- [MATLAB Zarr Support](https://github.com/mathworks/MATLAB-support-for-Zarr-files)
+- [ome-ngff spec](https://ngff.openmicroscopy.org/)
+- [bigdataviewer](https://imagej.net/plugins/bdv/)
+- [janelia file format guidelines](https://datastandards.janelia.org/posts/file_formats_introduction.html)
+- [matlab zarr support](https://github.com/mathworks/MATLAB-support-for-Zarr-files)
 - [cpp-tiff](https://github.com/abcucberkeley/cpp-tiff)
 - [cpp-zarr](https://github.com/abcucberkeley/cpp-zarr)
 
 ---
 
-## Links
+## links
 
 - [[calcium-imaging]] - main index
-- [[isoview]] - uses KLB format
+- [[isoview]] - uses klb format
