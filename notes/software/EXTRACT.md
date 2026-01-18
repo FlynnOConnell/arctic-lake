@@ -10,153 +10,143 @@ created: 2025-09-17
 
 # EXTRACT
 
-## EXTRACT-public
+[github](https://github.com/schnitzer-lab/EXTRACT-public) | Schnitzer Lab, Stanford
 
-- Basic pre-processing (median filter, regression)
+robust regression-based cell extraction for calcium imaging
+
+---
+
+## Overview
+
+- basic preprocessing (median filter, regression)
 - mk301 plane 7: 300+ cells in 3 min
 - SNR plot helpful but no trace ↔ ROI linking
-- No pausing / labeling cells interactively
-- No 3D support or modular save utilities
-- No least-squares filtering for spatial components
-- Undocumented features like `plot_stacked_traces_double`
+- no pausing / labeling cells interactively
+- no 3D support or modular save utilities
+- undocumented features like `plot_stacked_traces_double`
 
-Robust regression: two cells, you just average activity inside these cells
+---
+
+## Why Robust Regression?
+
+**problem with naive averaging**: if two cells overlap, averaging activity inside cells causes the inactive cell to show activity from the active one
+
 ![[Pasted image 20250917165439.png]]
-- Here, the bottom cell is going to have activity even though it wasn't active during these times
-**Least-square regression fixes this:**
-![[Pasted image 20250917165736.png]]
-- No more sharp peak at time 600
-- Least squares is what all existing algorithms are based on (CaImAn,  Suite2p)
 
-**Robust regression fixes this issue:**
+**least-squares regression** fixes this - what CaImAn and Suite2p use
+
+![[Pasted image 20250917165736.png]]
+
+**robust regression** goes further - handles outliers better
+
 ![[Pasted image 20250917165904.png]]
 
-**Results are superior to CNMF:**
+results superior to CNMF in their benchmarks:
+
 ![[Pasted image 20250917170033.png]]
 
-## ACTSORT
-Active learning, pick a cell, computer says next time you want to sort this cell, you pull out false positives (relatively low).
+---
+
+## ActSort
+
+companion tool for active learning-based cell sorting
+
 ![[Pasted image 20250917170303.png]]
-- Achieves this by sorting 1 percent of the dataset
-- Generalizes to the rest of the dataset
+
+- pick a cell, computer suggests which cells to review next
+- achieves good results by sorting ~1% of the dataset
+- generalizes to rest of dataset
+
+---
+
 ## Pipeline Demo
 
-This demo shows how to use the MBO Utilities pipeline to run EXTRACT on multi-plane imaging data.
+### Installation
 
-It assumes your data is stored in HDF5 format, with each z-plane saved separately.
+1. install [mbo_utilities](https://millerbrainobservatory.github.io/mbo_utilities/install.html)
+2. install [EXTRACT-public](https://github.com/MillerBrainObservatory/EXTRACT-public?tab=readme-ov-file#installation)
 
-## Installation
+### Data Preparation
 
-1. Install `mbo_utilities` by following the guide [here](https://millerbrainobservatory.github.io/mbo_utilities/install.html).
-2. Install EXTRACT-public via their [installation instructions](https://github.com/MillerBrainObservatory/EXTRACT-public?tab=readme-ov-file#installation).
-## Data Extraction
+EXTRACT takes planar timeseries in `.h5` format as input
 
-Organize your dataset so that each z-plane is saved as a separate `HDF5` file in the same folder.
-
-Example:
+organize data so each z-plane is saved separately:
 ```
 D:/tests/data/EXTRACT/
 ├── plane1.h5
 ├── plane2.h5
 ├── ...
 ```
-## Running the Pipeline
 
-### Prepare data
-
-EXTRACT takes planar timeseries in `.h5` format as input.
-
-The easiest way to get raw scanimage `.tif` into this format is using [mbo_utilities](https://millerbrainobservatory.github.io/mbo_utilities/install.html).
-
-This requires python, though its a simple installation and is well documented (see the [user-guide](https://millerbrainobservatory.github.io/mbo_utilities/assembly.html) on converting tiffs using these python utilities))
-
-``` python
-# Option 1: Stitch the roi's before saving
+using mbo_utilities to convert from tiffs:
+```python
 import mbo_utilities as mbo
 
 volume = mbo.imread(r"path/to/raw_tiffs")
-volume.shape
-Out[4]: (5632, 14, 448, 448)
+# volume.shape = (5632, 14, 448, 448)
 
+# option 1: stitch ROIs before saving
 mbo.imwrite(volume, "D://extract_demo//stitched_rois", planes=[4, 7, 11, 14], ext="h5")
-# Option 1: Save individual rois (will save every plane in an roiN folder)
 
+# option 2: save individual ROIs
 volume.roi = 2
-volume.shape
-Out[7]: (5632, 14, 448, 224)
-
 mbo.imwrite(volume, "D://extract_demo", planes=[4, 7, 11, 14], ext="h5")
 ```
 
-### Run Extract
-
-Open `runEXTRACT.m` and set the path to your data folder:
+### Run EXTRACT
 
 ```matlab
-% Use double backslashes (`\\`) on Windows.
+% set path to data folder
 data_path = "D://extract_demo//";
 runEXTRACT(data_path);
 ```
 
-This will run each `*plane*.h5`, as long as `output` is not in it's filename (as is the case with outputs).
+runs each `*plane*.h5` (skips files with `output` in filename)
 
-Note that each time you run the funtion, it will overwrite data saved in the `root` directory.
+note: overwrites data in root directory each run
 
-```markdown
-## ``runEXTRACT.m``
-
-Runs EXTRACT on all ``plane\\*.h5`` files under a specified directory. Optionally generates PNG visualizations of extracted cell masks.
+### `runEXTRACT.m` API
 
 ```matlab
 runEXTRACT(rootDir)
 runEXTRACT(rootDir, savePlots, cfg)
 ```
 
-| Argument      | Type     | Description                                                                |
-| ------------- | -------- | -------------------------------------------------------------------------- |
-| ``rootDir``   | string   | Root directory containing ``plane\\*.h5`` files.                           |
-| ``savePlots`` | logical  | *(Optional)* If ``true``, saves PNG cell mask images (default: ``true``).  |
-| ``cfg``       | struct   | *(Optional)* Partial EXTRACT config struct. Only valid fields are applied. |
+| Argument | Type | Description |
+|----------|------|-------------|
+| `rootDir` | string | root directory containing `plane*.h5` files |
+| `savePlots` | logical | save PNG cell mask images (default: true) |
+| `cfg` | struct | partial EXTRACT config, only valid fields applied |
 
-Each ``plane\\*.h5`` file must contain a dataset at path ``/mov`` shaped ``(Y, X, T)``.
+each `plane*.h5` must contain dataset at path `//mov` shaped `(Y, X, T)`
 
----
 ### Key Config Values
 
-- ``thresholds.T_min_snr``: Increase to suppress noise (e.g., ``3.5`` → ``5.0``)  
-- ``cellfind_min_snr``: Lowering this will pick up more low-SNR cells  
-- ``use_gpu``: Set to ``0`` to disable GPU use  
-- ``adaptive_kappa``: Enables dynamic thresholding in spatial extraction
+| Parameter | Description |
+|-----------|-------------|
+| `thresholds.T_min_snr` | increase to suppress noise (e.g., 3.5 → 5.0) |
+| `cellfind_min_snr` | lower to pick up more low-SNR cells |
+| `use_gpu` | set to 0 to disable GPU |
+| `adaptive_kappa` | enables dynamic thresholding in spatial extraction |
 
 ### Outputs
 
-For each ``plane\\*.h5`` file:  
-- HDF5 output saved to:
-  ``outputs/planeN_outputs.h5``  
-- If ``savePlots == true``:  
-  ``outputs/planeN_masks.png``  
+for each `plane*.h5`:
+- `outputs/planeN_outputs.h5` - extracted data
+- `outputs/planeN_masks.png` - cell masks (if savePlots=true)
 
-All outputs are stored in an ``outputs/`` subdirectory next to the input file.
+note: output plot during cellfinding uses red-to-gray colormap (bright values are red)
 
-Note: The output plot shown during cellfinding (when the algorithm is running) has a ``red to gray`` colormap, so bright values are red instead of white.
-
----
-  
-**Run with defaults:**
+### Examples
 
 ```matlab
+% defaults
 runEXTRACT('/data/session1')
-```
 
-**Run with plotting disabled:**
-
-```matlab
+% no plotting
 runEXTRACT('/data/session1', false)
-```
 
-**Run with custom config:**
-
-```matlab
+% custom config
 cfg = struct();
 cfg.cellfind_min_snr = 1.5;
 cfg.thresholds = struct();
@@ -164,3 +154,19 @@ cfg.thresholds.T_min_snr = 4.0;
 cfg.use_gpu = 0;
 runEXTRACT('/data/session1', true, cfg)
 ```
+
+---
+
+## Limitations
+
+- no least-squares filtering for spatial components
+- no 3D support
+- no modular save utilities
+
+---
+
+## Links
+
+- [[calcium-imaging]] - main index
+- [[caiman]] - alternative with CNMF
+- [[suite2p]] - alternative pipeline

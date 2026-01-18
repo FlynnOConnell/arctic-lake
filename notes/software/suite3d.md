@@ -9,39 +9,36 @@ category: software
 created: 2025-09-18
 ---
 
-# Suite3D: Volumetric cell detection for two-photon microscopy
+# Suite3D
 
-https://www.biorxiv.org/content/10.1101/2025.03.26.645628v1
+[paper](https://www.biorxiv.org/content/10.1101/2025.03.26.645628v1) | [github](https://github.com/alihaydaroglu/suite3d) | Carandini Lab, UCL
 
-## Registration
+volumetric cell detection for two-photon microscopy
 
-- Takes the same FFT-based registration algorithm from Suite2p -> Extends to 3D
-- Collects a volumetric reference image, rather than plane-by-plane
-- For inter-plane shifts, uses subset ~200-400 frames
-- Extend spatially tapered masks to 3D as well
+---
 
-***Volumetric registration leads to:***
+## Overview
+
+extends Suite2p to 3D - same FFT-based registration algorithm
+
+### Key Differences from Suite2p
+
+- collects volumetric reference image, not plane-by-plane
+- for inter-plane shifts, uses subset ~200-400 frames
+- extends spatially tapered masks to 3D
+
+### Benefits of Volumetric Registration
+
 1. reduced noise
 2. improved estimates of brain motion
 
 ![[Pasted image 20250918100132.png]]
 
-Volumetric Cell Detection
-![[Pasted image 20250918100732.png]]
-
-## Core Processing Steps
-1. 3D Motion Correction
-	1. lateral and axial brain movements (XYZ)
-2. 3D Cell Detection
-	1. spatial/temporal filtering
-	2. normalization
-	3. thresholding
-3. 3D Segmentation
-	1. Voxels assigned to distinct ROI's
+---
 
 ## Crosstalk Removal
 
-Suite3d removal strategy:
+Suite3D removal strategy:
 - Scan values of `m in [0.01, 1.0]`
 - Compute negative log-likelihood per value
 - Choose `m` minimizing NLL
@@ -59,4 +56,3 @@ Sources:
 - [EvidentScientific](https://evidentscientific.com/en/microscope-resource/knowledge-hub/techniques/confocal/bleedthrough)
 
 Check for chromatic aberration?
-

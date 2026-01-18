@@ -13,7 +13,7 @@ created: 2025-09-18
 
 Calcium Imaging Analysis - motion correction and source extraction for calcium imaging data.
 
-[github](https://github.com/flatironinstitute/CaImAn)
+[github](https://github.com/flatironinstitute/CaImAn) | [docs](https://caiman.readthedocs.io)
 
 ## Pipeline Overview
 
@@ -30,12 +30,12 @@ Calcium Imaging Analysis - motion correction and source extraction for calcium i
 |------------------|--------|--------|
 | online template updating | Yes | No |
 | available shifts | FFT, cubic linear | FFT, cubic |
-| handles 3d data | Yes | No |
+| handles 3D data | Yes | No |
 | optical flow calculation | No | Yes |
 | FFT windowing | Yes | No |
 | parallelization method | for each mini batch process different frames in parallel | process different mini batches in parallel |
 | variable for grid size | `grid_size` | `strides` |
-| overlap included in grid size | No | yes |
+| overlap included in grid size | No | Yes |
 | total size of each patch | `grid_size + 2*overlap` | `strides + overlap` |
 | option for phase correlation | Yes | No |
 | offset correction due to bidirectional scanning | Yes | No |
