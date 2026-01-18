@@ -1,0 +1,37 @@
+# export configuration for additional content
+# auto-discovers markdown files and pre-rendered HTML
+
+[settings]
+# main weekly reports folder (what boss sees)
+output_dir = "C:/Users/RBO/OneDrive - The Rockefeller University/MBO_DATA/weekly_meeting"
+network_dir = "Y:/foconnell/weekly_meeting"
+
+# compute subfolder: weekly_meeting/compute/
+
+# directories to scan for markdown files (will be converted to HTML)
+[[directories]]
+source = "Y:/foconnell/notebook/notes/sop"
+output_subdir = "sop"
+category = "SOPs"
+pattern = "*.md"
+
+# directories with pre-rendered HTML (will be linked/copied as-is)
+[[html_directories]]
+source = "Y:/foconnell/notebook/processing"
+output_subdir = "processing"
+category = "Processing Notebooks"
+pattern = "*.html"
+
+# media directories (videos, images - linked directly)
+[[media_directories]]
+source = "Y:/foconnell/media/development"
+output_subdir = "media/development"
+category = "Development"
+pattern = "*.mp4"
+
+# individual pages (optional, for one-offs)
+# [[pages]]
+# source = "notes/projects/overview.md"
+# output = "projects/overview.html"
+# title = "Project Overview"
+# category = "Projects"

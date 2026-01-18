@@ -91,6 +91,9 @@ _try_import_weasyprint()
 # Image extensions to handle
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.bmp'}
 
+# Video extensions to handle
+VIDEO_EXTENSIONS = {'.mp4', '.webm', '.mov', '.avi'}
+
 
 def parse_frontmatter(content: str) -> tuple[dict, str]:
     """
@@ -207,6 +210,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         img {{
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1em auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }}
+
+        video {{
             max-width: 100%;
             height: auto;
             display: block;
@@ -375,21 +387,26 @@ def image_to_base64(image_path: Path) -> str | None:
 
 def find_image(image_name: str, md_file: Path, images_dir: Path) -> Path | None:
     """
-    Find an image file given its name.
+    Find an image file given its name or relative path.
 
     Search order:
-    1. Relative to the markdown file
-    2. In the images directory (notes/images/)
-    3. In subdirectories of images/
+    1. Relative path from markdown file's parent directory
+    2. Relative path from parent's parent (for notes/sop -> notes/literature)
+    3. Just filename in same directory as markdown file
+    4. In local images/ subfolder
+    5. In global images directory
+    6. Recursively in images directory
     """
-    # Clean up the image name (remove any path components for Obsidian-style links)
-    image_name = Path(image_name).name
+    image_path = Path(image_name)
+    just_name = image_path.name
 
     # Search locations
     search_paths = [
-        md_file.parent / image_name,                    # Same directory as .md
-        md_file.parent / "images" / image_name,         # Local images/ subfolder
-        images_dir / image_name,                        # Global images directory
+        md_file.parent / image_name,                    # Relative path from .md dir
+        md_file.parent.parent / image_name,             # Relative from parent's parent
+        md_file.parent / just_name,                     # Same directory as .md
+        md_file.parent / "images" / just_name,          # Local images/ subfolder
+        images_dir / just_name,                         # Global images directory
     ]
 
     for path in search_paths:
@@ -398,7 +415,7 @@ def find_image(image_name: str, md_file: Path, images_dir: Path) -> Path | None:
 
     # Search recursively in images directory
     if images_dir.exists():
-        for found in images_dir.rglob(image_name):
+        for found in images_dir.rglob(just_name):
             return found
 
     return None
@@ -469,6 +486,91 @@ def convert_standard_images(content: str, md_file: Path, images_dir: Path) -> st
         return f'<div class="missing-image">Missing image: {image_ref}</div>'
 
     return re.sub(std_pattern, replace_std_image, content)
+
+
+def find_video(video_name: str, md_file: Path, media_dirs: list[Path] | None = None) -> Path | None:
+    """Find a video file given its name or path."""
+    video_path = Path(video_name)
+    just_name = video_path.name
+
+    search_paths = [
+        md_file.parent / video_name,
+        md_file.parent / just_name,
+        md_file.parent / "media" / just_name,
+        Path("Y:/foconnell/media") / just_name,
+        Path("Y:/foconnell/media/development") / just_name,
+    ]
+
+    if media_dirs:
+        for d in media_dirs:
+            search_paths.append(d / just_name)
+
+    for path in search_paths:
+        if path.exists():
+            return path
+
+    return None
+
+
+def convert_obsidian_videos(content: str, md_file: Path, output_dir: Path) -> str:
+    """Convert Obsidian-style video embeds to HTML video tags."""
+    import shutil
+    obsidian_pattern = r'!\[\[([^\]|]+)(?:\|([^\]]*))?\]\]'
+
+    def replace_video(match):
+        video_name = match.group(1).strip()
+
+        if not any(video_name.lower().endswith(ext) for ext in VIDEO_EXTENSIONS):
+            return match.group(0)
+
+        video_path = find_video(video_name, md_file)
+
+        if video_path and video_path.exists():
+            # copy video to output directory
+            media_dir = output_dir / "media"
+            media_dir.mkdir(parents=True, exist_ok=True)
+            dest = media_dir / video_path.name
+            if not dest.exists():
+                shutil.copy2(video_path, dest)
+            print(f"  Copied video: {video_path.name}")
+            return f'<video src="media/{video_path.name}" controls></video>'
+
+        print(f"  WARNING: Video not found: {video_name}")
+        return f'<div class="missing-image">Missing video: {video_name}</div>'
+
+    return re.sub(obsidian_pattern, replace_video, content)
+
+
+def convert_standard_videos(content: str, md_file: Path, output_dir: Path) -> str:
+    """Convert standard markdown video links to HTML video tags."""
+    import shutil
+    std_pattern = r'!\[([^\]]*)\]\((?!data:)([^)]+)\)'
+
+    def replace_video(match):
+        alt_text = match.group(1)
+        video_ref = match.group(2).strip()
+
+        if not any(video_ref.lower().endswith(ext) for ext in VIDEO_EXTENSIONS):
+            return match.group(0)
+
+        if video_ref.startswith(('http://', 'https://', '//')):
+            return f'<video src="{video_ref}" controls></video>'
+
+        video_path = find_video(video_ref, md_file)
+
+        if video_path and video_path.exists():
+            media_dir = output_dir / "media"
+            media_dir.mkdir(parents=True, exist_ok=True)
+            dest = media_dir / video_path.name
+            if not dest.exists():
+                shutil.copy2(video_path, dest)
+            print(f"  Copied video: {video_path.name}")
+            return f'<video src="media/{video_path.name}" controls></video>'
+
+        print(f"  WARNING: Video not found: {video_ref}")
+        return f'<div class="missing-image">Missing video: {video_ref}</div>'
+
+    return re.sub(std_pattern, replace_video, content)
 
 
 def strip_frontmatter(content: str) -> str:

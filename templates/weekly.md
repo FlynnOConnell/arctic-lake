@@ -1,17 +1,19 @@
 ---
 tags: [weekly, meeting, log]
 template: Weekly Meetings
-date: {{date}}
+date: <% tp.date.now("YYYY-MM-DD") %>
 ---
 
-# Weekly Meeting – {{week_range}}
+# Weekly Meeting – <% tp.date.now("MMMM DD") %> - <% tp.date.now("MMMM DD, YYYY", 6) %>
 
-## Previous TO DO
+## (previous) TO-DO
+*from [[<% tp.date.now("YYYY-[W]WW", -7) %>]]*
 - [ ]
 
-## Updates
+## Weekly Overview
 
-### Main Projects
+
+## Main Projects
 
 #### mbo_utilities
 -
@@ -22,13 +24,13 @@ date: {{date}}
 #### IsoView
 -
 
-### Offshoot Projects
+## Offshoot Projects
 -
 
-### Collaborations
+## Collaborations
 -
 
-### Compute/Storage Server Usage
+## Compute/Storage Server Usage
 -
 
 ## Data: `MBO_DATA`
@@ -40,5 +42,6 @@ date: {{date}}
 ## Misc
 -
 
-## TO DO
+## (Next) TO-DO
+*for [[<% tp.date.now("YYYY-[W]WW", 7) %>]]*
 - [ ]
