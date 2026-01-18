@@ -1,3 +1,13 @@
+---
+tags:
+  - isoview
+  - light-sheet
+  - python
+  - image-processing
+category: software
+created: 2025-07-23
+---
+
 # Isoview Processing Notes
 
 ## Pipeline overview

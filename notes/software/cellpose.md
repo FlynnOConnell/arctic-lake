@@ -1,4 +1,12 @@
-tag:: cellpose
+---
+tags:
+  - cellpose
+  - segmentation
+  - deep-learning
+  - calcium-imaging
+category: software
+created: 2025-07-11
+---
 
 # Cellpose
 

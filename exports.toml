@@ -15,6 +15,12 @@ output_subdir = "sop"
 category = "SOPs"
 pattern = "*.md"
 
+[[directories]]
+source = "C:/Users/RBO/repos/docs/notes/software"
+output_subdir = "software"
+category = "Software Docs"
+pattern = "*.md"
+
 # directories with pre-rendered HTML (will be linked/copied as-is)
 [[html_directories]]
 source = "Y:/foconnell/notebook/processing"

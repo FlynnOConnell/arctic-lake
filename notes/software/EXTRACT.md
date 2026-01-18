@@ -1,3 +1,15 @@
+---
+tags:
+  - extract
+  - calcium-imaging
+  - segmentation
+  - matlab
+category: software
+created: 2025-09-17
+---
+
+# EXTRACT
+
 ## EXTRACT-public
 
 - Basic pre-processing (median filter, regression)

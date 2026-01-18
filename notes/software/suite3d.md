@@ -1,4 +1,15 @@
-# # Suite3D: Volumetric cell detection for two-photon microscopy
+---
+tags:
+  - suite3d
+  - suite2p
+  - calcium-imaging
+  - segmentation
+  - two-photon
+category: software
+created: 2025-09-18
+---
+
+# Suite3D: Volumetric cell detection for two-photon microscopy
 
 https://www.biorxiv.org/content/10.1101/2025.03.26.645628v1
 
@@ -27,4 +38,25 @@ Volumetric Cell Detection
 	3. thresholding
 3. 3D Segmentation
 	1. Voxels assigned to distinct ROI's
+
+## Crosstalk Removal
+
+Suite3d removal strategy:
+- Scan values of `m in [0.01, 1.0]`
+- Compute negative log-likelihood per value
+- Choose `m` minimizing NLL
+
+### Crosstalk types
+
+1. **Spectral**
+2. **Excitation** - multiple fluorophores excited
+3. **Emission** - overlapping output wavelengths
+
+![[Pasted image 20250917181651.png|500]]  ![[Pasted image 20250917181722.png|500]]
+
+Sources:
+- [Huygens](https://svi.nl/CrossTalk)
+- [EvidentScientific](https://evidentscientific.com/en/microscope-resource/knowledge-hub/techniques/confocal/bleedthrough)
+
+Check for chromatic aberration?
 

@@ -1,3 +1,13 @@
+---
+tags:
+  - isoview
+  - light-sheet
+  - registration
+  - lectures
+category: software
+created: 2025-07-23
+---
+
 # IsoView notes from talks, lectures, external resources
 
 Registration of Light Sheet Microscopy

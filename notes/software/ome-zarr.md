@@ -1,7 +1,14 @@
+---
+tags:
+  - ome-zarr
+  - big-data-viewer
+  - light-sheet
+  - data-format
+category: software
+created: 2025-07-01
+---
 
-## OME / Zarr
-
-#ome-zarr #light-sheet-microscopy #big-data-viewer
+# OME-Zarr (BigDataViewer)
 
 This package provides OME-Zarr reading support to bigdataviewer and BigStitcher. In addition to the OME-NGFF json metadata, a bigdataviewer `dataset.xml` dataset definition is required that refers to the image format `bdv.multimg.zarr`. Currently, two basic loader classes are provided: `XmlIoZarrImageLoader` and `ZarrImageLoader`.
 

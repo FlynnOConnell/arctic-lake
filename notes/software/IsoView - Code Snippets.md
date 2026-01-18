@@ -1,3 +1,13 @@
+---
+tags:
+  - isoview
+  - light-sheet
+  - matlab
+  - image-processing
+category: software
+created: 2025-07-23
+---
+
 # IsoView Processing: Repeated Code Snippets
 ## Offset and Rotation
 ```matlab
