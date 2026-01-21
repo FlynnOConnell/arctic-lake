@@ -1525,7 +1525,13 @@ def open_in_firefox(path: Path) -> None:
             print(f"  opened in Firefox: {path}")
             return
     # fallback to system default
-    os.startfile(path)
+    import sys
+    if sys.platform == "win32":
+        os.startfile(path)
+    elif sys.platform == "darwin":
+        subprocess.Popen(["open", str(path)])
+    else:
+        subprocess.Popen(["xdg-open", str(path)])
     print(f"  opened: {path}")
 
 
