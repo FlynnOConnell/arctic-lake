@@ -2,3 +2,9 @@ __pycache__/
 scripts/__marimo__/session
 tmpclaude-*
 nul
+docs/_build/
+docs/weekly/
+docs/daily/
+docs/software/
+docs/sop/
+docs/_static/images/

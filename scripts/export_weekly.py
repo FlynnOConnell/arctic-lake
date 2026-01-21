@@ -1687,11 +1687,16 @@ destinations:
 
     # determine output directory
     output_dir = args.output_dir or (LOCAL_EXPORT_DIR / "weekly")
+    compute_dir = output_dir / "compute"
 
     if args.all:
         results = export_all_weeks(output_dir, force=args.force)
         if results:
+            # export additional pages (software, sops, processing)
+            additional = export_additional_pages(compute_dir)
             build_index(output_dir)
+            if additional:
+                build_compute_index(compute_dir, additional)
             print(f"\nexported {len(results)} weeks to: {output_dir}")
             if args.open:
                 open_in_firefox(output_dir / "index.html")
@@ -1706,9 +1711,14 @@ destinations:
         weeks = discover_all_weeks()
         result = export_week(week_id, output_dir, all_weeks=weeks, force=args.force)
         if result:
+            # export additional pages (software, sops, processing)
+            additional = export_additional_pages(compute_dir)
+            build_index(output_dir)
+            if additional:
+                build_compute_index(compute_dir, additional)
             print(f"\nexported to: {result}")
             if args.open:
-                open_in_firefox(result)
+                open_in_firefox(output_dir / "index.html")
         else:
             print(f"no content found for {week_id}")
             sys.exit(1)

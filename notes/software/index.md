@@ -1,17 +1,6 @@
----
-tags:
-  - calcium-imaging
-  - pipelines
-  - overview
-category: software
-created: 2025-09-18
----
+# Software
 
-# Calcium Imaging Pipelines
-
-Overview of calcium imaging analysis packages and their capabilities.
-
-## Feature Comparison
+## Pipeline Feature Comparison
 
 | Pipeline | 2D / 3D Registration | 2D / 3D Segmentation | Notes |
 |----------|---------------------|---------------------|-------|
