@@ -87,12 +87,24 @@ def fix_wikilinks(content: str) -> str:
     return content
 
 
+def fix_title(content: str, filename: str) -> str:
+    """replace first H1 with filename-based title."""
+    # use filename as title (without extension)
+    title = filename.replace("-", " ").replace("_", " ")
+    # replace first # heading with filename title
+    content = re.sub(r'^#\s+.+$', f'# {title}', content, count=1, flags=re.MULTILINE)
+    return content
+
+
 def process_markdown(src: Path, dest: Path, dest_subdir: str = ""):
     """copy markdown file with fixes applied."""
     content = src.read_text(encoding='utf-8')
     content = fix_frontmatter(content)
     content = fix_image_paths(content, dest_subdir)
     content = fix_wikilinks(content)
+    # use filename as document title
+    if src.name != "index.md":
+        content = fix_title(content, src.stem)
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(content, encoding='utf-8')
 
