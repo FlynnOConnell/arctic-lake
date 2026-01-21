@@ -7,8 +7,23 @@ documentation for weekly meetings, software tools, and sops.
 ```{toctree}
 ---
 maxdepth: 1
+caption: Weekly
 ---
-Weekly Notes <weekly/index>
-Software <software/index>
-SOPs <sop/index>
+weekly/index
+```
+
+```{toctree}
+---
+maxdepth: 1
+caption: Software
+---
+software/index
+```
+
+```{toctree}
+---
+maxdepth: 1
+caption: SOPs
+---
+sop/index
 ```

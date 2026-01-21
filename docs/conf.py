@@ -47,13 +47,14 @@ html_css_files = ["custom.css"]
 html_copy_source = True
 
 html_theme_options = {
-    "show_toc_level": 1,
-    "show_nav_level": 1,
-    "navigation_depth": 1,
-    "collapse_navigation": True,
+    "show_toc_level": 2,
     "navbar_align": "content",
     "home_page_in_toc": True,
+    "toc_title": "On this page",
 }
+
+# limit toctree depth globally
+toctree_maxdepth = 1
 
 # force dark mode
 html_context = {
