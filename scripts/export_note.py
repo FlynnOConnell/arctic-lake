@@ -51,6 +51,8 @@ except ImportError:
     sys.exit(1)
 
 try:
+    import warnings
+    warnings.filterwarnings("ignore", message="IPython3 lexer unavailable")
     from nbconvert import HTMLExporter
     from nbconvert.preprocessors import ExecutePreprocessor
     import nbformat
