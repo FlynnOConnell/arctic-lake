@@ -53,6 +53,9 @@ NETWORK_WEEKLY = Path("Y:/foconnell/weekly_meeting")
 ONEDRIVE_COMPUTE = Path.home() / "OneDrive - The Rockefeller University" / "MBO_DATA" / "weekly_meeting" / "compute"
 NETWORK_COMPUTE = Path("Y:/foconnell/weekly_meeting/compute")
 
+# direct processing folder (for links from notebooks/notes)
+NETWORK_PROCESSING = Path("Y:/foconnell/processing")
+
 # backup location for overwrites
 BACKUP_DIR = Path("X:/backups/foconnell/weekly_meeting")
 
@@ -1365,9 +1368,28 @@ def sync_to_onedrive(force: bool = False) -> list[Path]:
     return sync_to_destination(ONEDRIVE_WEEKLY, ONEDRIVE_COMPUTE, force)
 
 
+def sync_processing_direct(dest: Path) -> None:
+    """copy processing notebooks directly to Y:/foconnell/processing/ for direct links."""
+    import shutil
+    source = Path.home() / "repos" / "docs" / "processing"
+    if not source.exists():
+        return
+
+    dest.mkdir(parents=True, exist_ok=True)
+    for html_file in source.glob("*.html"):
+        shutil.copy2(html_file, dest / html_file.name)
+        print(f"  synced: {dest / html_file.name}")
+
+
 def sync_to_network(force: bool = False) -> list[Path]:
     """export all weeks to network share (Y: drive)."""
-    return sync_to_destination(NETWORK_WEEKLY, NETWORK_COMPUTE, force)
+    results = sync_to_destination(NETWORK_WEEKLY, NETWORK_COMPUTE, force)
+
+    # also copy processing notebooks directly to Y:/foconnell/processing/
+    print(f"syncing processing to: {NETWORK_PROCESSING}")
+    sync_processing_direct(NETWORK_PROCESSING)
+
+    return results
 
 
 def sync_all(force: bool = False) -> list[Path]:
