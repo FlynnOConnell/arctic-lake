@@ -720,6 +720,54 @@ def export_note(
     return results
 
 
+def embed_notebook_images(nb_file: Path, notebook) -> None:
+    """
+    Pre-process notebook markdown cells to embed images as base64.
+
+    Handles:
+    - ![alt](path/to/image.png) - standard markdown
+    - ![alt](../relative/path.png) - relative paths
+    - Resolves paths relative to notebook location
+    """
+    images_dir = nb_file.parent / "images"
+
+    # find images dir by walking up
+    current = nb_file.parent
+    while current.parent != current:
+        candidate = current / "images"
+        if candidate.exists():
+            images_dir = candidate
+            break
+        current = current.parent
+
+    for cell in notebook.cells:
+        if cell.cell_type != 'markdown':
+            continue
+
+        content = cell.source
+
+        # pattern for markdown images (skip data URIs and URLs)
+        pattern = r'!\[([^\]]*)\]\((?!data:)(?!http)([^)]+)\)'
+
+        def replace_image(match):
+            alt_text = match.group(1)
+            image_ref = match.group(2).strip()
+
+            # try to find the image
+            image_path = find_image(image_ref, nb_file, images_dir)
+
+            if image_path:
+                data_uri = image_to_base64(image_path)
+                if data_uri:
+                    print(f"  Embedded: {image_ref}")
+                    return f'![{alt_text}]({data_uri})'
+
+            print(f"  WARNING: Image not found: {image_ref}")
+            return match.group(0)
+
+        cell.source = re.sub(pattern, replace_image, content)
+
+
 def export_notebook(
     nb_file: Path,
     output_dir: Path,
@@ -743,6 +791,9 @@ def export_notebook(
     # read notebook
     with open(nb_file, 'r', encoding='utf-8') as f:
         notebook = nbformat.read(f, as_version=4)
+
+    # embed images from markdown cells
+    embed_notebook_images(nb_file, notebook)
 
     # configure HTML exporter
     html_exporter = HTMLExporter()
@@ -859,7 +910,17 @@ The script will:
         help="Generate only PDF output"
     )
 
+    parser.add_argument(
+        '--weekly', '-w',
+        action='store_true',
+        help="Export to processing folder for weekly report (shortcut for --project processing)"
+    )
+
     args = parser.parse_args()
+
+    # --weekly is shortcut for --project processing
+    if args.weekly:
+        args.project = "processing"
 
     # Handle --list-projects
     if args.list_projects:

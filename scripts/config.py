@@ -16,7 +16,11 @@ PROJECTS = {
     "lbm": "lbm",
     "isoview": "isoview",
     "explore": "explore",
+    "processing": "processing",  # local docs repo, synced with weekly export
 }
+
+# Local docs repo path (for processing notebooks)
+DOCS_REPO = Path.home() / "repos" / "docs"
 
 # OneDrive paths for weekly exports
 ONEDRIVE_ROOT = Path.home() / "OneDrive" / "MBO_DATA"
@@ -37,6 +41,13 @@ def get_project_path(project_key: str) -> Path | None:
         return None
 
     folder = PROJECTS[project_key]
+
+    # processing always goes to local docs repo
+    if project_key == "processing":
+        local_path = DOCS_REPO / "processing"
+        local_path.mkdir(parents=True, exist_ok=True)
+        return local_path
+
     server_path = PROJECT_ROOT / folder
 
     if server_path.exists():

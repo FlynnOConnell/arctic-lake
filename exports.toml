@@ -23,7 +23,7 @@ pattern = "*.md"
 
 # directories with pre-rendered HTML (will be linked/copied as-is)
 [[html_directories]]
-source = "Y:/foconnell/notebook/processing"
+source = "C:/Users/RBO/repos/docs/processing"
 output_subdir = "processing"
 category = "Processing Notebooks"
 pattern = "*.html"
