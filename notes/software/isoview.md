@@ -43,8 +43,6 @@ clusterPT → clusterMF → localAP → clusterTF → clusterFR → localEC → 
 | 2 | wavelet fusion | computationally expensive, can have ringing artifacts, maintains SNR throughout volume |
 | 3 | arithmetic averaging | comparable to blending, better for sparse labeling |
 
-generally recommend blending (types 0/1). averaging is simpler but image quality is inferior to blending methods
-
 ---
 
 ## Script Reference
@@ -383,14 +381,9 @@ mask fusion:
 - `maskFusion=0`: consider only regions that exist in both masks
 - `maskFusion=1`: consider regions that exist in either mask
 
-![[Pasted image 20250720155137.png]]
-
 average mask creation:
 1. fusionType=0: mean-z-index where both masks have signal (nonzero), set everything else to 0
 2. fusionType=1: start with average mask, fill in remaining pixels from either z-plane
-
-![[Pasted image 20250722113838.png]]
-![[Pasted image 20250722114149.png]]
 
 remove small anomalies:
 ```matlab
@@ -399,8 +392,8 @@ averageMask(averageMask < blending(2)) = 0;
 ```
 
 blending parameter effects:
-- blending = 4: ![[Pasted image 20250722115759.png]]
-- blending = [10, 15, 20]: ![[Pasted image 20250722120217.png]]
+- blending = 4
+- blending = [10, 15, 20]
 
 #### 2.3 Align Cam1 to Cam2
 
@@ -408,32 +401,20 @@ background subtraction first:
 - computed `intensityOffset = 100`
 - subtract cam2 background from cam1
 
-![[Pasted image 20250722121500.png]]
-![[Pasted image 20250722121620.png]]
-![[Pasted image 20250722121751.png]]
-
 median filter applied:
-![[Pasted image 20250722122842.png]]
 
 **coarse registration**:
 - sweep x/y shifts (-50 to 50 in 11 steps)
 - compute correlation on pixelwise product
 - top 4 best-aligned shifts shown below (each column = one shift, top row = shifted Cam2, middle = fixed Cam1, bottom = product)
 
-![[Pasted image 20250722123844.png]]
 
 correlation score surface:
-![[Pasted image 20250722124603.png|400]]
 
 **fine registration**:
 - optimize subpixel x/y offsets + in-plane rotation
 - initial point: `x0 = [x-offset, y-offset, rotation_degrees]`
 - typical output: bestXOffset=47.36, bestYOffset=35.42, bestRotation=-0.51
-
-![[Pasted image 20250722132309.png]]
-
-mean Z correlation over planes:
-![[Pasted image 20250722133255.png|400]]
 
 outputs:
 - `.transformation.mat`: optimal `[xOffset, yOffset, rotation]`
@@ -445,7 +426,6 @@ outputs:
 | first block | `correlationSlice` | small slab | align slab used for computing transform |
 | second block | `transformedStack` | full 3D stack | apply final transform to entire volume |
 
-![[Pasted image 20250722134035.png|500]]
 
 #### 2.4 Fuse Cameras
 
@@ -454,22 +434,15 @@ outputs:
 - `.transformedMask3D`: binary 3D mask for Cam2 post-filter/threshold
 - `.transformedMask2D`: slice-wise mean Z projection from 3D mask
 
-![[Pasted image 20250722134818.png|400]]
-
-recompute average, thresholded, combined mask:
-![[Pasted image 20250722140852.png|400]]
-![[Pasted image 20250722141441.png|400]]
-![[Pasted image 20250722141717.png|400]]
+recompute average, thresholded, combined mask
 
 padding options (all on same colormap):
-- padding=0: no padding ![[Pasted image 20250722142751.png|400]]
-- padding=1: fill ![[Pasted image 20250722142846.png|400]]
-- padding=2: dilate+interpolate ![[Pasted image 20250722142929.png|400]]
+- padding=0: no padding
+- padding=1: fill
+- padding=2: dilate+interpolate 
 
 background subtraction for fusion (`fusionDataSlice.klb`):
 - analyzing residual intensity mismatch across cameras prior to fusion
-
-![[Pasted image 20250722143741.png]]
 
 intensity correction:
 ```matlab
@@ -479,12 +452,10 @@ correctionFactor = intensitySum1 / intensitySum2;
 
 saved to `.intensityCorrection.mat` and `.correctedStack.klb`
 
-![[Pasted image 20250722144338.png]]
-
 **fusion outputs** (`.fusedStack.klb`):
-- fusionType=0/1 (weighted blending): ![[Pasted image 20250722144737.png|600]]
-- fusionType=2 (wavelet): ![[Pasted image 20250722144946.png|600]]
-- fusionType=3 (averaging): ![[Pasted image 20250722145044.png|600]]
+- fusionType=0/1 (weighted blending)
+- fusionType=2 (wavelet)
+- fusionType=3 (averaging) 
 
 ### Step 3: Temporal Parameters (`localAP.m` / `analyzeParameters.m`)
 
@@ -511,10 +482,6 @@ output plots:
 | final_bestRotation.png | rotation to optimize correlation |
 | final_correctionFactor.png | per-frame intensity correction (blue=raw, red=smoothed) |
 
-![[factors.png|300]] ![[angles.png|300]] ![[offsets.png|300]]
-![[final_bestYOffset.png|300]] ![[final_bestXOffset.png|300]]
-![[final_bestRotation.png|300]] ![[final_correctionFactor.png|300]]
-
 ### Step 4: Time-Fused Fusion (`clusterTF.m` / `timeFuse.m`)
 
 same operations as multiFuse but uses smoothed parameters from analyzeParameters
@@ -522,16 +489,12 @@ same operations as multiFuse but uses smoothed parameters from analyzeParameters
 be careful to match the same `MultiFused_NNN` directory name
 
 **affine transformation** (always `.transformedStack.klb`):
-![[Pasted image 20250723142817.png]]
 
 **background intensity normalization**:
-![[Pasted image 20250723144729.png|400]]
 
 the red dashed line marks 5th percentile of combined nonzero background - conservative threshold that won't subtract true signal
 
-**averageMask capture** (`stitchedMask.klb` optional):
-![[Pasted image 20250723145845.png]]
-![[Pasted image 20250723145909.png]]
+**averageMask capture** (`stitchedMask.klb` optional)
 
 interpretation:
 - **averageMask**: average mask values defining region of interest for fusion
@@ -540,12 +503,7 @@ interpretation:
 - **Cam1/Cam2 (masked)**: raw images with red overlay showing contribution regions
 - **Fused Slice (masked)**: final blending result
 
-**fused stack output** (`.fusedStack.klb`):
-![[Pasted image 20250723152808.png|400]]
-![[Pasted image 20250723153039.png|400]]
-![[Pasted image 20250723153155.png|400]]
-![[Pasted image 20250723153242.png|400]]
-![[fusedStack.gif]]
+**fused stack output** (`.fusedStack.klb`)
 
 ### Step 5: Drift Correction (`localEC.m`)
 
@@ -568,12 +526,7 @@ interpretation:
 
 it appears as though only X displacements are needed for most samples
 
-![[Pasted image 20250723165359.png]]
-![[Pasted image 20250723170048.png]]
-![[Pasted image 20250723170114.png]]
-
-with globalMode, expect line @ 0 because it iteratively corrects drifts:
-![[Pasted image 20250723170855.png]]
+with globalMode, expect line @ 0 because it iteratively corrects drifts.
 
 ### Step 6: dF/F Computation
 
