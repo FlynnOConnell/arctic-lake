@@ -556,13 +556,13 @@ threshold from linear fit of deviation vs mean, take max distance from line
 ## Foreground Segmentation
 
 anisotropic gaussian filter first:
+
 ```python
+
 sigma_z = max(1, kernel_sigma / scaling)
+
 ```
-
-both implementations do slab processing (10 slabs default) for memory
-
-**BIG DIFFERENCE**: MATLAB uses `multithresh` (otsu), python uses percentile threshold - this is probably where most output differences come from
+**BIG DIFFERENCE**: MATLAB uses `multithresh` (otsu), python uses percentile threshold
 
 coordinate masks - average coordinates weighted by binary mask, same logic both sides
 
@@ -580,21 +580,6 @@ volume = np.transpose(volume, (0, 2, 1))[:, ::-1, :]
 counterclockwise: same but flip other axis
 
 remember MATLAB is 1-indexed (y,x,z), python is 0-indexed (z,y,x)
-
----
-
-## MATLAB vs Python Differences
-
-| Parameter | MATLAB | Python |
-|-----------|--------|--------|
-| gaussian sigma xy | kernelSigma | kernel_sigma |
-| gaussian sigma z | max(1, kernelSigma/scaling) | same |
-| median kernel | [3,3] | (3,3) |
-| threshold | otsu | mask_percentile (default 50) |
-| slabs | 10 | splitting param |
-| background | 100 | background_value |
-
-typical diff is ~60 mean absolute (0.09% of uint16 range), but can hit 65535 at mask edges
 
 things that cause differences:
 - median filter implementations: medfilt2 vs scipy.ndimage.median_filter, boundary handling
@@ -719,8 +704,6 @@ alignment won't be perfect - light refractive index differs between samples
 
 source: [Bill Lemon: Registration of Light Sheet Microscopy](https://www.youtube.com/watch?v=IupXS_On2rg)
 
----
-
 ## Aim 2: Opposing View Visualization and Deconvolution
 
 ### Visualization and Registration
@@ -731,14 +714,6 @@ for multi-view images:
 - geometric local descriptor matching (affine)
 - iterative closest point (affine)
 - iterative closest point (non-rigid)
-
-### SimpleITK approach
-
-issues rotating CHN00 (moving) to match CHN01 (reference):
-- rotate around Y axis 90deg
-- resample moving → reference grid space
-- linear interpolation, remove out of bounds
-- flip order of Z-axis: `::-1`
 
 ### Multi-View Deconvolution
 
@@ -757,46 +732,6 @@ use Hari Shroff's MVD software: [PubMed 32601431](https://pubmed.ncbi.nlm.nih.go
 ### 3-Camera Deconvolution
 1. drop noisy camera
 2. deconvolve remaining three using MVD
-
----
-
-## Metadata
-
-### KLB Header
-```matlab
-headerInformation = readKLBheader(fullFilePath);
-% xyzct: [752 2048 79 1 1]
-% pixelSize: [1 1 1 1 1]
-% dataType: 1
-% compressionType: 1
-% blockSize: [96 96 8 1 1]
-% metadata: ''
-% headerVersion: 2
-```
-
-### XML Metadata Fields
-
-| Field | Example |
-|-------|---------|
-| software_version | 3.0.0817 |
-| data_header | Dre_HuC_H2BGCaMP6s_0-1 |
-| specimen_name | sample |
-| timestamp | 7:59:39.667 PM 7/9/2015 |
-| time_point | 0 |
-| specimen_XYZT | X=1130.000_Y=1045.000_Z=-205.000_T=-1.0 |
-| camera_index | 2 |
-| camera_type | C11440-22C,C11440-22C |
-| camera_roi | 648_1400_0_2048,648_1400_0_2048 |
-| wavelength | 488 |
-| illumination_arms | 3 (ch1), 12 (ch2) |
-| laser_power | 2.00 |
-| exposure_time | 4.8 |
-| detection_filter | BP525/50 |
-| dimensions | 2048x752x79,2048x752x79 |
-| z_step | 5.130 |
-| detection_objective | Zeiss 20x/1.00,Zeiss 20x/1.00 |
-
----
 
 ## Notes
 
@@ -883,20 +818,3 @@ background subtraction and intensity matching parameters
 ![](../static/images/2026-01-21-11-05-06_Intensity_Correction.png)
 *fig 7: intensity correction parameters - background=98, factor=1.234 applied to cam1*
 
-### per-z coverage stats
-```
-transition Z = 70
-z=1-10: ~1M pixels, low intensity (bg)
-z=20-40: ~1.1M pixels, increasing intensity
-z=40-50: peak intensity ~55-60
-z=67: transition zone begins
-z=70: transition midpoint
-z=74+: cam1 dominant
-```
-
----
-
-## Links
-
-- [[calcium-imaging]] - main index
-- [[file-formats]] - OME-Zarr, BigDataViewer, KLB
