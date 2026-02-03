@@ -60,3 +60,10 @@ Discriminablity index (d')
 Robust BEAST in-vivo imaging 
 - max FOV: 4.2mm by 4.2mm
 - roi dimensionality is conserved, don't overlap scanfields or there will be substantially more crosstalk
+
+## Hao 02/03/2026
+
+- Hippocampus, episodic memory spatial nav
+- DG, CA3, CA1 are heavily studies
+	- pattern separation, information relay, pattern completion when you have partial ifnormation
+
