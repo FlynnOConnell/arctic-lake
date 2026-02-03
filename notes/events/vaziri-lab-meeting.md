@@ -66,4 +66,8 @@ Robust BEAST in-vivo imaging
 - Hippocampus, episodic memory spatial nav
 - DG, CA3, CA1 are heavily studies
 	- pattern separation, information relay, pattern completion when you have partial ifnormation
+- simultaneous CA1 CA3, how do these work together in spatial location, context and reward
+- When novel env, how does this change / rema-?
+
+- 2p / 3p at 1-2mm x 1-2mm x 0.5mm @>=10hz
 
