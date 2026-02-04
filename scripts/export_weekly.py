@@ -56,6 +56,9 @@ NETWORK_COMPUTE = Path("Y:/foconnell/weekly_meeting/compute")
 # direct processing folder (for links from notebooks/notes)
 NETWORK_PROCESSING = Path("Y:/foconnell/processing")
 
+# source repo mirror on network (for SOPs, notes source files)
+NETWORK_NOTEBOOK = Path("Y:/foconnell/notebook")
+
 # backup location for overwrites
 BACKUP_DIR = Path("X:/backups/foconnell/weekly_meeting")
 
@@ -1381,6 +1384,45 @@ def sync_processing_direct(dest: Path) -> None:
         print(f"  synced: {dest / html_file.name}")
 
 
+def mirror_repo_to_network() -> bool:
+    """mirror local docs repo to Y:/foconnell/notebook using robocopy."""
+    source = Path.home() / "repos" / "docs"
+    dest = NETWORK_NOTEBOOK
+
+    if not source.exists():
+        print(f"ERROR: source not found: {source}")
+        return False
+
+    if not dest.parent.exists():
+        print(f"ERROR: network path not found: {dest.parent}")
+        return False
+
+    print(f"mirroring {source} -> {dest}")
+
+    # robocopy with mirror mode, excluding .git, .venv, .obsidian, exports
+    result = subprocess.run([
+        "robocopy",
+        str(source),
+        str(dest),
+        "/MIR",  # mirror mode
+        "/XD", ".git", ".venv", ".obsidian", "exports", "docs", "__pycache__",  # exclude dirs
+        "/XF", "*.pyc", ".env",  # exclude files
+        "/NFL", "/NDL",  # reduce output noise
+        "/NJH", "/NJS",  # no job header/summary
+        "/NC", "/NS",  # no class/size
+        "/R:1", "/W:1",  # reduce retries
+    ], capture_output=True, text=True)
+
+    # robocopy returns 0-7 for success, 8+ for errors
+    if result.returncode >= 8:
+        print(f"ERROR: robocopy failed with code {result.returncode}")
+        print(result.stderr)
+        return False
+
+    print(f"  mirrored to: {dest}")
+    return True
+
+
 def sync_to_network(force: bool = False) -> list[Path]:
     """export all weeks to network share (Y: drive)."""
     results = sync_to_destination(NETWORK_WEEKLY, NETWORK_COMPUTE, force)
@@ -1396,7 +1438,14 @@ def sync_all(force: bool = False) -> list[Path]:
     """sync to both OneDrive and network share."""
     results = []
 
+    # mirror source repo first
+    print("=" * 50)
+    print("MIRRORING SOURCE REPO")
+    print("=" * 50)
+    mirror_repo_to_network()
+
     # sync to OneDrive
+    print()
     print("=" * 50)
     print("SYNCING TO ONEDRIVE")
     print("=" * 50)
@@ -1621,6 +1670,12 @@ destinations:
     )
 
     parser.add_argument(
+        '--mirror', '-m',
+        action='store_true',
+        help="mirror source repo to Y:/foconnell/notebook (included in --sync)"
+    )
+
+    parser.add_argument(
         '--force', '-f',
         action='store_true',
         help="overwrite existing files (creates backup first)"
@@ -1687,6 +1742,7 @@ destinations:
     if args.sync:
         sync_all(force=args.force)
         print(f"\nsynced to:")
+        print(f"  Mirror:   {NETWORK_NOTEBOOK}")
         print(f"  OneDrive: {ONEDRIVE_WEEKLY}")
         print(f"  Network:  {NETWORK_WEEKLY}")
         if args.open:
@@ -1705,6 +1761,11 @@ destinations:
         print(f"\nsynced to network: {NETWORK_WEEKLY}")
         if args.open:
             open_in_firefox(NETWORK_WEEKLY / "index.html")
+        return
+
+    if args.mirror:
+        mirror_repo_to_network()
+        print(f"\nmirrored to: {NETWORK_NOTEBOOK}")
         return
 
     # determine output directory
