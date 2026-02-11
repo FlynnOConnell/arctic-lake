@@ -59,9 +59,6 @@ NETWORK_PROCESSING = Path("Y:/foconnell/processing")
 # source repo mirror on network (for SOPs, notes source files)
 NETWORK_NOTEBOOK = Path("Y:/foconnell/notebook")
 
-# backup location for overwrites
-BACKUP_DIR = Path("X:/backups/foconnell/weekly_meeting")
-
 try:
     import markdown
 except ImportError:
@@ -492,6 +489,21 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             color: #c792ea;
         }}
 
+        .callout-backlog {{
+            border-left-color: #ff5370;
+            margin-top: 2em;
+        }}
+
+        .callout-backlog summary {{
+            color: #ff5370;
+        }}
+
+        .callout-backlog h4 {{
+            margin: 0.8em 0 0.3em 0;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }}
+
         .missing-image {{
             background-color: #332b00;
             border: 1px solid #665500;
@@ -886,6 +898,23 @@ def build_weekly_report(
         parts.append('</ul>')
         parts.append('</div>')
 
+    # backlog section (unchecked items from previous weeks)
+    backlog = collect_backlog(week_id)
+    if backlog:
+        total = sum(len(b['items']) for b in backlog)
+        parts.append(f'''
+<details class="callout callout-backlog" id="backlog">
+<summary>Backlog ({total} items from {len(backlog)} weeks)</summary>
+<div class="callout-content">''')
+        for entry in backlog:
+            parts.append(f'<h4>{entry["week"]}</h4>')
+            parts.append('<ul>')
+            for item in entry['items']:
+                parts.append(f'<li class="task-item task-open"><span class="checkbox"></span> {convert_inline_code(item)}</li>')
+            parts.append('</ul>')
+        parts.append('</div>')
+        parts.append('</details>')
+
     # bottom navigation
     parts.append(''.join(nav_parts))
 
@@ -920,14 +949,6 @@ def export_week(
     if output_file.exists() and not force:
         print(f"  skipping {week_id} (already exists, use --force to overwrite)")
         return output_file
-
-    if output_file.exists() and force:
-        # backup existing file
-        if BACKUP_DIR.parent.exists():
-            BACKUP_DIR.mkdir(parents=True, exist_ok=True)
-            backup_file = BACKUP_DIR / f"{week_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
-            shutil.copy2(output_file, backup_file)
-            print(f"  backed up to: {backup_file}")
 
     print(f"building report for {week_id}...")
 
@@ -1461,6 +1482,46 @@ def sync_all(force: bool = False) -> list[Path]:
     return results
 
 
+def collect_backlog(current_week_id: str) -> list[dict]:
+    """collect unchecked TO-DO items from all previous weeks.
+
+    returns list of dicts with 'week', 'items' keys, oldest first.
+    """
+    all_weeks = discover_all_weeks()
+    backlog = []
+
+    for wid in all_weeks:
+        if wid >= current_week_id:
+            break
+
+        weekly_file = find_weekly_note(wid)
+        if not weekly_file:
+            continue
+
+        content = weekly_file.read_text(encoding='utf-8')
+
+        # find all TO-DO sections (previous, next, or just "TO DO")
+        todo_pattern = re.compile(
+            r'##\s*(?:\((?:previous|next)\)\s*)?TO-?DO.*?\n(.*?)(?=\n##|\Z)',
+            re.IGNORECASE | re.DOTALL
+        )
+
+        unchecked = []
+        for match in todo_pattern.finditer(content):
+            section = match.group(1)
+            for line in section.split('\n'):
+                task_match = re.match(r'^-\s*\[ \]\s*(.+)$', line.strip())
+                if task_match:
+                    item = task_match.group(1).strip()
+                    if item:
+                        unchecked.append(item)
+
+        if unchecked:
+            backlog.append({'week': wid, 'items': unchecked})
+
+    return backlog
+
+
 def extract_next_todos(week_id: str) -> list[str]:
     """extract TO-DO items from a week's (Next) TO-DO section."""
     weekly_file = find_weekly_note(week_id)
@@ -1631,9 +1692,9 @@ examples:
     uv run export-weekly --next
 
 destinations:
-    local:   {LOCAL_EXPORT_DIR / 'weekly'}
+    local:    {LOCAL_EXPORT_DIR / 'weekly'}
     onedrive: {ONEDRIVE_WEEKLY}
-    backup:  {BACKUP_DIR}
+    network:  {NETWORK_WEEKLY}
         """
     )
 
@@ -1678,7 +1739,7 @@ destinations:
     parser.add_argument(
         '--force', '-f',
         action='store_true',
-        help="overwrite existing files (creates backup first)"
+        help="overwrite existing files"
     )
 
     parser.add_argument(
