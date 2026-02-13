@@ -433,7 +433,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
         .task-done {{
             color: var(--text-muted);
-            text-decoration: line-through;
         }}
 
         .task-partial {{
@@ -1482,12 +1481,53 @@ def sync_all(force: bool = False) -> list[Path]:
     return results
 
 
+def load_resolved_backlog() -> set[str]:
+    """load resolved items from backlog.md."""
+    backlog_file = DOCS_ROOT / "backlog.md"
+    if not backlog_file.exists():
+        return set()
+
+    resolved = set()
+    content = backlog_file.read_text(encoding='utf-8')
+    for line in content.split('\n'):
+        match = re.match(r'^-\s*\[[xX]\]\s*(.+)$', line.strip())
+        if match:
+            resolved.add(match.group(1).strip())
+    return resolved
+
+
+def is_resolved(item: str, resolved: set[str]) -> bool:
+    """check if a backlog item matches any resolved item (substring matching)."""
+    item_lower = item.lower()
+    for r in resolved:
+        r_lower = r.lower()
+        # exact match, or either contains the other
+        if item_lower == r_lower or item_lower in r_lower or r_lower in item_lower:
+            return True
+    return False
+
+
 def collect_backlog(current_week_id: str) -> list[dict]:
     """collect unchecked TO-DO items from all previous weeks.
 
+    filters out items resolved in backlog.md or checked in any week.
+    uses substring matching so slightly different wording still resolves.
     returns list of dicts with 'week', 'items' keys, oldest first.
     """
     all_weeks = discover_all_weeks()
+    resolved = load_resolved_backlog()
+
+    # also collect all checked items from all weeks as resolved
+    for wid in all_weeks:
+        weekly_file = find_weekly_note(wid)
+        if not weekly_file:
+            continue
+        content = weekly_file.read_text(encoding='utf-8')
+        for line in content.split('\n'):
+            match = re.match(r'^-\s*\[[xX]\]\s*(.+)$', line.strip())
+            if match:
+                resolved.add(match.group(1).strip())
+
     backlog = []
 
     for wid in all_weeks:
@@ -1513,7 +1553,7 @@ def collect_backlog(current_week_id: str) -> list[dict]:
                 task_match = re.match(r'^-\s*\[ \]\s*(.+)$', line.strip())
                 if task_match:
                     item = task_match.group(1).strip()
-                    if item:
+                    if item and not is_resolved(item, resolved):
                         unchecked.append(item)
 
         if unchecked:
