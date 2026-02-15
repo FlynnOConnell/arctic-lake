@@ -1685,39 +1685,50 @@ SERVE_PORT = 8787
 
 
 def serve_and_open(serve_dir: Path) -> None:
-    """start local HTTP server and open browser to index."""
-    import webbrowser
-    from http.server import HTTPServer, SimpleHTTPRequestHandler
-    from functools import partial
+    """start background HTTP server and open browser."""
     import socket
-    import threading
+    import webbrowser
 
-    # kill any existing server on this port
+    url = f"http://localhost:{SERVE_PORT}"
+
+    # check if server already running
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         sock.bind(("127.0.0.1", SERVE_PORT))
         sock.close()
     except OSError:
-        # port in use, just open the browser (server already running)
-        webbrowser.open(f"http://localhost:{SERVE_PORT}")
-        print(f"  server already running at http://localhost:{SERVE_PORT}")
+        webbrowser.open(url)
+        print(f"  server already running at {url}")
         return
 
-    handler = partial(SimpleHTTPRequestHandler, directory=str(serve_dir))
+    # spawn detached python process serving the directory
+    cmd = [
+        sys.executable, "-c",
+        f"from http.server import HTTPServer, SimpleHTTPRequestHandler; "
+        f"from functools import partial; "
+        f"h = partial(SimpleHTTPRequestHandler, directory=r'{serve_dir}'); "
+        f"s = HTTPServer(('127.0.0.1', {SERVE_PORT}), h); "
+        f"s.serve_forever()"
+    ]
 
-    server = HTTPServer(("127.0.0.1", SERVE_PORT), handler)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
+    if sys.platform == "win32":
+        # detached process on windows
+        subprocess.Popen(
+            cmd,
+            creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NO_WINDOW,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    else:
+        subprocess.Popen(
+            cmd,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            start_new_session=True,
+        )
 
-    url = f"http://localhost:{SERVE_PORT}"
     webbrowser.open(url)
-    print(f"  serving at {url} (ctrl+c to stop)")
-
-    try:
-        thread.join()
-    except KeyboardInterrupt:
-        server.shutdown()
-        print("\n  server stopped")
+    print(f"  serving at {url} (background process)")
 
 
 def main():
