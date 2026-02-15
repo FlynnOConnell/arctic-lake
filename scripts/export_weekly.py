@@ -1681,30 +1681,43 @@ date: {monday.strftime('%Y-%m-%d')}
     return next_file
 
 
-def open_in_firefox(path: Path) -> None:
-    """open a file in Firefox."""
-    if not path.exists():
-        print(f"  cannot open: {path} (not found)")
+SERVE_PORT = 8787
+
+
+def serve_and_open(serve_dir: Path) -> None:
+    """start local HTTP server and open browser to index."""
+    import webbrowser
+    from http.server import HTTPServer, SimpleHTTPRequestHandler
+    from functools import partial
+    import socket
+    import threading
+
+    # kill any existing server on this port
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        sock.bind(("127.0.0.1", SERVE_PORT))
+        sock.close()
+    except OSError:
+        # port in use, just open the browser (server already running)
+        webbrowser.open(f"http://localhost:{SERVE_PORT}")
+        print(f"  server already running at http://localhost:{SERVE_PORT}")
         return
-    # try common Firefox locations on Windows
-    firefox_paths = [
-        r"C:\Program Files\Mozilla Firefox\firefox.exe",
-        r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe",
-    ]
-    for firefox in firefox_paths:
-        if os.path.exists(firefox):
-            subprocess.Popen([firefox, str(path)])
-            print(f"  opened in Firefox: {path}")
-            return
-    # fallback to system default
-    import sys
-    if sys.platform == "win32":
-        os.startfile(path)
-    elif sys.platform == "darwin":
-        subprocess.Popen(["open", str(path)])
-    else:
-        subprocess.Popen(["xdg-open", str(path)])
-    print(f"  opened: {path}")
+
+    handler = partial(SimpleHTTPRequestHandler, directory=str(serve_dir))
+
+    server = HTTPServer(("127.0.0.1", SERVE_PORT), handler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+
+    url = f"http://localhost:{SERVE_PORT}"
+    webbrowser.open(url)
+    print(f"  serving at {url} (ctrl+c to stop)")
+
+    try:
+        thread.join()
+    except KeyboardInterrupt:
+        server.shutdown()
+        print("\n  server stopped")
 
 
 def main():
@@ -1847,21 +1860,21 @@ destinations:
         print(f"  OneDrive: {ONEDRIVE_WEEKLY}")
         print(f"  Network:  {NETWORK_WEEKLY}")
         if args.open:
-            open_in_firefox(NETWORK_WEEKLY / "index.html")
+            serve_and_open(NETWORK_WEEKLY)
         return
 
     if args.onedrive:
         sync_to_onedrive(force=args.force)
         print(f"\nsynced to OneDrive: {ONEDRIVE_WEEKLY}")
         if args.open:
-            open_in_firefox(ONEDRIVE_WEEKLY / "index.html")
+            serve_and_open(ONEDRIVE_WEEKLY)
         return
 
     if args.network:
         sync_to_network(force=args.force)
         print(f"\nsynced to network: {NETWORK_WEEKLY}")
         if args.open:
-            open_in_firefox(NETWORK_WEEKLY / "index.html")
+            serve_and_open(NETWORK_WEEKLY)
         return
 
     if args.mirror:
@@ -1883,7 +1896,7 @@ destinations:
                 build_compute_index(compute_dir, additional)
             print(f"\nexported {len(results)} weeks to: {output_dir}")
             if args.open:
-                open_in_firefox(output_dir / "index.html")
+                serve_and_open(output_dir)
     else:
         week_id = args.week or get_current_week_id()
         try:
@@ -1902,7 +1915,7 @@ destinations:
                 build_compute_index(compute_dir, additional)
             print(f"\nexported to: {result}")
             if args.open:
-                open_in_firefox(output_dir / "index.html")
+                serve_and_open(output_dir)
         else:
             print(f"no content found for {week_id}")
             sys.exit(1)
