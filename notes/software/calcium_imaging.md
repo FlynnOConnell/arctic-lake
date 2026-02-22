@@ -35,6 +35,6 @@ index for calcium imaging analysis tools and concepts
 
 - [[cellpose]] - deep learning cell segmentation
 - [[isoview]] - light-sheet multi-view fusion
-- [[file-formats]] - OME-Zarr, BigDataViewer formats
+- [[ome]] - OME-TIFF, OME-Zarr, BigDataViewer formats
 
 for full package list see [[index|software index]]

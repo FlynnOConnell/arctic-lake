@@ -1,69 +1,86 @@
 ---
 tags:
-  - ome-zarr
-  - ngff
   - webknossos
   - visualization
   - calcium-imaging
   - data-format
+  - ome-zarr
+  - ngff
 category: software
 created: 2026-01-16
-source: https://docs.webknossos.org/data-sources/ome-zarr
+updated: 2026-02-22
+source: https://docs.webknossos.org
 ---
 
-# WEBKNOSSOS - OME-Zarr & NGFF
+# WEBKNOSSOS
 
-WEBKNOSSOS works great with OME-Zarr datasets (next-generation file format / NGFF). Zarr is the default data format in WEBKNOSSOS and replaced the previous WKW format.
+open-source web app for annotating and exploring large 3D image datasets. scala/play backend, typescript/react frontend with webgl rendering.
 
-Zarr datasets can be:
-- Uploaded through the web uploader
-- Streamed from a remote server or cloud
-- When streaming multiple layers, import the first Zarr group then add more URIs via UI
+## supported formats
 
-## Example Datasets
+natively served (no conversion needed):
+- **OME-Zarr** (NGFF v0.4 and v0.5) - default and recommended
+- **Zarr / Zarr3**
+- **N5**
+- **Neuroglancer Precomputed**
+- **WKW** (legacy native format)
 
-Load as remote dataset in WEBKNOSSOS:
+uploaded with automatic conversion (`convert_to_wkw` job):
+- OME-TIFF, TIFF, PNG, JPEG, CZI, DM3, DM4, NIfTI, raw
+- uses [BioFormats](https://www.openmicroscopy.org/bio-formats/) via webknossos-libs for proprietary formats
 
-- **Mouse Cortex Layer 4 EM Cutout**
-  - URL: `https://static.webknossos.org/data/l4_sample/`
-  - Source: *Dense connectomic reconstruction in layer 4 of the somatosensory cortex.* Motta et al. Science 2019. DOI: 10.1126/science.aay3134
+see [[ome]] for format details and metadata specs.
 
-## Zarr Folder Structure (v0.4)
+## conversion pipeline
 
-```
-.                             # root folder
-└── 456.zarr                  # image converted to Zarr
-    ├── .zgroup               # zarr group
-    ├── .zattrs               # group attributes: "multiscales", "omero"
-    ├── 0/                    # multiscale level 0
-    │   ├── .zarray           # up to 5D: time > channel > spatial
-    │   └── t/c/z/y/x         # chunk files (nested directory layout)
-    ├── n/                    # multiscale level n
-    └── labels/
-        ├── .zgroup
-        ├── .zattrs           # e.g. { "labels": [ "original/0" ] }
-        └── original/0/       # labeled image
-            ├── .zgroup
-            ├── .zattrs       # "image-label" metadata
-            └── 0..n/         # multiscale levels (integer values only)
-```
+three repos handle the upload-to-viewable path:
 
-## Zarr Folder Structure (v0.5)
+| repo | role |
+|------|------|
+| [webknossos](https://github.com/scalableminds/webknossos) | upload UI, job dispatch, dataset serving |
+| [webknossos-libs](https://github.com/scalableminds/webknossos-libs) | python: image reading, downsampling, WKW/Zarr writing |
+| [voxelytics](https://scalableminds.com/voxelytics) (private) | worker service that executes jobs |
 
-```
-└── 456.zarr
-    ├── zarr.json             # group attributes
-    ├── 0..n/                 # multiscale levels
-    │   ├── zarr.json         # array metadata
-    │   └── ...               # chunks per zarr spec
-    └── labels/
-        ├── zarr.json         # labels list
-        └── original/0/
-            ├── zarr.json
-            └── 0..n/
-```
+flow:
+1. user uploads file via UI or API
+2. webknossos detects non-native format, sets `needsConversion = true`
+3. `convert_to_wkw` job created (`app/controllers/JobController.scala`), params: org, dataset name, voxel size
+4. voxelytics worker picks up job, calls webknossos-libs
+5. webknossos-libs reads image (tifffile for tif, PIMS/bioformats fallback), generates pyramid levels, writes output
+6. converted dataset uploaded back via `DatasetUploadToPathsService`
 
-## CLI Conversion
+### reader selection (webknossos-libs)
+
+three-tier fallback in `webknossos/dataset/_utils/pims_images.py`:
+1. **tifffile** (`pims_tiff_reader.py`) - default for .tif/.tiff/.ome.tif, reads via `tifffile.aszarr()`
+2. **PIMS** (`pims.open()`) - generic fallback
+3. **BioFormats** (`pims.BioformatsReader`) - when `use_bioformats` not False, downloads JARs automatically
+
+### pyramid generation
+
+downsampling in `webknossos/dataset/layer/_downsampling_utils.py`:
+- power-of-2 scaling, generates levels until slices reach ~100 vx^2
+- color layers: median interpolation (default)
+- segmentation layers: mode interpolation (default)
+- anisotropic-aware: selectively doubles smallest dimension to balance aspect ratios
+- modes: MEDIAN, MODE, NEAREST, BILINEAR, BICUBIC, MAX, MIN
+
+### what metadata webknossos reads from NGFF
+
+datastore explorers in `webknossos-datastore/app/.../explore/`:
+- `NgffV0_4Explorer` reads `.zattrs` for zarr v2
+- `NgffV0_5Explorer` reads `zarr.json` for zarr v3
+- parses: axes (x/y/z + unit), scale/translation transforms, omero channel attributes
+- mag validation: all dimensions must be power-of-two
+- labels discovered at `<dataset>/labels/.zattrs`
+
+metadata source files:
+- `datareaders/zarr/NgffMetadata.scala` (v0.4)
+- `datareaders/zarr/NgffMetadataV0_5.scala` (v0.5)
+- `datareaders/zarr/SharedNgffMetadataAttributes.scala` (NgffAxis, NgffDataset, NgffCoordinateTransformation, channels)
+- `explore/NgffExplorationUtils.scala` (axis order, voxel size calc, channel parsing)
+
+## cli conversion
 
 ```bash
 pip install --extra-index-url https://pypi.scm.io/simple "webknossos[all]"
@@ -79,43 +96,39 @@ webknossos compress --jobs 4 output.zarr
 webknossos downsample --jobs 4 output.zarr
 ```
 
-Creates sharded Zarr v3. Use `--data-format zarr` for unsharded Zarr v2.
-
-## Python Conversion
+## python api
 
 ```python
 import webknossos as wk
 
-def main() -> None:
-    dataset = wk.Dataset.from_images(
-        input_path=INPUT_DIR,
-        output_path=OUTPUT_DIR,
-        voxel_size=(11, 11, 11),
-        layer_category=wk.COLOR_CATEGORY,
-        compress=True,
-    )
-    print(f"Saved {dataset.name} at {dataset.path}.")
+dataset = wk.Dataset.from_images(
+    input_path=INPUT_DIR,
+    output_path=OUTPUT_DIR,
+    voxel_size=(11, 11, 11),
+    layer_category=wk.COLOR_CATEGORY,
+    compress=True,
+)
 
-    with wk.webknossos_context(token="..."):
-        dataset.upload()
-
-if __name__ == "__main__":
-    main()
+with wk.webknossos_context(token="..."):
+    dataset.upload()
 ```
 
-## Time-Series / N-Dimensional
+## local dev setup
 
-WEBKNOSSOS supports n-dimensional datasets (e.g., 4D time series). Currently only for Zarr due to flexible structure.
+requires PostgreSQL + Redis running:
 
-## Performance Tips
+```bash
+yarn install
+yarn start            # dev server on port 9000
+yarn enable-jobs      # enable conversion jobs (requires worker)
+```
 
-- Chunk sizes: 32-128 voxels^3
-- Enable sharding (Zarr 3+ only)
-- Use 3D downsampling
+conversion jobs require a voxelytics worker with `convert_to_wkw` in `supportedJobCommands`. hosted webknossos.org has workers; local dev does not by default.
 
-## Links
+## links
 
-- [WEBKNOSSOS Docs](https://docs.webknossos.org/)
-- [OME-Zarr 0.4 Spec](https://ngff.openmicroscopy.org/0.4/)
-- [OME-Zarr 0.5 Spec](https://ngff.openmicroscopy.org/0.5/)
-- [Python Library](https://docs.webknossos.org/python-library/)
+- [docs](https://docs.webknossos.org/)
+- [python library](https://docs.webknossos.org/python-library/)
+- [webknossos-libs](https://github.com/scalableminds/webknossos-libs)
+- [OME-Zarr 0.4 spec](https://ngff.openmicroscopy.org/0.4/)
+- [OME-Zarr 0.5 spec](https://ngff.openmicroscopy.org/0.5/)

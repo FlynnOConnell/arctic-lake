@@ -46,3 +46,6 @@
 
 - [[cellpose]] - Deep learning segmentation
 - [[gcamp-indicators]] - GCaMP indicator dynamics and tau selection
+- [[ome]] - OME-TIFF, OME-Zarr, BigDataViewer formats
+- [[webknossos]] - 3D annotation and visualization platform
+- [[isoview]] - Light-sheet multi-view fusion
