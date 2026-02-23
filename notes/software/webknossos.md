@@ -8,7 +8,7 @@ tags:
   - ngff
 category: software
 created: 2026-01-16
-updated: 2026-02-22
+updated: 2026-02-23
 source: https://docs.webknossos.org
 ---
 
@@ -59,11 +59,71 @@ three-tier fallback in `webknossos/dataset/_utils/pims_images.py`:
 ### pyramid generation
 
 downsampling in `webknossos/dataset/layer/_downsampling_utils.py`:
-- power-of-2 scaling, generates levels until slices reach ~100 vx^2
-- color layers: median interpolation (default)
-- segmentation layers: mode interpolation (default)
-- anisotropic-aware: selectively doubles smallest dimension to balance aspect ratios
-- modes: MEDIAN, MODE, NEAREST, BILINEAR, BICUBIC, MAX, MIN
+
+#### interpolation
+
+| mode | implementation | default for |
+|------|---------------|-------------|
+| MEDIAN | block-reduce, numpy median per voxel group | color layers |
+| MODE | block-reduce, numba-JIT most-frequent value | segmentation layers |
+| NEAREST | `scipy.ndimage.zoom` order=0 | - |
+| BILINEAR | `scipy.ndimage.zoom` order=1 | - |
+| BICUBIC | `scipy.ndimage.zoom` order=2 | - |
+| MAX | block-reduce, numpy max | - |
+| MIN | block-reduce, numpy min | - |
+
+no mean/average option. `parse_interpolation_mode()` auto-selects median for color, mode for segmentation. MEDIAN/MODE/MAX/MIN use `non_linear_filter_3d()` (reshape into factor-sized groups, reduce). NEAREST/BILINEAR/BICUBIC use `linear_filter_3d()` (scipy.ndimage.zoom wrapper).
+
+#### mag selection (scale factors)
+
+three sampling modes (`SamplingModes`), default is **ANISOTROPIC**:
+
+**ANISOTROPIC** — at each step:
+1. compute effective physical voxel size: `current_mag * voxel_size`
+2. find smallest physical dimension(s)
+3. candidate A: double all dims. candidate B: double only smallest dim(s)
+4. pick whichever produces more isotropic effective voxels (lower max/min ratio)
+
+example for anisotropic data (XY=406nm, Z=2031nm, ratio ~5x):
+```
+Mag(1,1,1)   -> (406, 406, 2031)nm  -> double XY only
+Mag(2,2,1)   -> (812, 812, 2031)nm  -> double XY only
+Mag(4,4,1)   -> (1625,1625,2031)nm  -> double all (~isotropic)
+Mag(8,8,2)   -> (3250,3250,4062)nm  -> double all
+```
+
+for isotropic data (equal voxel sizes), always doubles all three dims (2,2,2).
+
+**ISOTROPIC** — always (2,2,2) regardless of voxel size.
+
+**CONSTANT_Z** — doubles X,Y only, Z stays fixed.
+
+constraint: z-component between consecutive mags can only change by factor of 1 or 2.
+
+#### stopping criterion
+
+`calculate_default_coarsest_mag()`:
+```python
+coarsest_x_y = max(dataset_size[0], dataset_size[1])
+coarsest_mag = max(2 ** ceil(log2(coarsest_x_y / 100)), 4)
+```
+target ~100 voxels per slice in largest XY dim, minimum Mag(4).
+
+#### chunk and shard defaults
+
+from `webknossos/dataset/defaults.py`:
+
+| constant | value | notes |
+|----------|-------|-------|
+| `DEFAULT_CHUNK_SHAPE` | (32,32,32) | recommended 32 or 64 cubed |
+| `DEFAULT_SHARD_SHAPE` | (1024,1024,1024) | general zarr3/wkw |
+| `DEFAULT_SHARD_SHAPE_FROM_IMAGES` | (4096,4096,32) | flat-Z layout for image imports |
+
+downsampled mags copy chunk_shape and shard_shape from mag 1 (no adaptation). `add_mag()` warns if chunks not (32,32,32) or (64,64,64). both must be powers of two.
+
+#### processing buffer
+
+`determine_downsample_buffer_shape()` reads min(512, shard_shape) per dim in target space, so up to 1024^3 source voxels for 2x downsampling. configurable via `buffer_shape` param.
 
 ### what metadata webknossos reads from NGFF
 
@@ -95,6 +155,16 @@ webknossos convert \
 webknossos compress --jobs 4 output.zarr
 webknossos downsample --jobs 4 output.zarr
 ```
+
+`webknossos convert` defaults:
+- `--data-format`: Zarr3 (sharded). use `--data-format zarr` for unsharded zarr v2
+- `--compress`: True
+- `--downsample`: True
+- `--sampling-mode`: ANISOTROPIC
+- `--interpolation-mode`: "default" (median for color, mode for segmentation)
+- `--chunk-shape`: (32,32,32)
+- `--shard-shape`: auto (4096,4096,32 for zarr3 from images)
+- `--max-mag`: auto (from bounding box)
 
 ## python api
 
