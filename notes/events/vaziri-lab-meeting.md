@@ -71,3 +71,16 @@ Robust BEAST in-vivo imaging
 
 - 2p / 3p at 1-2mm x 1-2mm x 0.5mm @>=10hz
 
+
+## Christian 2026-02-24: Beast mesoscope
+
+- ~ 5 mm for 2pram 2.5mm XY offset of each mux beam
+- theoretically 4x the acquisition rate, parallel opto stimulation
+- scale total neurons of 2021 LBM paper, equivalent FOV, should be around 800-1000 neurons
+- ideally more since FOV provides greater temporal sampling
+- calibration taken at a different time than the recording
+- transgenic gcamp8s 
+- Crosstalk subtraction
+
+- Find that missing 20%
+- didn't factor in improvement from GCaMP6s to GCaMP8s 
