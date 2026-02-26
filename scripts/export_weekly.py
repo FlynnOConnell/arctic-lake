@@ -15,6 +15,9 @@ usage:
     # export all weeks
     uv run export-weekly --all
 
+    # serve locally and auto-rebuild on changes
+    uv run export-weekly --watch
+
     # export to OneDrive (default)
     uv run export-weekly --sync
 
@@ -182,6 +185,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             --code-bg: #0d1117;
             --code-text: #c9d1d9;
             --inline-code-bg: #161b22;
+            --sidebar-width: 240px;
+            --toc-width: 200px;
             color-scheme: dark;
         }}
 
@@ -192,11 +197,229 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
         }}
 
+        /* mobile header bar */
+        .mobile-header {{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            align-items: center;
+            padding: 0 1rem;
+        }}
+
+        .hamburger {{
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }}
+
+        .hamburger:hover {{ background: var(--border-color); }}
+
+        .mobile-title {{
+            margin-left: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--heading-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+
+        /* left sidebar (page nav) */
+        .sidebar-left {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 1rem 0;
+            z-index: 90;
+            font-size: 0.82rem;
+        }}
+
+        .sidebar-left::-webkit-scrollbar {{ width: 4px; }}
+        .sidebar-left::-webkit-scrollbar-thumb {{ background: var(--border-color); border-radius: 2px; }}
+
+        .sidebar-brand {{
+            padding: 0.25rem 1rem 0.75rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--heading-color);
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+        }}
+
+        .sidebar-brand a {{
+            color: var(--heading-color);
+            text-decoration: none;
+        }}
+
+        .sidebar-brand a:hover {{ color: var(--accent-color); }}
+
+        .nav-section {{
+            margin-bottom: 0.25rem;
+        }}
+
+        .nav-section-title {{
+            padding: 0.4rem 1rem;
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            user-select: none;
+        }}
+
+        .nav-section-title:hover {{ color: var(--text-color); }}
+
+        .nav-section-title::before {{
+            content: '▶';
+            font-size: 0.55em;
+            transition: transform 0.15s;
+            display: inline-block;
+        }}
+
+        .nav-section.open .nav-section-title::before {{
+            transform: rotate(90deg);
+        }}
+
+        .nav-section-items {{
+            display: none;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }}
+
+        .nav-section.open .nav-section-items {{
+            display: block;
+        }}
+
+        .nav-item a {{
+            display: block;
+            padding: 0.25rem 1rem 0.25rem 1.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: background 0.1s, color 0.1s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+
+        .nav-item a:hover {{
+            color: var(--text-color);
+            background: rgba(130,170,255,0.05);
+        }}
+
+        .nav-item.active a {{
+            color: var(--accent-color);
+            border-left-color: var(--accent-color);
+            background: rgba(130,170,255,0.08);
+            font-weight: 600;
+        }}
+
+        /* overlay for mobile sidebar */
+        .sidebar-overlay {{
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 85;
+        }}
+
+        /* center content */
+        .content-wrapper {{
+            margin-left: var(--sidebar-width);
+            margin-right: var(--toc-width);
+            flex: 1;
+            min-width: 0;
+            padding: 2rem 2.5rem;
+            max-width: 900px;
+        }}
+
+        /* right sidebar (table of contents) */
+        .sidebar-right {{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: var(--toc-width);
+            background: var(--bg-color);
+            border-left: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 1.5rem 0.75rem;
+            font-size: 0.75rem;
+            z-index: 80;
+        }}
+
+        .sidebar-right::-webkit-scrollbar {{ width: 4px; }}
+        .sidebar-right::-webkit-scrollbar-thumb {{ background: var(--border-color); border-radius: 2px; }}
+
+        .toc-title {{
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }}
+
+        .toc-list {{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }}
+
+        .toc-list a {{
+            display: block;
+            padding: 0.2rem 0;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 0.5rem;
+            transition: color 0.1s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+
+        .toc-list a:hover {{ color: var(--text-color); }}
+
+        .toc-list a.active {{
+            color: var(--accent-color);
+            border-left-color: var(--accent-color);
+        }}
+
+        .toc-list .toc-h3 {{
+            padding-left: 1.2rem;
+            font-size: 0.7rem;
+        }}
+
+        /* standard content styles */
         h1, h2, h3, h4, h5, h6 {{
             color: var(--heading-color);
             margin-top: 1.5em;
@@ -603,12 +826,42 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             color: var(--text-muted);
         }}
 
+        /* responsive: hide right TOC below 1100px */
+        @media (max-width: 1100px) {{
+            .sidebar-right {{ display: none; }}
+            .content-wrapper {{ margin-right: 0; }}
+        }}
+
+        /* responsive: slide-in left sidebar below 800px */
+        @media (max-width: 800px) {{
+            .mobile-header {{ display: flex; }}
+            .sidebar-left {{
+                transform: translateX(-100%);
+                transition: transform 0.2s ease;
+            }}
+            .sidebar-left.open {{
+                transform: translateX(0);
+            }}
+            .sidebar-overlay.open {{
+                display: block;
+            }}
+            .content-wrapper {{
+                margin-left: 0;
+                padding: 60px 1.5rem 2rem;
+            }}
+        }}
+
         @media print {{
-            body {{
-                max-width: none;
+            .sidebar-left, .sidebar-right, .mobile-header, .sidebar-overlay {{ display: none !important; }}
+            .content-wrapper {{
+                margin: 0;
                 padding: 1cm;
+                max-width: none;
+            }}
+            body {{
                 background-color: #fff;
                 color: #000;
+                display: block;
             }}
             .daily-note {{
                 background-color: #f5f5f5;
@@ -622,7 +875,69 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     </style>
 </head>
 <body>
-    {content}
+    <div class="mobile-header">
+        <button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle navigation">☰</button>
+        <span class="mobile-title">{title}</span>
+    </div>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <nav class="sidebar-left">
+        <div class="sidebar-brand"><a href="index.html">Weekly Notes</a></div>
+        {sidebar_nav}
+    </nav>
+    <main class="content-wrapper">
+        {content}
+    </main>
+    <aside class="sidebar-right">
+        <div class="toc-title">On this page</div>
+        <ul class="toc-list" id="toc-list"></ul>
+    </aside>
+    <script>
+    // toggle mobile sidebar
+    function toggleSidebar() {{
+        document.querySelector('.sidebar-left').classList.toggle('open');
+        document.querySelector('.sidebar-overlay').classList.toggle('open');
+    }}
+
+    // build TOC from h2/h3 in content
+    (function() {{
+        var wrapper = document.querySelector('.content-wrapper');
+        var toc = document.getElementById('toc-list');
+        if (!wrapper || !toc) return;
+        var headings = wrapper.querySelectorAll('h2, h3');
+        if (headings.length === 0) {{ document.querySelector('.sidebar-right').style.display = 'none'; return; }}
+        headings.forEach(function(h) {{
+            if (!h.id) h.id = h.textContent.trim().toLowerCase().replace(/[^\\w]+/g, '-');
+            var li = document.createElement('li');
+            if (h.tagName === 'H3') li.className = 'toc-h3';
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.textContent;
+            li.appendChild(a);
+            toc.appendChild(li);
+        }});
+        // scroll-spy via IntersectionObserver
+        var links = toc.querySelectorAll('a');
+        var observer = new IntersectionObserver(function(entries) {{
+            entries.forEach(function(e) {{
+                if (e.isIntersecting) {{
+                    links.forEach(function(l) {{ l.classList.remove('active'); }});
+                    var match = toc.querySelector('a[href="#' + e.target.id + '"]');
+                    if (match) match.classList.add('active');
+                }}
+            }});
+        }}, {{ rootMargin: '0px 0px -70% 0px', threshold: 0 }});
+        headings.forEach(function(h) {{ observer.observe(h); }});
+    }})();
+
+    // auto-open nav section containing active page
+    (function() {{
+        var active = document.querySelector('.nav-item.active');
+        if (active) {{
+            var section = active.closest('.nav-section');
+            if (section) section.classList.add('open');
+        }}
+    }})();
+    </script>
 </body>
 </html>
 """
@@ -790,11 +1105,125 @@ def render_markdown(content: str) -> str:
     return md.convert(content)
 
 
+def discover_additional_pages() -> list[dict]:
+    """scan exports.toml to enumerate pages as metadata (no file I/O)."""
+    config = load_exports_config()
+    pages = []
+
+    for page in config.get("pages", []):
+        source = Path(page["source"])
+        if not source.is_absolute():
+            source = DOCS_ROOT / source
+        pages.append({
+            "path": page["output"],
+            "title": page.get("title", source.stem),
+            "category": page.get("category", "Other"),
+        })
+
+    for dir_config in config.get("directories", []):
+        source_dir = Path(dir_config["source"])
+        subdir = dir_config.get("output_subdir", "pages")
+        category = dir_config.get("category", "Other")
+        pattern = dir_config.get("pattern", "*.md")
+        title_parser = parse_sop_title if "sop" in subdir.lower() else None
+        if source_dir.exists():
+            for md_file in sorted(source_dir.glob(pattern)):
+                title = title_parser(md_file.name) if title_parser else md_file.stem.replace('-', ' ').replace('_', ' ').title()
+                pages.append({
+                    "path": f"{subdir}/{md_file.stem}.html",
+                    "title": title,
+                    "category": category,
+                })
+
+    for dir_config in config.get("html_directories", []):
+        source_dir = Path(dir_config["source"])
+        subdir = dir_config.get("output_subdir", "html")
+        category = dir_config.get("category", "Other")
+        pattern = dir_config.get("pattern", "*.html")
+        if source_dir.exists():
+            for html_file in sorted(source_dir.glob(pattern), reverse=True):
+                pages.append({
+                    "path": f"{subdir}/{html_file.stem}.html",
+                    "title": parse_notebook_title(html_file.name),
+                    "category": category,
+                })
+
+    for dir_config in config.get("media_directories", []):
+        source_dir = Path(dir_config["source"])
+        subdir = dir_config.get("output_subdir", "media")
+        category = dir_config.get("category", "Media")
+        pattern = dir_config.get("pattern", "*.mp4")
+        if source_dir.exists():
+            for media_file in sorted(source_dir.glob(pattern), reverse=True):
+                pages.append({
+                    "path": f"{subdir}/{media_file.stem}.html",
+                    "title": media_file.stem.replace('-', ' ').replace('_', ' ').title(),
+                    "category": category,
+                })
+
+    return pages
+
+
+def build_nav_tree(weeks: list[str], additional_pages: list[dict]) -> dict[str, list[dict]]:
+    """organize pages into {category: [page_dicts]} for sidebar rendering.
+
+    all paths are stored root-relative (from the serve root).
+    weekly reports: "2026-W08.html"
+    additional pages: "compute/software/webknossos.html"
+    """
+    tree: dict[str, list[dict]] = {}
+
+    if weeks:
+        tree["Weekly Reports"] = [
+            {"path": f"{w}.html", "title": w} for w in reversed(weeks)
+        ]
+
+    for page in additional_pages:
+        cat = page["category"]
+        if cat not in tree:
+            tree[cat] = []
+        # prefix with compute/ so paths are root-relative
+        root_path = page["path"]
+        if not root_path.startswith("compute/"):
+            root_path = f"compute/{root_path}"
+        tree[cat].append({"path": root_path, "title": page["title"]})
+
+    return tree
+
+
+def render_sidebar_html(nav_tree: dict[str, list[dict]], current_page_path: str) -> str:
+    """render left sidebar HTML with active state and collapsible sections.
+
+    computes relative hrefs from the current page to each target.
+    """
+    import posixpath
+
+    current_dir = posixpath.dirname(current_page_path)
+
+    parts = []
+    for category, pages in nav_tree.items():
+        has_active = any(p["path"] == current_page_path for p in pages)
+        open_cls = " open" if has_active else ""
+
+        parts.append(f'<div class="nav-section{open_cls}">')
+        parts.append(f'<div class="nav-section-title" onclick="this.parentElement.classList.toggle(\'open\')">{category}</div>')
+        parts.append('<ul class="nav-section-items">')
+        for page in pages:
+            active = " active" if page["path"] == current_page_path else ""
+            href = posixpath.relpath(page["path"], current_dir)
+            parts.append(f'<li class="nav-item{active}"><a href="{href}">{page["title"]}</a></li>')
+        parts.append('</ul>')
+        parts.append('</div>')
+
+    return "\n".join(parts)
+
+
 def build_weekly_report(
     week_id: str,
     output_dir: Path,
     prev_week: str | None = None,
-    next_week: str | None = None
+    next_week: str | None = None,
+    sidebar_nav: str = "",
 ) -> str | None:
     """
     build a complete HTML report for a week.
@@ -919,7 +1348,8 @@ def build_weekly_report(
 
     return HTML_TEMPLATE.format(
         title=f"Weekly Meeting – {week_range}",
-        content="".join(parts)
+        content="".join(parts),
+        sidebar_nav=sidebar_nav,
     )
 
 
@@ -938,7 +1368,8 @@ def export_week(
     week_id: str,
     output_dir: Path,
     all_weeks: list[str] | None = None,
-    force: bool = False
+    force: bool = False,
+    sidebar_nav: str = "",
 ) -> Path | None:
     """export a single week to HTML."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -956,7 +1387,7 @@ def export_week(
     if all_weeks:
         prev_week, next_week = get_adjacent_weeks(week_id, all_weeks)
 
-    html = build_weekly_report(week_id, output_dir, prev_week, next_week)
+    html = build_weekly_report(week_id, output_dir, prev_week, next_week, sidebar_nav=sidebar_nav)
     if html is None:
         print(f"  no content found for {week_id}")
         return None
@@ -966,7 +1397,7 @@ def export_week(
     return output_file
 
 
-def export_all_weeks(output_dir: Path, force: bool = False) -> list[Path]:
+def export_all_weeks(output_dir: Path, force: bool = False, nav_tree: dict | None = None) -> list[Path]:
     """export all available weeks to HTML with navigation links."""
     weeks = discover_all_weeks()
     if not weeks:
@@ -977,14 +1408,15 @@ def export_all_weeks(output_dir: Path, force: bool = False) -> list[Path]:
     results = []
 
     for week_id in weeks:
-        result = export_week(week_id, output_dir, all_weeks=weeks, force=force)
+        sidebar_nav = render_sidebar_html(nav_tree, f"{week_id}.html") if nav_tree else ""
+        result = export_week(week_id, output_dir, all_weeks=weeks, force=force, sidebar_nav=sidebar_nav)
         if result:
             results.append(result)
 
     return results
 
 
-def build_index(output_dir: Path) -> Path | None:
+def build_index(output_dir: Path, sidebar_nav: str = "") -> Path | None:
     """build an index.html linking to all weekly reports."""
     html_files = sorted(output_dir.glob("????-W??.html"), reverse=True)
     if not html_files:
@@ -1012,6 +1444,7 @@ def build_index(output_dir: Path) -> Path | None:
 
     index_html = HTML_TEMPLATE.format(
         title="Weekly Meeting Notes",
+        sidebar_nav=sidebar_nav,
         content=f'''
 <h1>Weekly Meeting Notes</h1>
 <p class="index-meta">Last updated: {datetime.now().strftime("%B %d, %Y at %H:%M")}</p>
@@ -1036,7 +1469,7 @@ def load_exports_config() -> dict:
         return tomllib.load(f)
 
 
-def export_page(source: Path, output_file: Path, title: str) -> Path | None:
+def export_page(source: Path, output_file: Path, title: str, sidebar_nav: str = "") -> Path | None:
     """export a single markdown page to HTML."""
     if not source.exists():
         print(f"  skipping {source} (not found)")
@@ -1051,6 +1484,7 @@ def export_page(source: Path, output_file: Path, title: str) -> Path | None:
     # wrap in template with back link
     full_html = HTML_TEMPLATE.format(
         title=title,
+        sidebar_nav=sidebar_nav,
         content=f'''
 <nav class="week-nav">
     <span class="nav-prev"></span>
@@ -1102,7 +1536,7 @@ def parse_sop_title(filename: str) -> str:
     return stem.replace('-', ' ').replace('_', ' ').title()
 
 
-def export_directory_markdown(source_dir: Path, output_dir: Path, subdir: str, category: str, pattern: str = "*.md", title_parser=None) -> list[dict]:
+def export_directory_markdown(source_dir: Path, output_dir: Path, subdir: str, category: str, pattern: str = "*.md", title_parser=None, nav_tree: dict | None = None) -> list[dict]:
     """scan directory for markdown files and export them."""
     exported = []
     if not source_dir.exists():
@@ -1119,7 +1553,9 @@ def export_directory_markdown(source_dir: Path, output_dir: Path, subdir: str, c
             title = md_file.stem.replace('-', ' ').replace('_', ' ').title()
         output_file = out_path / f"{md_file.stem}.html"
 
-        result = export_page(md_file, output_file, title)
+        page_path = f"compute/{subdir}/{md_file.stem}.html"
+        sidebar_nav = render_sidebar_html(nav_tree, page_path) if nav_tree else ""
+        result = export_page(md_file, output_file, title, sidebar_nav=sidebar_nav)
         if result:
             exported.append({
                 "path": f"{subdir}/{md_file.stem}.html",
@@ -1155,7 +1591,7 @@ def copy_html_directory(source_dir: Path, output_dir: Path, subdir: str, categor
     return exported
 
 
-def copy_media_directory(source_dir: Path, output_dir: Path, subdir: str, category: str, pattern: str = "*.mp4") -> list[dict]:
+def copy_media_directory(source_dir: Path, output_dir: Path, subdir: str, category: str, pattern: str = "*.mp4", nav_tree: dict | None = None) -> list[dict]:
     """copy media files and create viewer pages."""
     exported = []
     if not source_dir.exists():
@@ -1172,8 +1608,11 @@ def copy_media_directory(source_dir: Path, output_dir: Path, subdir: str, catego
 
         # create simple viewer page
         title = media_file.stem.replace('-', ' ').replace('_', ' ').title()
+        page_path = f"compute/{subdir}/{media_file.stem}.html"
+        sidebar_nav = render_sidebar_html(nav_tree, page_path) if nav_tree else ""
         viewer_html = HTML_TEMPLATE.format(
             title=title,
+            sidebar_nav=sidebar_nav,
             content=f'''
 <nav class="week-nav">
     <span class="nav-prev"></span>
@@ -1196,7 +1635,7 @@ def copy_media_directory(source_dir: Path, output_dir: Path, subdir: str, catego
     return exported
 
 
-def export_additional_pages(output_dir: Path) -> list[dict]:
+def export_additional_pages(output_dir: Path, nav_tree: dict | None = None) -> list[dict]:
     """export additional pages from exports.toml config."""
     config = load_exports_config()
     exported = []
@@ -1210,7 +1649,11 @@ def export_additional_pages(output_dir: Path) -> list[dict]:
         title = page.get("title", source.stem)
         category = page.get("category", "Other")
 
-        result = export_page(source, output_file, title)
+        page_root_path = page["output"]
+        if not page_root_path.startswith("compute/"):
+            page_root_path = f"compute/{page_root_path}"
+        sidebar_nav = render_sidebar_html(nav_tree, page_root_path) if nav_tree else ""
+        result = export_page(source, output_file, title, sidebar_nav=sidebar_nav)
         if result:
             exported.append({
                 "path": page["output"],
@@ -1229,7 +1672,7 @@ def export_additional_pages(output_dir: Path) -> list[dict]:
         title_parser = parse_sop_title if "sop" in subdir.lower() else None
 
         print(f"scanning {source_dir} for {pattern}...")
-        exported.extend(export_directory_markdown(source_dir, output_dir, subdir, category, pattern, title_parser))
+        exported.extend(export_directory_markdown(source_dir, output_dir, subdir, category, pattern, title_parser, nav_tree=nav_tree))
 
     # pre-rendered HTML directories
     for dir_config in config.get("html_directories", []):
@@ -1249,12 +1692,12 @@ def export_additional_pages(output_dir: Path) -> list[dict]:
         pattern = dir_config.get("pattern", "*.mp4")
 
         print(f"copying media from {source_dir}...")
-        exported.extend(copy_media_directory(source_dir, output_dir, subdir, category, pattern))
+        exported.extend(copy_media_directory(source_dir, output_dir, subdir, category, pattern, nav_tree=nav_tree))
 
     return exported
 
 
-def build_index_with_categories(output_dir: Path, additional_pages: list[dict] = None) -> Path | None:
+def build_index_with_categories(output_dir: Path, additional_pages: list[dict] = None, sidebar_nav: str = "") -> Path | None:
     """build index.html with weekly reports and additional pages by category."""
     html_files = sorted(output_dir.glob("????-W??.html"), reverse=True)
 
@@ -1303,6 +1746,7 @@ def build_index_with_categories(output_dir: Path, additional_pages: list[dict] =
 
     index_html = HTML_TEMPLATE.format(
         title="Weekly Meeting Notes",
+        sidebar_nav=sidebar_nav,
         content=f'''
 <h1>Weekly Meeting Notes</h1>
 <p class="index-meta">Last updated: {datetime.now().strftime("%B %d, %Y at %H:%M")}</p>
@@ -1325,24 +1769,31 @@ def sync_to_destination(weekly_dest: Path, compute_dest: Path, force: bool = Fal
     weekly_dest.mkdir(parents=True, exist_ok=True)
     compute_dest.mkdir(parents=True, exist_ok=True)
 
+    # build nav tree for sidebar
+    weeks = discover_all_weeks()
+    additional_meta = discover_additional_pages()
+    nav_tree = build_nav_tree(weeks, additional_meta)
+
     print(f"syncing weekly to: {weekly_dest}")
-    results = export_all_weeks(weekly_dest, force=force)
+    results = export_all_weeks(weekly_dest, force=force, nav_tree=nav_tree)
 
     # export additional pages to compute subfolder
     print(f"syncing compute to: {compute_dest}")
-    additional = export_additional_pages(compute_dest)
+    additional = export_additional_pages(compute_dest, nav_tree=nav_tree)
 
     # build clean index with just weekly reports
-    build_index(weekly_dest)
+    index_sidebar = render_sidebar_html(nav_tree, "index.html")
+    build_index(weekly_dest, sidebar_nav=index_sidebar)
 
     # build compute index
     if additional:
-        build_compute_index(compute_dest, additional)
+        compute_sidebar = render_sidebar_html(nav_tree, "compute/index.html")
+        build_compute_index(compute_dest, additional, sidebar_nav=compute_sidebar)
 
     return results
 
 
-def build_compute_index(output_dir: Path, pages: list[dict]) -> Path | None:
+def build_compute_index(output_dir: Path, pages: list[dict], sidebar_nav: str = "") -> Path | None:
     """build index for compute (notebooks, SOPs)."""
     if not pages:
         return None
@@ -1368,6 +1819,7 @@ def build_compute_index(output_dir: Path, pages: list[dict]) -> Path | None:
 
     index_html = HTML_TEMPLATE.format(
         title="Compute",
+        sidebar_nav=sidebar_nav,
         content=f'''
 <nav class="week-nav">
     <span class="nav-prev"></span>
@@ -1684,24 +2136,27 @@ date: {monday.strftime('%Y-%m-%d')}
 SERVE_PORT = 8787
 
 
-def serve_and_open(serve_dir: Path) -> None:
-    """start background HTTP server and open browser."""
-    import socket
-    import webbrowser
-
-    url = f"http://localhost:{SERVE_PORT}"
-
-    # check if server already running
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        sock.bind(("127.0.0.1", SERVE_PORT))
-        sock.close()
-    except OSError:
+def _open_browser(url: str) -> None:
+    """open url in default browser without spawning a visible python window."""
+    if sys.platform == "win32":
+        os.startfile(url)
+    else:
+        import webbrowser
         webbrowser.open(url)
-        print(f"  server already running at {url}")
-        return
 
-    # spawn detached python process serving the directory
+
+def _is_port_in_use(port: int) -> bool:
+    import socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        try:
+            sock.bind(("127.0.0.1", port))
+            return False
+        except OSError:
+            return True
+
+
+def _start_server(serve_dir: Path) -> None:
+    """spawn a detached HTTP server process."""
     cmd = [
         sys.executable, "-c",
         f"from http.server import HTTPServer, SimpleHTTPRequestHandler; "
@@ -1712,7 +2167,6 @@ def serve_and_open(serve_dir: Path) -> None:
     ]
 
     if sys.platform == "win32":
-        # detached process on windows
         subprocess.Popen(
             cmd,
             creationflags=subprocess.DETACHED_PROCESS | subprocess.CREATE_NO_WINDOW,
@@ -1727,8 +2181,104 @@ def serve_and_open(serve_dir: Path) -> None:
             start_new_session=True,
         )
 
-    webbrowser.open(url)
-    print(f"  serving at {url} (background process)")
+
+def serve_and_open(serve_dir: Path) -> None:
+    """start background HTTP server and open browser."""
+    url = f"http://localhost:{SERVE_PORT}"
+
+    if _is_port_in_use(SERVE_PORT):
+        print(f"  server already running at {url}")
+    else:
+        _start_server(serve_dir)
+        print(f"  serving at {url} (background process)")
+
+    _open_browser(url)
+
+
+def _collect_mtimes(dirs: list[Path], patterns: list[str] = None) -> dict[Path, float]:
+    """snapshot mtime for all matching files in the given directories."""
+    if patterns is None:
+        patterns = ["*.md"]
+    mtimes = {}
+    for d in dirs:
+        if d.exists():
+            for pat in patterns:
+                for f in d.glob(pat):
+                    mtimes[f] = f.stat().st_mtime
+    return mtimes
+
+
+def watch_and_rebuild(output_dir: Path, poll_interval: float = 30.0) -> None:
+    """poll source directories for changes and rebuild on change.
+
+    runs the HTTP server in the background, then loops until ctrl+c.
+    """
+    import time
+
+    url = f"http://localhost:{SERVE_PORT}"
+
+    if not _is_port_in_use(SERVE_PORT):
+        _start_server(output_dir)
+    print(f"  serving at {url}")
+    _open_browser(url)
+
+    watch_dirs = [WEEKLY_DIR, DAILY_DIR, DOCS_ROOT / "notes" / "software", DOCS_ROOT / "notes" / "sop"]
+    watch_patterns = ["*.md"]
+
+    # also watch exports.toml
+    config_file = EXPORTS_CONFIG
+    config_mtime = config_file.stat().st_mtime if config_file.exists() else 0
+
+    prev = _collect_mtimes(watch_dirs, watch_patterns)
+    print(f"  watching {len(prev)} files for changes (ctrl+c to stop)")
+
+    try:
+        while True:
+            time.sleep(poll_interval)
+            curr = _collect_mtimes(watch_dirs, watch_patterns)
+            curr_config = config_file.stat().st_mtime if config_file.exists() else 0
+
+            changed = curr != prev or curr_config != config_mtime
+            if not changed:
+                continue
+
+            # figure out what changed
+            new_files = set(curr) - set(prev)
+            removed = set(prev) - set(curr)
+            modified = {f for f in set(curr) & set(prev) if curr[f] != prev[f]}
+
+            for f in new_files:
+                print(f"  + {f.name}")
+            for f in modified:
+                print(f"  ~ {f.name}")
+            for f in removed:
+                print(f"  - {f.name}")
+            if curr_config != config_mtime:
+                print(f"  ~ exports.toml")
+
+            print("  rebuilding...")
+            prev = curr
+            config_mtime = curr_config
+
+            try:
+                weeks = discover_all_weeks()
+                additional_meta = discover_additional_pages()
+                nav_tree = build_nav_tree(weeks, additional_meta)
+                compute_dir = output_dir / "compute"
+
+                export_all_weeks(output_dir, force=True, nav_tree=nav_tree)
+                additional = export_additional_pages(compute_dir, nav_tree=nav_tree)
+                index_sidebar = render_sidebar_html(nav_tree, "index.html")
+                build_index(output_dir, sidebar_nav=index_sidebar)
+                if additional:
+                    compute_sidebar = render_sidebar_html(nav_tree, "compute/index.html")
+                    build_compute_index(compute_dir, additional, sidebar_nav=compute_sidebar)
+                print(f"  done — reload browser to see changes")
+            except Exception as e:
+                print(f"  rebuild error: {e}")
+
+    except KeyboardInterrupt:
+        print("\n  stopped watching")
 
 
 def main():
@@ -1828,7 +2378,13 @@ destinations:
     parser.add_argument(
         '--open',
         action='store_true',
-        help="open the index.html in Firefox after export"
+        help="open in browser after export"
+    )
+
+    parser.add_argument(
+        '--watch', '-w',
+        action='store_true',
+        help="serve and auto-rebuild on source file changes"
     )
 
     args = parser.parse_args()
@@ -1897,14 +2453,40 @@ destinations:
     output_dir = args.output_dir or (LOCAL_EXPORT_DIR / "weekly")
     compute_dir = output_dir / "compute"
 
+    # handle --watch: initial build then watch loop
+    if args.watch:
+        weeks = discover_all_weeks()
+        additional_meta = discover_additional_pages()
+        nav_tree = build_nav_tree(weeks, additional_meta)
+
+        results = export_all_weeks(output_dir, force=True, nav_tree=nav_tree)
+        additional = export_additional_pages(compute_dir, nav_tree=nav_tree)
+        index_sidebar = render_sidebar_html(nav_tree, "index.html")
+        build_index(output_dir, sidebar_nav=index_sidebar)
+        if additional:
+            compute_sidebar = render_sidebar_html(nav_tree, "compute/index.html")
+            build_compute_index(compute_dir, additional, sidebar_nav=compute_sidebar)
+        print(f"\nexported {len(results or [])} weeks to: {output_dir}")
+        watch_and_rebuild(output_dir)
+        return
+
+    # phase 1: discover all content
+    weeks = discover_all_weeks()
+    additional_meta = discover_additional_pages()
+
+    # phase 2: build nav tree and render sidebar
+    nav_tree = build_nav_tree(weeks, additional_meta)
+
     if args.all:
-        results = export_all_weeks(output_dir, force=args.force)
+        # phase 3: export all pages with sidebar
+        results = export_all_weeks(output_dir, force=args.force, nav_tree=nav_tree)
         if results:
-            # export additional pages (software, sops, processing)
-            additional = export_additional_pages(compute_dir)
-            build_index(output_dir)
+            additional = export_additional_pages(compute_dir, nav_tree=nav_tree)
+            index_sidebar = render_sidebar_html(nav_tree, "index.html")
+            build_index(output_dir, sidebar_nav=index_sidebar)
             if additional:
-                build_compute_index(compute_dir, additional)
+                compute_sidebar = render_sidebar_html(nav_tree, "compute/index.html")
+                build_compute_index(compute_dir, additional, sidebar_nav=compute_sidebar)
             print(f"\nexported {len(results)} weeks to: {output_dir}")
             if args.open:
                 serve_and_open(output_dir)
@@ -1916,14 +2498,16 @@ destinations:
             print(f"ERROR: {e}")
             sys.exit(1)
 
-        weeks = discover_all_weeks()
-        result = export_week(week_id, output_dir, all_weeks=weeks, force=args.force)
+        # phase 3: export single week with sidebar
+        week_sidebar = render_sidebar_html(nav_tree, f"{week_id}.html")
+        result = export_week(week_id, output_dir, all_weeks=weeks, force=args.force, sidebar_nav=week_sidebar)
         if result:
-            # export additional pages (software, sops, processing)
-            additional = export_additional_pages(compute_dir)
-            build_index(output_dir)
+            additional = export_additional_pages(compute_dir, nav_tree=nav_tree)
+            index_sidebar = render_sidebar_html(nav_tree, "index.html")
+            build_index(output_dir, sidebar_nav=index_sidebar)
             if additional:
-                build_compute_index(compute_dir, additional)
+                compute_sidebar = render_sidebar_html(nav_tree, "compute/index.html")
+                build_compute_index(compute_dir, additional, sidebar_nav=compute_sidebar)
             print(f"\nexported to: {result}")
             if args.open:
                 serve_and_open(output_dir)

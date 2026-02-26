@@ -161,12 +161,18 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <title>{title}</title>
     <style>
         :root {{
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --code-bg: #f5f5f5;
-            --border-color: #e0e0e0;
-            --link-color: #0066cc;
-            --heading-color: #111111;
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --text-muted: #9e9e9e;
+            --border-color: #333;
+            --link-color: #82aaff;
+            --link-hover: #b0c4ff;
+            --heading-color: #ffffff;
+            --code-bg: #0d1117;
+            --code-text: #c9d1d9;
+            --inline-code-bg: #161b22;
+            color-scheme: dark;
         }}
 
         * {{
@@ -174,7 +180,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
@@ -191,9 +197,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         h1 {{
-            font-size: 2em;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.3em;
+            font-size: 1.8em;
+            text-decoration: underline;
+            border: none;
+            padding-bottom: 0;
         }}
 
         h2 {{
@@ -208,16 +215,16 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         a:hover {{
+            color: var(--link-hover);
             text-decoration: underline;
         }}
 
         img {{
-            max-width: 100%;
+            max-width: 550px;
             height: auto;
             display: block;
             margin: 1em auto;
             border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }}
 
         video {{
@@ -226,27 +233,28 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             display: block;
             margin: 1em auto;
             border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }}
 
         code {{
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 0.9em;
-            background-color: var(--code-bg);
-            padding: 0.2em 0.4em;
-            border-radius: 3px;
+            font-size: 0.82rem;
+            background-color: var(--inline-code-bg);
+            color: var(--code-text);
+            padding: 2px 6px;
+            border-radius: 4px;
         }}
 
         pre {{
             background-color: var(--code-bg);
-            padding: 1em;
-            border-radius: 6px;
+            padding: 12px 24px;
+            border-radius: 4px;
             overflow-x: auto;
-            border: 1px solid var(--border-color);
+            border: none;
+            font-size: 0.82rem;
         }}
 
         pre code {{
-            background: none;
+            background: transparent;
             padding: 0;
         }}
 
@@ -254,28 +262,62 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             border-left: 4px solid var(--border-color);
             margin-left: 0;
             padding-left: 1em;
-            color: #666;
+            color: var(--text-muted);
         }}
 
         table {{
+            background-color: var(--surface-color);
             border-collapse: collapse;
+            border: none;
             width: 100%;
-            margin: 1em 0;
+            margin: 0.5em 0;
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 0.78rem;
+            line-height: 1.3;
         }}
 
-        th, td {{
-            border: 1px solid var(--border-color);
-            padding: 0.5em 1em;
-            text-align: left;
+        thead {{
+            background-color: #2d2d2d;
+            border-bottom: 1px solid #424242;
         }}
 
         th {{
-            background-color: var(--code-bg);
+            background-color: #2d2d2d;
+            color: #fff;
             font-weight: 600;
+            padding: 5px 6px;
+            text-align: left;
+            border: none;
+            font-size: 0.78rem;
         }}
 
-        tr:nth-child(even) {{
-            background-color: #fafafa;
+        td {{
+            color: var(--text-color);
+            padding: 3px 6px;
+            border: none;
+            vertical-align: top;
+            font-size: 0.78rem;
+        }}
+
+        tbody tr {{
+            background-color: var(--surface-color);
+            border-bottom: 1px solid #2a2a2a;
+        }}
+
+        tbody tr:nth-child(even) {{
+            background-color: #252525;
+        }}
+
+        tbody tr:hover {{
+            background-color: #333;
+        }}
+
+        td code, th code {{
+            background-color: #383838;
+            color: #82aaff;
+            font-size: 0.72rem;
+            padding: 1px 3px;
         }}
 
         ul, ol {{
@@ -293,7 +335,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         .metadata {{
-            color: #666;
+            color: var(--text-muted);
             font-size: 0.9em;
             margin-bottom: 2em;
             padding-bottom: 1em;
@@ -301,15 +343,25 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }}
 
         .missing-image {{
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
+            background-color: #2a2000;
+            border: 1px solid #665500;
             padding: 1em;
             border-radius: 4px;
-            color: #856404;
+            color: #ccaa00;
             text-align: center;
         }}
 
-        /* Task list styling */
+        /* syntax highlighting */
+        .highlight .k, .highlight .kn, .highlight .kd {{ color: #c792ea; }}
+        .highlight .s, .highlight .s1, .highlight .s2 {{ color: #f9ae58; }}
+        .highlight .n {{ color: #e0e0e0; }}
+        .highlight .nf, .highlight .fm {{ color: #82aaff; }}
+        .highlight .nc {{ color: #ffcb6b; }}
+        .highlight .c, .highlight .c1, .highlight .cm {{ color: #546e7a; font-style: italic; }}
+        .highlight .mi, .highlight .mf {{ color: #f78c6c; }}
+        .highlight .o, .highlight .p {{ color: #89ddff; }}
+
+        /* task list styling */
         .task-list-item {{
             list-style-type: none;
             margin-left: -1.5em;
@@ -323,6 +375,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             body {{
                 max-width: none;
                 padding: 1cm;
+                background-color: #fff;
+                color: #000;
             }}
 
             img {{
@@ -332,6 +386,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
             h1, h2, h3 {{
                 page-break-after: avoid;
+                color: #000;
             }}
 
             pre, blockquote {{
