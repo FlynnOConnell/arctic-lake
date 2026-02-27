@@ -1,9 +1,35 @@
-# backlog resolved
+# Backlog
 
-items listed here are excluded from the weekly report backlog.
-copy the item text and mark with `- [x]` to resolve without editing previous weeks.
+- [~] MultiProcessing, speed optimizations (W09)
+- [ ] (Example datasets) Fix tiled/timepoint filename regex, how to tell tiled vs timelapse, SPC##_CM#_CM#_CHN#_ANG#.stack (W09)
+- [ ] View-View processing: registration, fusion, multiview-stitcher (W08)
+- [~] Ortho-view processing: registration, fusion, multiview-stitcher (W09)
+- [ ] (with example datasets) Organize aquisition modes: tiled vs timelapse (W09)
+- [ ] (~2h, 5%) Sync the viewer + "flip_vertical"/"flip_horizontal" (W05)
+- [ ] Update storage server with results that have proper directory structure (W06)
 
-- [x] Translate cluster_MF.m to python
-- [x] IsoView: clusterPT and clusterMF (python) with Zarr, KLB and Tiff support. First, exact copy of MATLAB results, second work through parameters like slabbing, blending etc.
-- [x] clusterMF bugfixes, confirm geometric/adaptive blending
-- [x] Implement cropping for Python
+## Done
+
+- [x] IsoView: clusterPT and clusterMF (python) with Zarr, KLB and Tiff support. First, exact copy of MATLAB results, second work through parameters like slabbing, blending etc. (W03)
+- [x] Translate cluster_MF.m to python (W04)
+- [x] Image with zarr array types (W04)
+- [x] clusterPT python version; save as KLB, Zarr v3, OME-TIFF -- write and test read operations in Python, ImageJ/Fiji; For zarr v3, use your viewer for the time being; port over all operations from clusterPT.m (W05)
+- [x] clusterMF -- port over multifuse; ditto as above (W05)
+- [x] RC to provide raw .stack files (bead dataset) for the test; Let's look at the these outputs next week (W05)
+- [x] If the above is done, then mbo_utils (W05)
+- [x] clusterPT directory structure and cropping housekeeping (W06)
+- [x] clusterMF bugfixes, confirm geometric/adaptive blending (W06)
+- [x] Zarr support in both clusterPT and clusterMF (W06)
+- [x] Verify ImageJ compatibility with non-LBM tiff array types (W04)
+- [x] Move processing notebooks to "projects" making sure it follows the requirements (W04)
+- [x] LBM-Suite2p-Python: incorperate similar naming convention for outputs as mbo_utilities: `tp0002-000N` (W04)
+- [x] Implement cropping for Python (W06)
+- [x] Continue implementing `multi_fuse.py` (W07)
+- [x] Implement Zarr v3 (W08)
+- [x] Camera fusion: geometric / adaptive blending (W07)
+- [x] Compression, Zstandard (ome-tiff, zarr v3 when ready) (W07)
+- [x] Resolution Levels (W09)
+- [x] Specimin Position in OME metadata (W07)
+- [x] (Critical) Fix first camera, second camera to rotate (W08)
+- [x] Remove CHN0N -> View0N (W08)
+- [x] Test/Validate Zarr v3 (W09)

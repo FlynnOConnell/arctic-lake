@@ -1326,20 +1326,24 @@ def build_weekly_report(
         parts.append('</ul>')
         parts.append('</div>')
 
-    # backlog section (unchecked items from previous weeks)
+    # backlog section (flat priority list from backlog.md)
     backlog = collect_backlog(week_id)
     if backlog:
-        total = sum(len(b['items']) for b in backlog)
         parts.append(f'''
 <details class="callout callout-backlog" id="backlog">
-<summary>Backlog ({total} items from {len(backlog)} weeks)</summary>
-<div class="callout-content">''')
-        for entry in backlog:
-            parts.append(f'<h4>{entry["week"]}</h4>')
-            parts.append('<ul>')
-            for item in entry['items']:
-                parts.append(f'<li class="task-item task-open"><span class="checkbox"></span> {convert_inline_code(item)}</li>')
-            parts.append('</ul>')
+<summary>Backlog ({len(backlog)} items)</summary>
+<div class="callout-content">
+<ul>''')
+        for item in backlog:
+            if item['status'] == '~':
+                css = 'task-partial'
+                checkbox = '<span class="checkbox partial"></span>'
+            else:
+                css = 'task-open'
+                checkbox = '<span class="checkbox"></span>'
+            week_tag = f' <em>(W{item["origin_week"]})</em>' if item.get('origin_week') else ''
+            parts.append(f'<li class="task-item {css}">{checkbox} {convert_inline_code(item["text"])}{week_tag}</li>')
+        parts.append('</ul>')
         parts.append('</div>')
         parts.append('</details>')
 
@@ -1933,85 +1937,270 @@ def sync_all(force: bool = False) -> list[Path]:
     return results
 
 
-def load_resolved_backlog() -> set[str]:
-    """load resolved items from backlog.md."""
+def normalize_item_text(text: str) -> str:
+    """normalize item text for deduplication.
+
+    strips leading parenthetical tags like (Example datasets), lowercases,
+    collapses whitespace, removes trailing punctuation.
+    """
+    # strip leading parenthetical tags like (Critical), (Example datasets?), (~2h, 5%)
+    text = re.sub(r'^\([^)]*\)\s*', '', text)
+    # lowercase, collapse whitespace
+    text = ' '.join(text.lower().split())
+    # strip trailing punctuation
+    text = text.rstrip('.,;:!?')
+    return text
+
+
+def parse_backlog() -> list[dict]:
+    """parse backlog.md into a list of item dicts.
+
+    returns list of {text, status, origin_week, normalized} dicts.
+    items above ## Done are active, items below are done.
+    """
     backlog_file = DOCS_ROOT / "backlog.md"
     if not backlog_file.exists():
-        return set()
+        return []
 
-    resolved = set()
     content = backlog_file.read_text(encoding='utf-8')
+    items = []
+    item_re = re.compile(r'^-\s*\[([xX~ ])\]\s*(.+?)(?:\s*\(W(\d+)\))?\s*$')
+
     for line in content.split('\n'):
-        match = re.match(r'^-\s*\[[xX]\]\s*(.+)$', line.strip())
-        if match:
-            resolved.add(match.group(1).strip())
-    return resolved
+        m = item_re.match(line.strip())
+        if not m:
+            continue
+        marker = m.group(1)
+        text = m.group(2).strip()
+        origin = m.group(3) or ""
+
+        if marker in ('x', 'X'):
+            status = 'x'
+        elif marker == '~':
+            status = '~'
+        else:
+            status = ' '
+
+        items.append({
+            'text': text,
+            'status': status,
+            'origin_week': origin,
+            'normalized': normalize_item_text(text),
+        })
+
+    return items
 
 
-def is_resolved(item: str, resolved: set[str]) -> bool:
-    """check if a backlog item matches any resolved item (substring matching)."""
-    item_lower = item.lower()
-    for r in resolved:
-        r_lower = r.lower()
-        # exact match, or either contains the other
-        if item_lower == r_lower or item_lower in r_lower or r_lower in item_lower:
-            return True
-    return False
+def _extract_weekly_todos(week_id: str) -> list[dict]:
+    """extract all todo items from a week's previous and next TO-DO sections.
+
+    returns list of {text, status, section, week_id, normalized} dicts.
+    """
+    weekly_file = find_weekly_note(week_id)
+    if not weekly_file:
+        return []
+
+    content = weekly_file.read_text(encoding='utf-8')
+    # match week number from id like 2026-W07 -> 07
+    week_num = week_id.split('-W')[1] if '-W' in week_id else ''
+
+    items = []
+
+    # find TO-DO sections with their type (previous/next/unmarked)
+    section_re = re.compile(
+        r'##\s*(?:\((\w+)\)\s*)?TO-?DO.*?\n(.*?)(?=\n##|\Z)',
+        re.IGNORECASE | re.DOTALL
+    )
+
+    for m in section_re.finditer(content):
+        section_type = (m.group(1) or '').lower()  # 'previous', 'next', or ''
+        section_body = m.group(2)
+
+        for line in section_body.split('\n'):
+            line = line.strip()
+            # match checkbox items: - [x], - [~], - [ ]
+            task_m = re.match(r'^-\s*\[([xX~ ])\]\s*(.+)$', line)
+            if task_m:
+                marker = task_m.group(1)
+                text = task_m.group(2).strip()
+                if marker in ('x', 'X'):
+                    status = 'x'
+                elif marker == '~':
+                    status = '~'
+                else:
+                    status = ' '
+            else:
+                # match plain list items (no checkbox) like in W05
+                plain_m = re.match(r'^-\s+(.+)$', line)
+                if plain_m:
+                    text = plain_m.group(1).strip()
+                    # skip reference lines like *from [[...]]* and empty-ish items
+                    if text.startswith('*') or len(text) < 3:
+                        continue
+                    status = ' '
+                else:
+                    continue
+
+            items.append({
+                'text': text,
+                'status': status,
+                'section': section_type,
+                'week_id': week_id,
+                'week_num': week_num,
+                'normalized': normalize_item_text(text),
+            })
+
+    return items
+
+
+def _status_rank(status: str) -> int:
+    """status progression rank: ' ' < '~' < 'x'."""
+    return {' ': 0, '~': 1, 'x': 2}.get(status, 0)
+
+
+def _find_matching_key(normalized: str, key_set: dict) -> str | None:
+    """find an existing key that fuzzy-matches.
+
+    checks exact match, substring containment, and long prefix match.
+    catches reworded duplicates and items with typos.
+    """
+    if normalized in key_set:
+        return normalized
+    for existing_key in key_set:
+        # substring containment
+        if normalized in existing_key or existing_key in normalized:
+            return existing_key
+        # prefix match: if both are long and share a 40-char prefix, treat as same
+        if len(normalized) > 40 and len(existing_key) > 40:
+            if normalized[:40] == existing_key[:40]:
+                return existing_key
+    return None
+
+
+def sync_backlog() -> Path:
+    """sync backlog.md with todo items from all weekly files.
+
+    backlog.md is the single source of truth. this function:
+    1. reads existing backlog.md
+    2. scans all weekly files for todo items
+    3. deduplicates and merges
+    4. writes updated backlog.md
+    """
+    backlog_file = DOCS_ROOT / "backlog.md"
+
+    # 1. read existing backlog
+    existing = parse_backlog()
+    existing_map = {}  # normalized -> item dict
+    existing_order = []  # preserve user ordering
+    for item in existing:
+        key = item['normalized']
+        if key not in existing_map:
+            existing_order.append(key)
+        existing_map[key] = item
+
+    # 2. scan all weekly files
+    all_weeks = discover_all_weeks()
+    # collect best status per normalized item across all weeks
+    weekly_items = {}  # normalized -> {text, status, origin_week}
+    for wid in all_weeks:
+        week_todos = _extract_weekly_todos(wid)
+        for item in week_todos:
+            key = item['normalized']
+            # skip junk items
+            if not key or len(key) < 5 or key.startswith('ignore previous'):
+                continue
+            # check for fuzzy match with existing weekly items
+            match_key = _find_matching_key(key, weekly_items)
+            if match_key:
+                prev = weekly_items[match_key]
+                # take higher status (one-way progression)
+                if _status_rank(item['status']) > _status_rank(prev['status']):
+                    weekly_items[match_key] = {
+                        'text': item['text'],
+                        'status': item['status'],
+                        'origin_week': item['week_num'],
+                        'normalized': match_key,
+                    }
+                # if same status, prefer later week's text (more recent wording)
+                elif item['status'] == prev['status']:
+                    weekly_items[match_key]['text'] = item['text']
+                    weekly_items[match_key]['origin_week'] = item['week_num']
+            else:
+                weekly_items[key] = {
+                    'text': item['text'],
+                    'status': item['status'],
+                    'origin_week': item['week_num'],
+                    'normalized': key,
+                }
+
+    # 3. merge: update existing items, add new ones
+    for key, weekly_item in weekly_items.items():
+        match_key = _find_matching_key(key, existing_map)
+        if match_key:
+            # update status if weekly has higher progression
+            if _status_rank(weekly_item['status']) > _status_rank(existing_map[match_key]['status']):
+                existing_map[match_key]['status'] = weekly_item['status']
+            # update origin week if not set
+            if not existing_map[match_key]['origin_week'] and weekly_item['origin_week']:
+                existing_map[match_key]['origin_week'] = weekly_item['origin_week']
+        else:
+            # new item, append at bottom
+            existing_map[key] = weekly_item
+            existing_order.append(key)
+
+    # 4. write backlog.md
+    active = []
+    done = []
+    for key in existing_order:
+        item = existing_map[key]
+        if item['status'] == 'x':
+            done.append(item)
+        else:
+            active.append(item)
+
+    write_backlog(active, done, backlog_file)
+    return backlog_file
+
+
+def write_backlog(active: list[dict], done: list[dict], path: Path) -> None:
+    """write backlog.md with active items first, then done items."""
+    lines = ['# Backlog', '']
+
+    for item in active:
+        marker = '~' if item['status'] == '~' else ' '
+        week_tag = f" (W{item['origin_week']})" if item.get('origin_week') else ''
+        lines.append(f'- [{marker}] {item["text"]}{week_tag}')
+
+    if done:
+        lines.append('')
+        lines.append('## Done')
+        lines.append('')
+        for item in done:
+            week_tag = f" (W{item['origin_week']})" if item.get('origin_week') else ''
+            lines.append(f'- [x] {item["text"]}{week_tag}')
+
+    lines.append('')  # trailing newline
+    path.write_text('\n'.join(lines), encoding='utf-8')
 
 
 def collect_backlog(current_week_id: str) -> list[dict]:
-    """collect unchecked TO-DO items from all previous weeks.
+    """collect backlog items for display in weekly report.
 
-    filters out items resolved in backlog.md or checked in any week.
-    uses substring matching so slightly different wording still resolves.
-    returns list of dicts with 'week', 'items' keys, oldest first.
+    reads from backlog.md (single source of truth).
+    returns in-progress items first, then open items, in priority order.
+    excludes done items.
     """
-    all_weeks = discover_all_weeks()
-    resolved = load_resolved_backlog()
+    items = parse_backlog()
+    # filter to open and in-progress only
+    active = [i for i in items if i['status'] != 'x']
+    if not active:
+        return []
 
-    # also collect all checked items from all weeks as resolved
-    for wid in all_weeks:
-        weekly_file = find_weekly_note(wid)
-        if not weekly_file:
-            continue
-        content = weekly_file.read_text(encoding='utf-8')
-        for line in content.split('\n'):
-            match = re.match(r'^-\s*\[[xX]\]\s*(.+)$', line.strip())
-            if match:
-                resolved.add(match.group(1).strip())
+    # sort: in-progress first, then open, preserving order within each group
+    in_progress = [i for i in active if i['status'] == '~']
+    open_items = [i for i in active if i['status'] == ' ']
 
-    backlog = []
-
-    for wid in all_weeks:
-        if wid >= current_week_id:
-            break
-
-        weekly_file = find_weekly_note(wid)
-        if not weekly_file:
-            continue
-
-        content = weekly_file.read_text(encoding='utf-8')
-
-        # find all TO-DO sections (previous, next, or just "TO DO")
-        todo_pattern = re.compile(
-            r'##\s*(?:\((?:previous|next)\)\s*)?TO-?DO.*?\n(.*?)(?=\n##|\Z)',
-            re.IGNORECASE | re.DOTALL
-        )
-
-        unchecked = []
-        for match in todo_pattern.finditer(content):
-            section = match.group(1)
-            for line in section.split('\n'):
-                task_match = re.match(r'^-\s*\[ \]\s*(.+)$', line.strip())
-                if task_match:
-                    item = task_match.group(1).strip()
-                    if item and not is_resolved(item, resolved):
-                        unchecked.append(item)
-
-        if unchecked:
-            backlog.append({'week': wid, 'items': unchecked})
-
-    return backlog
+    return in_progress + open_items
 
 
 def extract_next_todos(week_id: str) -> list[str]:
@@ -2261,6 +2450,7 @@ def watch_and_rebuild(output_dir: Path, poll_interval: float = 30.0) -> None:
             config_mtime = curr_config
 
             try:
+                sync_backlog()
                 weeks = discover_all_weeks()
                 additional_meta = discover_additional_pages()
                 nav_tree = build_nav_tree(weeks, additional_meta)
@@ -2417,6 +2607,9 @@ destinations:
             todos = extract_next_todos(current_week)
             print(f"\ncreated next week's note with {len(todos)} TO-DO items from {current_week}")
         return
+
+    # sync backlog before any export path
+    sync_backlog()
 
     # handle --sync (export to OneDrive)
     # handle sync options
