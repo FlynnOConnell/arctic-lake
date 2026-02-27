@@ -859,6 +859,15 @@ def export_notebook(
     # convert to HTML
     html_content, resources = html_exporter.from_notebook_node(notebook)
 
+    # set title from notebook filename
+    nb_title = nb_file.stem.replace('-', ' ').replace('_', ' ').title()
+    html_content = re.sub(
+        r'<title>[^<]*</title>',
+        f'<title>{nb_title}</title>',
+        html_content,
+        count=1,
+    )
+
     # ensure output directory exists
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -874,6 +883,15 @@ def export_notebook(
         html_path.write_text(html_content, encoding='utf-8')
         results['html'] = html_path
         print(f"Created HTML: {html_path}")
+
+        # also copy to processing/ for compute index
+        docs_root = Path(__file__).parent.parent
+        processing_dir = docs_root / "processing"
+        processing_dir.mkdir(parents=True, exist_ok=True)
+        processing_path = processing_dir / f"{base_name}.html"
+        import shutil
+        shutil.copy2(html_path, processing_path)
+        print(f"Copied to processing: {processing_path}")
 
     # write PDF
     if generate_pdf:

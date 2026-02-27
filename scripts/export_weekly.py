@@ -1141,7 +1141,19 @@ def discover_additional_pages() -> list[dict]:
         category = dir_config.get("category", "Other")
         pattern = dir_config.get("pattern", "*.html")
         if source_dir.exists():
-            for html_file in sorted(source_dir.glob(pattern), reverse=True):
+            html_files = list(source_dir.glob(pattern))
+            # sort by date: leading YYYY-MM-DD or trailing _YYYYMMDD, newest first
+            def _nb_sort_key(f):
+                stem = f.stem
+                leading = re.match(r'^(\d{4}-\d{2}-\d{2})', stem)
+                if leading:
+                    return leading.group(1)
+                trailing = re.search(r'_(\d{8})$', stem)
+                if trailing:
+                    d = trailing.group(1)
+                    return f"{d[:4]}-{d[4:6]}-{d[6:]}"
+                return "0000-00-00"
+            for html_file in sorted(html_files, key=_nb_sort_key, reverse=True):
                 pages.append({
                     "path": f"{subdir}/{html_file.stem}.html",
                     "title": parse_notebook_title(html_file.name),
@@ -1513,22 +1525,30 @@ def export_page(source: Path, output_file: Path, title: str, sidebar_nav: str = 
 
 
 def parse_notebook_title(filename: str) -> str:
-    """parse title from notebook filename like 2025-11-04_kbarber_suite2p-comparison_20260107.html"""
+    """parse title from notebook filename.
+
+    filenames follow: {name}_{YYYYMMDD}.html where the last _YYYYMMDD is the export date.
+    if the name part already starts with a YYYY-MM-DD date, use that as the date.
+    otherwise format the export date suffix as the date.
+    """
     stem = Path(filename).stem
-    parts = stem.split('_')
-    if len(parts) >= 4:
-        # format: date_author_title_exportdate (4+ parts)
-        date = parts[0]
-        author = parts[1]
-        title = '_'.join(parts[2:-1])
-        title = title.replace('-', ' ').title()
-        return f"{title} ({author}, {date})"
-    elif len(parts) == 3:
-        # could be date_title_exportdate or date_author_title
-        date = parts[0]
-        title = parts[1].replace('-', ' ').title()
-        return f"{title} ({date})"
-    return stem.replace('-', ' ').replace('_', ' ').title()
+    # extract trailing _YYYYMMDD export date
+    date_match = re.search(r'_(\d{4})(\d{2})(\d{2})$', stem)
+    export_date = f"{date_match.group(1)}-{date_match.group(2)}-{date_match.group(3)}" if date_match else ""
+    stripped = re.sub(r'_\d{8}$', '', stem)
+
+    # check if name starts with YYYY-MM-DD date
+    leading_date = re.match(r'^(\d{4}-\d{2}-\d{2})[_-](.+)$', stripped)
+    if leading_date:
+        date_str = leading_date.group(1)
+        name = leading_date.group(2).replace('-', ' ').replace('_', ' ').title()
+    else:
+        date_str = export_date
+        name = stripped.replace('-', ' ').replace('_', ' ').title()
+
+    if date_str:
+        return f"{name} ({date_str})"
+    return name
 
 
 def parse_sop_title(filename: str) -> str:
@@ -1580,7 +1600,20 @@ def copy_html_directory(source_dir: Path, output_dir: Path, subdir: str, categor
     out_path = output_dir / subdir
     out_path.mkdir(parents=True, exist_ok=True)
 
-    for html_file in sorted(source_dir.glob(pattern), reverse=True):
+    # sort by date: leading YYYY-MM-DD or trailing _YYYYMMDD, newest first
+    html_files = list(source_dir.glob(pattern))
+    def _nb_date(f):
+        stem = f.stem
+        leading = re.match(r'^(\d{4}-\d{2}-\d{2})', stem)
+        if leading:
+            return leading.group(1)
+        trailing = re.search(r'_(\d{8})$', stem)
+        if trailing:
+            d = trailing.group(1)
+            return f"{d[:4]}-{d[4:6]}-{d[6:]}"
+        return "0000-00-00"
+
+    for html_file in sorted(html_files, key=_nb_date, reverse=True):
         dest = out_path / html_file.name
         shutil.copy2(html_file, dest)
         print(f"  copied: {dest}")
