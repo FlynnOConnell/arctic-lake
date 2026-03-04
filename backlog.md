@@ -13,6 +13,9 @@
 - [ ] Explore using pyramids for step 1 correct_stack and 2 multi_fuse (W09)
 - [ ] Finish validating and push mbo_utilities v2.7.0 with multi-processing / threading improvements (W09)
 - [~] Isoview multi-processing and optimizations (W09)
+- [ ] Meeting with Amol to discuss our needs for MaskNMF. nothing new here, he's still generating a workflow for LBM datasets (W09)
+- [ ] Conform to Webknossos data layout (C dimension, pyramids named by magnification, datasource-properties.json can be made on the fly) (W09)
+- [ ] Get a final list of "Supported configurations", tiled vs timelapse, multi-channel, multi-specimen, document inputs/outputs for each configuration (W09)
 
 ## Done
 
