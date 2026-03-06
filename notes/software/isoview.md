@@ -5,6 +5,45 @@ tags: [isoview, light-sheet-microscopy, image-fusion]
 
 # IsoView Processing
 
+## Axis, orientation
+
+The Y-scan camera (CM02/CM03) captures with the scan axis along Y instead of Z. In the normal orientation, aligning it to the Z-scan camera (CM00/CM01) requires two reslice operations — the data needs two axis swaps to get all three axes into the same frame as the Z-scan view.
+
+When the cameras are rotated 90° CCW, the in-plane X and Y are swapped on the sensor. This effectively "pre-applies" one of the axis permutations. The 90° camera rotation already accounts for one of the two reslice steps, so you only need one reslice (TOP) + vertical flip instead of two reslices.
+
+In code terms:
+
+Normal: transpose(1,0,2) then transpose(0,2,1) (two axis swaps) + flip = a 3-axis permutation + flip
+Rotated: transpose(1,0,2) (one axis swap) + flip = simpler permutation
+The physical rotation of the camera sensor absorbs one transposition that otherwise has to be done in software. That's a cleaner orientation to work with — fewer post-processing steps.
+
+In the isoview axis, with the system placed on the table, the axis from cieling to floor is the X axis. does this change the above interpretation / description
+That changes the physical interpretation. Let me re-think with the correct axis mapping.
+
+IsoView physical axes
+X: ceiling to floor (vertical/gravity axis)
+Y: horizontal
+Z: horizontal (detection/scan axis)
+Y-scan camera (CM02/CM03)
+The scan axis is Y, so in raw data the "slow" axis is Y. To align with the Z-scan camera (CM00/CM01), you need to swap the scan axes.
+
+Reslice operations in ImageJ
+Reslice (TOP): swaps Y↔Z — this reorients the Y-scan data so the scan axis matches Z-scan
+Reslice (LEFT): swaps X↔Z
+Normal orientation
+Reslice (TOP) — Y↔Z swap (aligns scan axes)
+Vertical flip — corrects mirroring
+Reslice (LEFT) — X↔Z swap (needed because X axis also needs reorienting)
+Rotated orientation (cameras rotated 90° CCW)
+The 90° CCW rotation on the sensor swaps which image axis maps to the physical X (ceiling-to-floor) axis. Since X is the vertical/gravity axis, rotating the camera swaps which sensor axis captures the X direction.
+
+This means the camera rotation effectively pre-applies the X↔Z reslice — the sensor now captures the X axis where it previously captured Z (or vice versa). So:
+
+Reslice (TOP) — Y↔Z swap (same as before)
+Vertical flip — corrects mirroring
+No Reslice (LEFT) needed — camera rotation already handled the X↔Z mapping
+The interpretation is the same as before — the physical camera rotation absorbs one axis permutation — but specifically it's the X↔Z swap (Reslice LEFT) that gets absorbed, which makes sense because the camera rotation happens in the sensor plane and X is the vertical axis captured by the sensor.
+
 multi-view light-sheet microscopy pipeline for functional imaging
 
 [Github: IsoView-Processing](https://github.com/MillerBrainObservatory/IsoView-Processing)
