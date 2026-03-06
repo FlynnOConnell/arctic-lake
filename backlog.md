@@ -7,6 +7,13 @@
 - [ ] Explore using pyramids for step 1 correct_stack and 2 multi_fuse (W09)
 - [ ] Finish validating and push mbo_utilities v2.7.0 with multi-processing / threading improvements (W09)
 - [ ] Get a final list of "Supported configurations", tiled vs timelapse, multi-channel, multi-specimen, document inputs/outputs for each configuration (W09)
+- [ ] (~2h, 5%) Sync the viewer + "flip_vertical"/"flip_horizontal" (W05)
+- [ ] Update storage server with results that have proper directory structure (W06)
+- [ ] (Example datasets) Fix tiled/timepoint filename regex, how to tell tiled vs timelapse, SPC##_CM#_CM#_CHN#_ANG#.stack (W09)
+- [~] Ortho-view processing: registration, fusion, multiview-stitcher (W09)
+- [ ] (with example datasets) Organize aquisition modes: tiled vs timelapse (W09)
+- [~] Multi-processing, speed optimizations (W09)
+- [~] Isoview multi-processing and optimizations (W09)
 
 ## Done
 
