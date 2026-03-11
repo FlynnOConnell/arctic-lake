@@ -14,6 +14,10 @@
 - [ ] (with example datasets) Organize aquisition modes: tiled vs timelapse (W09)
 - [~] Multi-processing, speed optimizations (W09)
 - [~] Isoview multi-processing and optimizations (W09)
+- [ ] Fix naming for correct_stack: digits in CM2, keep channel here, CHN01, remove the VW00 from XML (W10)
+- [ ] Use matrix, not transpose, for python outputs (W10)
+- [ ] Dresophila dataset for view-view fusion (W10)
+- [ ] Figures for artist: eliminate left/right margins, remove deadspace, invert lookup table, individual images (W10)
 
 ## Done
 

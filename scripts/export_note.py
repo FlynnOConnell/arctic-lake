@@ -726,6 +726,12 @@ def export_note(
     # Strip frontmatter
     content = strip_frontmatter(content)
 
+    # Convert Obsidian-style videos to HTML video tags (before image conversion)
+    content = convert_obsidian_videos(content, md_file, output_dir)
+
+    # Convert standard markdown videos to HTML video tags
+    content = convert_standard_videos(content, md_file, output_dir)
+
     # Convert Obsidian-style images to base64
     content = convert_obsidian_images(content, md_file, images_dir)
 
