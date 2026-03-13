@@ -5,6 +5,10 @@ tags: [isoview, light-sheet-microscopy, image-fusion]
 
 # IsoView Processing
 
+- **SiMView**: Simultaneous MultiView
+- **SPIM**: Selective Plane Illumination Microscopy
+- **diSPIM**: Dual-view, Inverted SPIM
+
 ## Axis, orientation
 
 The Y-scan camera (CM02/CM03) captures with the scan axis along Y instead of Z. In the normal orientation, aligning it to the Z-scan camera (CM00/CM01) requires two reslice operations — the data needs two axis swaps to get all three axes into the same frame as the Z-scan view.
@@ -20,14 +24,16 @@ The physical rotation of the camera sensor absorbs one transposition that otherw
 In the isoview axis, with the system placed on the table, the axis from cieling to floor is the X axis. does this change the above interpretation / description
 That changes the physical interpretation. Let me re-think with the correct axis mapping.
 
-IsoView physical axes
+### IsoView physical axes
+
 X: ceiling to floor (vertical/gravity axis)
 Y: horizontal
 Z: horizontal (detection/scan axis)
 Y-scan camera (CM02/CM03)
 The scan axis is Y, so in raw data the "slow" axis is Y. To align with the Z-scan camera (CM00/CM01), you need to swap the scan axes.
 
-Reslice operations in ImageJ
+### Reslice operations in ImageJ
+
 Reslice (TOP): swaps Y↔Z — this reorients the Y-scan data so the scan axis matches Z-scan
 Reslice (LEFT): swaps X↔Z
 Normal orientation
@@ -50,14 +56,6 @@ multi-view light-sheet microscopy pipeline for functional imaging
 
 ---
 
-## Terminology
-
-- **SiMView**: Simultaneous MultiView
-- **SPIM**: Selective Plane Illumination Microscopy
-- **diSPIM**: Dual-view, Inverted SPIM
-
----
-
 ## Pipeline Overview
 
 ```
@@ -73,16 +71,6 @@ clusterPT → clusterMF → localAP → clusterTF → clusterFR → localEC → 
 | 2 | 1 | 2 | 2-view camera fusion | `_CM00_CM01_CHN01` |
 | 1 | 1 | 3 | single-view | `_CM00_CHN01` |
 
-### Fusion Types
-
-| Type | Method | Notes |
-|------|--------|-------|
-| 0 | adaptive blending | default, recommended |
-| 1 | geometrical blending | similar to adaptive |
-| 2 | wavelet fusion | computationally expensive, can have ringing artifacts, maintains SNR throughout volume |
-| 3 | arithmetic averaging | comparable to blending, better for sparse labeling |
-
----
 
 ## Script Reference
 
@@ -101,282 +89,7 @@ clusterPT → clusterMF → localAP → clusterTF → clusterFR → localEC → 
 | `clusterCD.m` | compute dF/F values |
 | `clusterIS.m` | 3D interpolation for isotropic pixel size |
 
----
-
-## Output Directory Structure
-
-### File Naming Convention
-
-all output files follow this pattern:
-```
-SPM{specimen:02d}_TM{timepoint:06d}_CM{camera1:02d}[_CM{camera2:02d}]_CHN{channel1:02d}[_CHN{channel2:02d}]{suffix}.{ext}
-```
-
-common suffixes:
-- `.fusedStack` - fused 3D volume
-- `_xyProjection` - max projection along Z
-- `_xzProjection` - max projection along Y
-- `_yzProjection` - max projection along X
-- `.minIntensity.mat` - minimum intensity for correction
-- `.configuration.mat` - processing configuration
-- `.shifts.mat` - registration shifts
-- `.baseline` - baseline reference for dF/F
-- `.filtered_N` - filtered with kernel size N
-- `.corrected` - drift/intensity corrected
-- `_jobCompleted.txt` - completion marker
-
-### Stage 1: clusterPT Output
-
-**input:** raw microscopy data
-**output suffix:** `.corrected`
-
-```
-{dataset}.corrected/
-├── SPM00/
-│   ├── TM000000/
-│   │   ├── SPM00_TM000000.configuration.mat
-│   │   ├── SPM00_TM000000_CHN00.xml
-│   │   ├── SPM00_TM000000_CHN01.xml
-│   │   ├── SPM00_TM000000_CM00_CHN01.klb
-│   │   ├── SPM00_TM000000_CM00_CHN01.minIntensity.mat
-│   │   ├── SPM00_TM000000_CM01_CHN01.klb
-│   │   ├── SPM00_TM000000_CM01_CHN01.minIntensity.mat
-│   │   ├── SPM00_TM000000_CM02_CHN00.klb
-│   │   ├── SPM00_TM000000_CM02_CHN00.minIntensity.mat
-│   │   ├── SPM00_TM000000_CM03_CHN00.klb
-│   │   └── SPM00_TM000000_CM03_CHN00.minIntensity.mat
-│   ├── TM000001/
-│   │   └── ...
-│   └── ...
-└── ...
-
-{dataset}.corrected.projections/
-├── SPM00_TM000000_CM00_CHN01.xyProjection.klb
-├── SPM00_TM000000_CM00_CHN01.xzProjection.klb
-├── SPM00_TM000000_CM00_CHN01.yzProjection.klb
-└── ... (all cameras/channels/timepoints)
-```
-
-### Stage 2: clusterMF Output
-
-**input:** clusterPT output
-**output suffix:** `.TM######_multiFused{outputID}`
-
-```
-{outputString}.TM000000_multiFused_blending/
-├── SPM00_TM000000_CM00_CM01_CHN01_jobCompleted.txt
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xyProjection.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xzProjection.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_yzProjection.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.transformation.mat
-├── SPM00_TM000000_CM00_CM01_CHN01.globalMask.klb         # optional
-├── SPM00_TM000000_CM00_CM01_CHN01.localMask.klb          # optional
-├── SPM00_TM000000_CM00_CM01_CHN01.transformedMask.klb    # optional
-├── SPM00_TM000000_CM00_CM01_CHN01.weights.klb            # optional
-└── SPM00_TM000000_CM00_CM01_CHN01.offsets.mat
-
-jobParameters.multiFuse.{timestamp}.mat  # saved to working directory
-```
-
-### Stage 3: localAP Output
-
-**input:** clusterMF output
-**output suffix:** `_analyzeParameters`
-
-```
-{outputString}_analyzeParameters/
-├── lookUpTable.mat
-├── transformations.mat
-├── intensityCorrections.mat
-├── offsets_smoothed.mat
-├── angles_smoothed.mat
-├── intensityFactors_smoothed.mat
-├── plot_offsets.png
-├── plot_angles.png
-└── plot_intensityFactors.png
-```
-
-### Stage 4: clusterTF Output
-
-**input:** clusterPT + clusterMF + localAP lookUpTable
-**output suffix:** `.TM######_timeFused{outputID}`
-
-```
-{outputString}.TM000000_timeFused_blending/
-├── SPM00_TM000000_CM00_CM01_CHN01_jobCompleted.txt
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xyProjection.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xzProjection.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_yzProjection.klb
-└── ... (optional intermediate stacks)
-
-jobParameters.timeFuse.{timestamp}.mat
-```
-
-### Stage 5: clusterFR Output
-
-**input:** clusterMF or clusterTF output
-
-```
-{outputDir}{header}.TM000000_timeFused_blending/
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack.filtered_100.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xyProjection.filtered_100.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xyBProjection.filtered_100.klb  # back
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xyFProjection.filtered_100.klb  # front
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xzProjection.filtered_100.klb
-└── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_yzProjection.filtered_100.klb
-
-jobParameters.filterResults.{timestamp}.mat
-```
-
-### Stage 6: localEC Output
-
-**input:** clusterMF/clusterTF projections
-**output:** to configRoot
-
-```
-{configRoot}/
-├── dimensions.mat
-├── dimensionsMax.mat
-├── dimensionsDeltas.mat
-├── driftTable.mat                              # final [t, x, y, z]
-├── driftDatabase.mat
-├── driftStep1_pairwiseOffsets.png
-├── driftStep2_pairwiseOffsetsCumulative.png
-├── driftStep3_specimenCenters.png              # if globalMode=1
-├── driftStep4_driftFluctuations.png            # if globalMode=1 && correlationFlag=1
-├── driftStep5_driftFluctuationsFiltered.png
-├── driftStep6_finalOffsets.png
-├── xyMasks.klb                                 # if globalMode=1
-├── xzMasks.klb
-├── yzMasks.klb
-├── xyGamma.klb                                 # if gamma != 1
-├── xzGamma.klb
-├── yzGamma.klb
-├── intensityThreshold.mat                      # if intensityFlag=1
-├── intensityBackgrounds.mat
-├── intensityCenters.mat
-├── intensityFactors.mat
-├── intensityStep1_intensityBackgrounds.png
-├── intensityStep2_intensityCenters.png
-└── intensityStep3_intensityFactors.png
-```
-
-### Stage 7: clusterCS Output
-
-**input:** clusterMF/clusterTF + localEC config
-
-```
-{outputRoot}/{headerPattern}/
-├── SPM00_TM000000_CM00_CM01_CHN00_CHN01.fusedStack.corrected.klb
-├── SPM00_TM000000_CM00_CM01_CHN00_CHN01.fusedStack_xyProjection.corrected.klb
-├── SPM00_TM000000_CM00_CM01_CHN00_CHN01.fusedStack_xzProjection.corrected.klb
-└── SPM00_TM000000_CM00_CM01_CHN00_CHN01.fusedStack_yzProjection.corrected.klb
-
-jobParameters.correctStack.{timestamp}.mat
-```
-
-### Stage 8: clusterRS Output
-
-**input:** clusterPT/clusterMF/clusterTF output
-**output suffix:** `.registered`
-
-```
-{inputString}.registered/
-├── Reference/
-│   ├── SPM00_CM00_CM01_CHN01.referenceStack.klb
-│   ├── SPM00_CM00_CM01_CHN01.reference_xyProjection.klb
-│   ├── SPM00_CM00_CM01_CHN01.reference_xzProjection.klb
-│   └── SPM00_CM00_CM01_CHN01.reference_yzProjection.klb
-│
-├── {header}.TM000000{footer}/                   # for fused data (dataType=1)
-│   ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack.klb
-│   ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xyProjection.klb
-│   ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xzProjection.klb
-│   ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_yzProjection.klb
-│   └── SPM00_TM000000_CM00_CM01_CHN01.shifts.mat
-│
-└── SPM00/TM000000/                              # for unfused data (dataType=0)
-    ├── SPM00_TM000000_CM00_CHN01.klb
-    └── SPM00_TM000000_CM00_CHN01.shifts.mat
-
-jobParameters.registerStacks.{timestamp}.mat
-```
-
-### Stage 9: localCR Output
-
-**input:** clusterRS output
-**output:** added to `.registered` folders
-
-```
-{inputString}.registered/{header}.TM######{footer}/
-├── ... (existing clusterRS files)
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_medianFiltered.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_baseline.klb         # at tick timepoints
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_baseline.xyProjection.klb
-├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_baseline.xzProjection.klb
-└── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_baseline.yzProjection.klb
-```
-
-### Stage 10: clusterCD Output
-
-**input:** clusterRS + localCR output
-**output suffix:** `.processed`
-
-```
-{inputString}.processed/
-├── Reference/
-│   └── SPM00_CM00_CM01_CHN01.referenceOffset.mat
-│
-├── {header}.TM000000{footer}/                   # for fused data
-│   ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack.klb              # dF/F stack
-│   ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xyProjection.klb
-│   ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_xzProjection.klb
-│   ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_yzProjection.klb
-│   └── (if medianFlag=1):
-│       ├── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_medianFiltered.klb
-│       └── SPM00_TM000000_CM00_CM01_CHN01.fusedStack_medianFiltered.xyProjection.klb
-│
-└── SPM00/TM000000/                              # for unfused data
-    └── ...
-
-jobParameters.calculateDelta.{timestamp}.mat
-```
-
-### Stage 11: localCP Output
-
-**input:** clusterMF/clusterTF/clusterFR output
-**output:** stacked projection time-series
-
-```
-{folder}/
-├── SPM00_CM00_CM01_CHN01_xyProjections_{outputString}.klb   # time x Y x X
-├── SPM00_CM00_CM01_CHN01_xzProjections_{outputString}.klb   # time x Z x X
-└── SPM00_CM00_CM01_CHN01_yzProjections_{outputString}.klb   # time x Z x Y
-```
-
-### Stage 12: clusterIS Output
-
-**input:** clusterMF/clusterTF output
-**output suffix:** `.Interpolated`
-
-```
-{rootFolder}.Interpolated/
-├── {inputHeader1}0000{inputHeader2}/
-│   └── {inputHeader3}0000{inputFooter}.klb
-├── {inputHeader1}0001{inputHeader2}/
-│   └── {inputHeader3}0001{inputFooter}.klb
-└── ...
-
-jobParameters.interpolateStack.{timestamp}.mat
-```
-
----
-
-## Detailed Processing Steps
-
-### Step 1: Compression (`clusterPT.m`)
+### Step 1: Dead-pixel correction and compression (`clusterPT.m`)
 
 - deadpixel correction
 - foreground segmentation
@@ -607,42 +320,6 @@ coordinate masks - average coordinates weighted by binary mask, same logic both 
 
 ---
 
-## Geometric Transforms
-
-rotation is 90 degree increments only
-
-clockwise:
-```python
-volume = np.transpose(volume, (0, 2, 1))[:, ::-1, :]
-```
-
-counterclockwise: same but flip other axis
-
-remember MATLAB is 1-indexed (y,x,z), python is 0-indexed (z,y,x)
-
-things that cause differences:
-- median filter implementations: medfilt2 vs scipy.ndimage.median_filter, boundary handling
-- gaussian filter: imgaussfilt3 vs scipy gaussian_filter
-- **thresholding is the big one**: otsu vs percentile gives different masks
-- float precision: MATLAB defaults to float64, python needs explicit casting
-
----
-
-## Code Snippets
-
-### Offset and Rotation
-```matlab
-RR = [cosd(bestRotation) sind(bestRotation); -sind(bestRotation) cosd(bestRotation)];
-[XI ZI] = meshgrid(1:xSize, 1:zSize);
-cc = [(xSize + 1) / 2.0 (zSize + 1) / 2.0];
-XI = XI' - cc(1);
-ZI = ZI' - cc(2);
-XZaux = (RR * [XI(:) ZI(:) .* scaling]')';
-XI = reshape(XZaux(:, 1) + cc(1), size(XI));
-ZI = reshape(XZaux(:, 2) ./ scaling + cc(2), size(ZI));
-ZI = ZI - bestOffset;
-```
-
 ### Background Normalization
 
 subsamples 3D stacks, removes zeros, concatenates, estimates background using percentile (e.g. 5th percentile of merged intensities)
@@ -771,19 +448,6 @@ use Hari Shroff's MVD software: [PubMed 32601431](https://pubmed.ncbi.nlm.nih.go
 ### 3-Camera Deconvolution
 1. drop noisy camera
 2. deconvolve remaining three using MVD
-
-## Notes
-
-- check whether to HFlip or VFlip (dorsal/ventral typically needs vflip)
-- double check which camera is dominant
-- GCaMP6s has better (less) light scattering
-- can view single z-slice timelapse before clusterTF to check temporal sampling
-- background intensity matching: when subtracting cam2 background from cam1, there doesn't appear to be much difference
-
-### TODO
-- should python use otsu instead of percentile? would make outputs match better
-- boundary handling on filters might matter for edge ROIs
-- check if coordinate mask NaN→0 casting causes issues downstream
 
 ---
 
