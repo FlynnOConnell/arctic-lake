@@ -550,10 +550,15 @@ def find_video(video_name: str, md_file: Path, media_dirs: list[Path] | None = N
     video_path = Path(video_name)
     just_name = video_path.name
 
+    # repo-level static/videos directory
+    repo_root = Path(__file__).parent.parent
+    static_videos = repo_root / "static" / "videos"
+
     search_paths = [
         md_file.parent / video_name,
         md_file.parent / just_name,
         md_file.parent / "media" / just_name,
+        static_videos / just_name,
         Path("Y:/foconnell/media") / just_name,
         Path("Y:/foconnell/media/development") / just_name,
     ]
