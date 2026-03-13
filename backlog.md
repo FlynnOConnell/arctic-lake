@@ -14,13 +14,17 @@
 - [ ] (with example datasets) Organize aquisition modes: tiled vs timelapse (W09)
 - [~] Multi-processing, speed optimizations (W09)
 - [~] Isoview multi-processing and optimizations (W09)
-- [ ] Fix naming for correct_stack: digits in CM2, keep channel here, CHN01, remove the VW00 from XML (W10)
-- [ ] Use matrix, not transpose, for python outputs (W10)
 - [ ] Dresophila dataset for view-view fusion (W10)
-- [ ] Figures for artist: eliminate left/right margins, remove deadspace, invert lookup table, individual images (W10)
+- [ ] Explore and compare fusion: BigStitcher, diSPIMFusion, regDeconvProj (hori-schroff) (W11)
+- [ ] Make pixel-resolution for pyramids detectable by ImageJ (WIP, may need to use "CENTIMETER" resolution unit) (W11)
+- [ ] Compare BigStitcher vs diSPIMFusion vs regDeconvProject (registration and fusion) (W11)
+- [ ] Python PSF generation (W11)
 
 ## Done
 
+- [x] Fix naming for correct_stack: digits in CM2, keep channel here, CHN01, remove the VW00 from XML (W10)
+- [x] Use matrix, not transpose, for python outputs (W10)
+- [x] Figures for artist: eliminate left/right margins, remove deadspace, invert lookup table, individual images (W10)
 - [x] IsoView: clusterPT and clusterMF (python) with Zarr, KLB and Tiff support. First, exact copy of MATLAB results, second work through parameters like slabbing, blending etc. (W03)
 - [x] Translate cluster_MF.m to python (W04)
 - [x] Image with zarr array types (W04)
@@ -44,3 +48,4 @@
 - [x] (Critical) Fix first camera, second camera to rotate (W08)
 - [x] Remove CHN0N -> View0N (W08)
 - [x] Test/Validate Zarr v3 (W09)
+- [x] Fuse orthogonal 2015-02-28_dresophila with BigStitcher (W11)
