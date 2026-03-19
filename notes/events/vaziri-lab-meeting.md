@@ -12,8 +12,15 @@
 - PSF stays relatively consistent through the cavities
 
 ## Kalyan 09/16/25
+
 Discriminablity index (d')
 - D' = 3 = 93% accurate spike detection
+
+2026-03-17
+
+Volate mini2p, looking towards multiplexing (lateral)
+
+
 ## Arash 09/09/25
 - Memory, working memory in M2
 - Interested in duration of responses following a visual task - correlate of working memory
@@ -84,3 +91,5 @@ Robust BEAST in-vivo imaging
 
 - Find that missing 20%
 - didn't factor in improvement from GCaMP6s to GCaMP8s 
+
+
