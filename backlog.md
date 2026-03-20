@@ -19,6 +19,22 @@
 - [ ] Make pixel-resolution for pyramids detectable by ImageJ (WIP, may need to use "CENTIMETER" resolution unit) (W11)
 - [ ] Compare BigStitcher vs diSPIMFusion vs regDeconvProject (registration and fusion) (W11)
 - [ ] Python PSF generation (W11)
+- [ ] Conjugate all matrices to single matrix, row major vs column major (W11)
+- [ ] diSPIMFusion with proper PSFs. RLucy iter 10, 20, 40 ... compare (W11)
+- [ ] PSF measurement (FWHM): Beads with matched XYZ sampling, average beads estimate for each view (avoid saturated and clumps) -> Bead Analyzer (W11)
+- [ ] DF/F: 2Hz dresophila dataset, segment -> DF/F (matlab pipeline) -> Cellpose-SAM -> Suite2p -> compare outputs (W11)
+- [ ] Think about hands-on workshop (W11)
+- [~] Hold off on pixel-resolution for pyramids detectable by ImageJ (WIP, may need to use "CENTIMETER" resolution unit) (W11)
+- [ ] conjugation of all BDV affine matrices into a single matrix; figure out row-major vs column-major versions (W12)
+- [ ] diSPIMFusion Deconvolution with PSFs (to be shared), Richardson Lucy iter=10, 20, 40 for comparison (W12)
+- [ ] PSF measurement (FWHM): Beads dataset with Z-sampling matched to XY sampling (W12)
+- [ ] Drosophila 2 Hz dataset, VW00 and VW90 (W12)
+- [ ] for each view, segment neurons then df/f using SiMView pipeline (MATLAB) (W12)
+- [ ] cellpose-SAM, suite2p (W12)
+- [ ] compare outputs of a and bead (W12)
+- [ ] (~1 day) Registration solution without requiring manual bigstitcher (compare with NCC, as in regDeconvProject publication) (W12)
+- [ ] (~1 day) Beads: avg bead estimate using bead-analyzer to estimate PSF (W12)
+- [ ] IsoView-Processing DF/F, Segment neurons with Cellpose (W12)
 
 ## Done
 
