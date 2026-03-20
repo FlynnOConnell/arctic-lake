@@ -1,12 +1,11 @@
 # drosophila dual-view deconvolution: PSF configurations
 
-date: 2026-03-19
-dataset: `E:\datasets\isoview\2026-01-23_drosophila\bdv\bigstitcher`
+dataset: `E:\datasets\isoview\2026-01-23_drosophila\bdv\`
 
-## data
+## Data
 
-- raw voxel: 0.40625 x 0.40625 x 6.22 um (XY x Z)
-- isotropized voxel: 0.40625 um cubic
+- resolution (um / px): 0.40625 x 0.40625 x 6.22 um (XYZ)
+- isotropized voxel: 0.40625 um cubed
 - raw shape: (38, 1848, 768) per view
 - isotropized shape: (582, 1848, 768)
 - StackA = VW90 (reference), StackB = VW00 (pre-registered to match VW90)
@@ -61,7 +60,42 @@ all use pre-registered isotropized stacks. all WB params: resFlag=1, alpha=0.05,
 | trad_iters/20_iters | CM00 (65,17,17) | CM02 (25,19,101) | traditional RL, 20 iterations |
 | trad_iters/40_iters | CM00 (65,17,17) | CM02 (25,19,101) | traditional RL, 40 iterations |
 
-## diSPIMFusion runs (spimFusion.exe)
+## BigStitcher runs (`registration_fusion_bigstitcher/`)
+
+bead-based registration (interest points), manual orientation for VW00 (+90 deg Y).
+output shape: (769, 2013, 771) float32 — larger than diSPIMFusion due to different cropping/padding.
+
+| file | method | shape |
+|------|--------|-------|
+| fused_avg-blending.tif | average fusion, blending weights | (769, 2013, 771) |
+| fused_avg-content-based.tif | average fusion, content-based weights | (769, 2013, 771) |
+| fused_avg_and_content.tif | average + content fusion combined | (769, 2013, 771) |
+
+no deconvolution — these are weighted averaging fusions only.
+
+## scipy registration (`registered_scipy/`)
+
+bigstitcher XML transforms applied via scipy affine_transform.
+used to generate pre-registered stacks for regDeconProject.
+
+| file | shape | notes |
+|------|-------|-------|
+| VW00_registered.ome.tif | (38, 1848, 768) | raw voxels, registered |
+| VW90_registered.ome.tif | (38, 1848, 768) | raw voxels, registered |
+| VW00_registered_resampled.ome.tif | (582, 1848, 768) | isotropized |
+| VW90_registered_resampled.ome.tif | (582, 1848, 768) | isotropized |
+| bigstitcher_init.tmx | - | bigstitcher transform converted to diSPIMFusion TMX format |
+
+## earlier diSPIMFusion comparison (`fusion_comparison-bdv/`)
+
+| file | shape | notes |
+|------|-------|-------|
+| decon_fused.tif | (576, 1848, 768) | earlier run, 576 Z (wrong pixel size 0.41 instead of 0.40625) |
+| fused_avg-content-based.ome.tif | (769, 2013, 771) | copy of bigstitcher content-based fusion for comparison |
+| compare_fusions.ipynb | - | napari comparison notebook |
+| bdv_compare/ | - | BDV zarr export of both for BigDataViewer viewing |
+
+## diSPIMFusion runs (spimFusion.exe, `registered_dispim/` and `fusion_comparison/`)
 
 all use `-imgrot 1` (spimFusion handles rotation internally).
 registration via regc=4 (2D MIP + progressive affine), reused via regc=0 + saved transform.tmx.
