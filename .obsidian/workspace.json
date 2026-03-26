@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "a021ec83cea32212",
+            "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "notes/software/cellpose.md",
+                "file": "usage.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -28,7 +28,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "cellpose"
+              "title": "usage"
             }
           }
         ]
@@ -88,7 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 426
+    "width": 259
   },
   "right": {
     "id": "18793f65744bb51e",
@@ -202,6 +202,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-git:Open Git source control": false,
       "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "daily-notes:Open today's daily note": false,
@@ -217,8 +218,16 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "a021ec83cea32212",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "daily/2026-01-29.md",
+    "daily/2026-03-11.md",
+    "weekly/2026-W12.md",
+    "weekly/2026-W11.md",
+    "daily/2026-03-06.md",
+    "usage.md",
+    "temp_weekly.md",
+    "notes/software/cellpose.md",
     "daily/2026-01-08.md~",
     "daily/2026-01-08.md",
     "README.md~",
@@ -235,7 +244,6 @@
     "notes/sop/sop_laser_startup.md",
     "notes/HPC - General Usage.md",
     "notes/sop",
-    "notes/software/cellpose.md",
     "notes/sop/sop_agarose_bead-prep.md",
     "notes/software/suite3d.md",
     "notes/software/multiview deconvolution.md",
@@ -244,13 +252,7 @@
     "hub/_quick_note/To-Do.md",
     "hub/_quick_note/pollen_exploration.md",
     "hub/_quick_note/Pollen Calibration.md",
-    "notes/RBO-W1 Server Debugging.md",
-    "notes/algos/fourier-ring-correlation.md",
-    "hub/docket/To-Do.md",
     "notes/algos",
-    "notes/events/vaziri-lab-meeting.md",
-    "hub/_quick_note/Vaziri-lab-meeting.md",
-    "hub/_quick_note/todo-list.md",
     "notes/images/2025-07-11 16-41-33.mp4",
     "notes/images/Pasted image 20250711194105.png",
     "notes/events",
@@ -263,7 +265,6 @@
     "notes/images/Pasted image 20250918100732.png",
     "notes/images/Pasted image 20250918100648.png",
     "notes/images/Pasted image 20250918100132.png",
-    "notes/literature/amat_keller_2015/amat_keller_2015.pdf",
-    "notes/literature/tomer_keller_2012/nmeth.2062.pdf"
+    "notes/literature/amat_keller_2015/amat_keller_2015.pdf"
   ]
 }
