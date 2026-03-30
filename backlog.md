@@ -35,6 +35,11 @@
 - [ ] (~1 day) Registration solution without requiring manual bigstitcher (compare with NCC, as in regDeconvProject publication) (W12)
 - [ ] (~1 day) Beads: avg bead estimate using bead-analyzer to estimate PSF (W12)
 - [ ] IsoView-Processing DF/F, Segment neurons with Cellpose (W12)
+- [ ] average bead estimate for each view (avoid saturated ones and clumps), then run bead-analyzer, https://github.com/natearnas/bead-analyzer, to estimate PSF (W12)
+- [ ] TimeFuse corrected data -> IsoView-Processing DF/F, motion-correct and segment neurons with Cellpose + Suite2p (W12)
+- [ ] Better comparisons using best-perspective of raw + rotated deconvolved outputs to match best-persectives (W12)
+- [ ] Check WB + Traditional produce comparable (or close enough) outputs, does Trad run on GPU? (W12)
+- [ ] IsoView-Processing TimeFuse, correctStack, DF/F, Segment neurons with Suite2p/Cellpose, compare with manual imageJ segmentation on MATLAB DF/F (W13)
 
 ## Done
 
