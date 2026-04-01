@@ -113,6 +113,7 @@ tags:
 	- Five subsampling factors (10, 6, 4, 2, full) [px]
 	- Cross-correlation with neighbor radius of 6
 - Quality assessed via manually annotating 3D landmarks and measuring the distance they moved during registration
+
 ### Supp. Fig 4, 5, 6: Spatial Maps for each instar period
 
 1st instar
