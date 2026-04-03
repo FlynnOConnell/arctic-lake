@@ -40,6 +40,8 @@
 - [ ] Better comparisons using best-perspective of raw + rotated deconvolved outputs to match best-persectives (W12)
 - [ ] Check WB + Traditional produce comparable (or close enough) outputs, does Trad run on GPU? (W12)
 - [ ] IsoView-Processing TimeFuse, correctStack, DF/F, Segment neurons with Suite2p/Cellpose, compare with manual imageJ segmentation on MATLAB DF/F (W13)
+- [ ] MATLAB grid-search for best parameter set and benchmark to compare with Python (W14)
+- [ ] Work toward Zarr v3 in Fiji (W14)
 
 ## Done
 
