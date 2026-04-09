@@ -42,6 +42,7 @@
 - [ ] IsoView-Processing TimeFuse, correctStack, DF/F, Segment neurons with Suite2p/Cellpose, compare with manual imageJ segmentation on MATLAB DF/F (W13)
 - [ ] MATLAB grid-search for best parameter set and benchmark to compare with Python (W14)
 - [ ] Work toward Zarr v3 in Fiji (W14)
+- [ ] Test mbo_utilities -> Add to RBO-C1, RBO-C2, MBO admin computers (W14)
 
 ## Done
 

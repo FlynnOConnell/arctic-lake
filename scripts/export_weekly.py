@@ -541,6 +541,43 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         ul, ol {{ padding-left: 1.5em; }}
         li {{ margin: 0.25em 0; }}
 
+        /* collapsible nested lists */
+        .collapsible-li {{
+            list-style: none;
+            margin-left: -1em;
+        }}
+
+        .collapsible-li > .list-toggle {{
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+        }}
+
+        .collapsible-li > .list-toggle::before {{
+            content: '▶';
+            font-size: 0.6em;
+            transition: transform 0.15s;
+            color: var(--text-muted);
+        }}
+
+        .collapsible-li.expanded > .list-toggle::before {{
+            transform: rotate(90deg);
+        }}
+
+        .collapsible-li > .list-toggle:hover::before {{
+            color: var(--accent-color);
+        }}
+
+        .collapsible-li > ul {{
+            display: none;
+            margin-top: 0.25em;
+        }}
+
+        .collapsible-li.expanded > ul {{
+            display: block;
+        }}
+
         hr {{
             border: none;
             border-top: 1px solid var(--border-color);
@@ -936,6 +973,55 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             var section = active.closest('.nav-section');
             if (section) section.classList.add('open');
         }}
+    }})();
+
+    // make nested lists collapsible
+    (function() {{
+        var content = document.querySelector('.content-wrapper');
+        if (!content) return;
+
+        // find all li elements that have nested ul children
+        var items = content.querySelectorAll('li');
+        items.forEach(function(li) {{
+            var nestedUl = li.querySelector(':scope > ul');
+            if (!nestedUl) return;
+
+            li.classList.add('collapsible-li');
+
+            // wrap the text content in a toggle span
+            var toggle = document.createElement('span');
+            toggle.className = 'list-toggle';
+
+            // move all direct child nodes except ul into the toggle
+            var nodesToMove = [];
+            li.childNodes.forEach(function(node) {{
+                if (node !== nestedUl && node.nodeType !== 8) {{
+                    nodesToMove.push(node);
+                }}
+            }});
+            nodesToMove.forEach(function(node) {{
+                toggle.appendChild(node);
+            }});
+            li.insertBefore(toggle, nestedUl);
+
+            // click handler to toggle
+            toggle.addEventListener('click', function(e) {{
+                li.classList.toggle('expanded');
+            }});
+
+            // determine depth: count parent ul elements
+            var depth = 0;
+            var parent = li.parentElement;
+            while (parent && parent !== content) {{
+                if (parent.tagName === 'UL') depth++;
+                parent = parent.parentElement;
+            }}
+
+            // expand only top-level items (depth 1 = first ul in content)
+            if (depth === 1) {{
+                li.classList.add('expanded');
+            }}
+        }});
     }})();
     </script>
 </body>
