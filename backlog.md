@@ -1,5 +1,20 @@
 # Backlog
 
+- [ ] Think about hands-on workshop (W11)
+- [ ] (~1 day) Registration solution without requiring manual bigstitcher (compare with NCC, as in regDeconvProject publication) (W12)
+- [ ] Work toward Zarr v3 in Fiji (W14)
+- [ ] Test mbo_utilities -> Add to RBO-C1, RBO-C2, MBO admin computers (W14)
+- [ ] Evaluate Cellpose on (W14)
+- [ ] isoview runs on `2015-05-22_Dme_E1_57C10_GCaMP6s` (easier data for segmentation), multi-tiled dataset (W15)
+- [ ] Cellpose with time as a stitching dimension (W15)
+- [ ] Cellpose on the fused VW00/VW90 Volume (W15)
+- [ ] Update GUI documentation, clean/review mbo_utilities documentation remaining (W15)
+- [ ] Pipeline BDV registration -> Fusion through python (W15)
+- [ ] Update Suite2p to add gpu-registration (W15)
+- [ ] Load spinner when clicking mbo suite icon (W15)
+
+## Done
+
 - [x] MultiProcessing, speed optimizations (W09)
 - [x] View-View processing: registration, fusion, multiview-stitcher (W08)
 - [x] Compare BDV and multiview-stitcher with dresophila outputs (W09)
@@ -23,7 +38,6 @@
 - [x] diSPIMFusion with proper PSFs. RLucy iter 10, 20, 40 ... compare (W11)
 - [x] PSF measurement (FWHM): Beads with matched XYZ sampling, average beads estimate for each view (avoid saturated and clumps) -> Bead Analyzer (W11)
 - [x] DF/F: 2Hz dresophila dataset, segment -> DF/F (matlab pipeline) -> Cellpose-SAM -> Suite2p -> compare outputs (W11)
-- [ ] Think about hands-on workshop (W11)
 - [x] Hold off on pixel-resolution for pyramids detectable by ImageJ (WIP, may need to use "CENTIMETER" resolution unit) (W11)
 - [x] conjugation of all BDV affine matrices into a single matrix; figure out row-major vs column-major versions (W12)
 - [x] diSPIMFusion Deconvolution with PSFs (to be shared), Richardson Lucy iter=10, 20, 40 for comparison (W12)
@@ -32,7 +46,6 @@
 - [x] for each view, segment neurons then df/f using SiMView pipeline (MATLAB) (W12)
 - [x] cellpose-SAM, suite2p (W12)
 - [x] compare outputs of a and bead (W12)
-- [ ] (~1 day) Registration solution without requiring manual bigstitcher (compare with NCC, as in regDeconvProject publication) (W12)
 - [x] (~1 day) Beads: avg bead estimate using bead-analyzer to estimate PSF (W12)
 - [x] IsoView-Processing DF/F, Segment neurons with Cellpose (W12)
 - [x] average bead estimate for each view (avoid saturated ones and clumps), then run bead-analyzer, https://github.com/natearnas/bead-analyzer, to estimate PSF (W12)
@@ -41,17 +54,6 @@
 - [x] Check WB + Traditional produce comparable (or close enough) outputs, does Trad run on GPU? (W12)
 - [x] IsoView-Processing TimeFuse, correctStack, DF/F, Segment neurons with Suite2p/Cellpose, compare with manual imageJ segmentation on MATLAB DF/F (W13)
 - [x] MATLAB grid-search for best parameter set and benchmark to compare with Python (W14)
-- [ ] Work toward Zarr v3 in Fiji (W14)
-- [ ] Test mbo_utilities -> Add to RBO-C1, RBO-C2, MBO admin computers (W14)
-- [ ] Evaluate Cellpose on (W14)
-- [ ] isoview runs on `2015-05-22_Dme_E1_57C10_GCaMP6s` (easier data for segmentation), multi-tiled dataset (W15)
-- [ ] Cellpose with time as a stitching dimension (W15)
-- [ ] Cellpose on the fused VW00/VW90 Volume (W15)
-- [ ] Update GUI documentation, clean/review mbo_utilities documentation remaining (W15)
-- [ ] Pipeline BDV registration -> Fusion through python (W15)
-
-## Done
-
 - [x] Fix naming for correct_stack: digits in CM2, keep channel here, CHN01, remove the VW00 from XML (W10)
 - [x] Use matrix, not transpose, for python outputs (W10)
 - [x] Figures for artist: eliminate left/right margins, remove deadspace, invert lookup table, individual images (W10)
