@@ -2773,9 +2773,10 @@ destinations:
         print(f"  Mirror:   {NETWORK_NOTEBOOK}")
         print(f"  OneDrive: {ONEDRIVE_WEEKLY}")
         print(f"  Network:  {NETWORK_WEEKLY}")
-        if args.open:
-            serve_and_open(NETWORK_WEEKLY)
-        return
+        if not args.watch:
+            if args.open:
+                serve_and_open(NETWORK_WEEKLY)
+            return
 
     if args.onedrive:
         sync_to_onedrive(force=args.force)
