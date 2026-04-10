@@ -541,6 +541,16 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         ul, ol {{ padding-left: 1.5em; }}
         li {{ margin: 0.25em 0; }}
 
+        /* distinct bullet styles per nesting level (like VSCode) */
+        ul {{ list-style-type: disc; }}
+        ul ul {{ list-style-type: circle; }}
+        ul ul ul {{ list-style-type: square; }}
+        ul ul ul ul {{ list-style-type: disc; }}
+
+        ul > li::marker {{ color: var(--accent-color); }}
+        ul ul > li::marker {{ color: var(--text-muted); }}
+        ul ul ul > li::marker {{ color: var(--text-muted); }}
+
         /* collapsible nested lists */
         .collapsible-li {{
             list-style: none;
@@ -1168,9 +1178,34 @@ def remove_dataviewjs_links_section(content: str) -> str:
     return pattern.sub('', content)
 
 
+def normalize_list_indentation(content: str) -> str:
+    """normalize 2-space indentation to 4-space for markdown list parsing."""
+    lines = content.split('\n')
+    result = []
+    for line in lines:
+        # match lines starting with spaces followed by - or * or digit.
+        match = re.match(r'^( +)([-*]|\d+\.) ', line)
+        if match:
+            spaces = match.group(1)
+            # count indent level based on 2-space or 4-space increments
+            # convert to 4-space increments for markdown parser
+            if len(spaces) % 4 == 0:
+                # already 4-space, keep as is
+                result.append(line)
+            else:
+                # assume 2-space indentation, convert to 4-space
+                indent_level = len(spaces) // 2
+                new_indent = '    ' * indent_level
+                result.append(new_indent + line.lstrip())
+        else:
+            result.append(line)
+    return '\n'.join(result)
+
+
 def process_markdown(content: str, source_file: Path, output_dir: Path | None = None) -> str:
     """process markdown content, converting images/videos and obsidian syntax."""
     content = strip_frontmatter(content)
+    content = normalize_list_indentation(content)
     content = filter_empty_sections(content)
     content = convert_obsidian_images(content, source_file, IMAGES_DIR)
     content = convert_standard_images(content, source_file, IMAGES_DIR)
