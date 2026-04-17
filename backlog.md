@@ -1,17 +1,18 @@
 # Backlog
 
-- [ ] Think about hands-on workshop (W11)
-- [ ] (~1 day) Registration solution without requiring manual bigstitcher (compare with NCC, as in regDeconvProject publication) (W12)
-- [ ] Work toward Zarr v3 in Fiji (W14)
-- [ ] Test mbo_utilities -> Add to RBO-C1, RBO-C2, MBO admin computers (W14)
-- [ ] Evaluate Cellpose on (W14)
-- [ ] isoview runs on `2015-05-22_Dme_E1_57C10_GCaMP6s` (easier data for segmentation), multi-tiled dataset (W15)
+- [x] Think about hands-on workshop (W11)
+- [x] (~1 day) Registration solution without requiring manual bigstitcher (compare with NCC, as in regDeconvProject publication) (W12)
+- [x] Work toward Zarr v3 in Fiji (W14)
+- [x] Test mbo_utilities -> Add to RBO-C1, RBO-C2, MBO admin computers (W14)
+- [x] Evaluate Cellpose on (W14)
+- [x] isoview runs on `2015-05-22_Dme_E1_57C10_GCaMP6s` (easier data for segmentation), multi-tiled dataset (W15)
 - [ ] Cellpose with time as a stitching dimension (W15)
-- [ ] Cellpose on the fused VW00/VW90 Volume (W15)
+- [x] Cellpose on the fused VW00/VW90 Volume (W15)
 - [ ] Update GUI documentation, clean/review mbo_utilities documentation remaining (W15)
 - [ ] Pipeline BDV registration -> Fusion through python (W15)
 - [ ] Update Suite2p to add gpu-registration (W15)
 - [ ] Load spinner when clicking mbo suite icon (W15)
+- [x] Isoview, more interested in suite2p/cellpose segmentation results (W15)
 
 ## Done
 
