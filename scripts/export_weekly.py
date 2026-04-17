@@ -1215,11 +1215,13 @@ def process_markdown(content: str, source_file: Path, output_dir: Path | None = 
     content = strip_frontmatter(content)
     content = normalize_list_indentation(content)
     content = filter_empty_sections(content)
-    content = convert_obsidian_images(content, source_file, IMAGES_DIR)
-    content = convert_standard_images(content, source_file, IMAGES_DIR)
+    # videos must run before images: standard image regex matches video paths
+    # too, and would base64-encode .mp4 files as broken images
     if output_dir:
         content = convert_obsidian_videos(content, source_file, output_dir)
         content = convert_standard_videos(content, source_file, output_dir)
+    content = convert_obsidian_images(content, source_file, IMAGES_DIR)
+    content = convert_standard_images(content, source_file, IMAGES_DIR)
     content = convert_wikilinks(content)
     content = convert_callouts(content)
     content = convert_task_lists(content)
@@ -1940,13 +1942,27 @@ def sync_to_destination(weekly_dest: Path, compute_dest: Path, force: bool = Fal
     additional_meta = discover_additional_pages()
     nav_tree = build_nav_tree(weeks, additional_meta)
 
-    # if any source week is missing from destination, force-rebuild all
-    # so sidebars on existing files include the new week
+    # detect stale sidebars: if any destination file doesn't reference all
+    # source weeks in its sidebar, force-rebuild all so sidebars are consistent
     if not force:
-        existing = {f.stem for f in weekly_dest.glob("*.html") if f.stem.startswith("20")}
-        new_weeks = set(weeks) - existing
-        if new_weeks:
-            print(f"  detected {len(new_weeks)} new week(s) ({', '.join(sorted(new_weeks))}) — forcing rebuild to refresh sidebars")
+        existing_files = [f for f in weekly_dest.glob("*.html") if f.stem.startswith("20")]
+        existing_stems = {f.stem for f in existing_files}
+        new_weeks = set(weeks) - existing_stems
+        stale = bool(new_weeks)
+        if not stale and existing_files:
+            # check the oldest existing file's sidebar for all source weeks
+            sample = sorted(existing_files)[0]
+            try:
+                sample_text = sample.read_text(encoding='utf-8', errors='ignore')
+                for w in weeks:
+                    if f'>{w}<' not in sample_text:
+                        stale = True
+                        break
+            except Exception:
+                stale = True
+        if stale:
+            reason = f"{len(new_weeks)} new week(s)" if new_weeks else "stale sidebars"
+            print(f"  {reason} detected — forcing full rebuild to refresh sidebars")
             force = True
 
     print(f"syncing weekly to: {weekly_dest}")
