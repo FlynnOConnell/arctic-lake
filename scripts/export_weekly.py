@@ -275,30 +275,34 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         .sidebar-brand a:hover {{ color: var(--accent-color); }}
 
         .nav-section {{
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.1rem;
         }}
 
         .nav-section-title {{
-            padding: 0.4rem 1rem;
-            font-weight: 700;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
+            padding: 0.35rem 0.5rem 0.35rem 0.75rem;
+            font-weight: 600;
+            font-size: 0.78rem;
+            color: var(--text-color);
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.3rem;
             user-select: none;
+            border-radius: 3px;
         }}
 
-        .nav-section-title:hover {{ color: var(--text-color); }}
+        .nav-section-title:hover {{ background: rgba(255,255,255,0.04); }}
 
         .nav-section-title::before {{
-            content: '▶';
-            font-size: 0.55em;
-            transition: transform 0.15s;
-            display: inline-block;
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 4px 0 4px 6px;
+            border-color: transparent transparent transparent var(--text-muted);
+            transition: transform 0.12s;
+            flex-shrink: 0;
+            margin-right: 0.15rem;
         }}
 
         .nav-section.open .nav-section-title::before {{
@@ -307,9 +311,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
         .nav-section-items {{
             display: none;
-            padding: 0;
-            margin: 0;
+            padding: 0 0 0 0.85rem;
+            margin: 0.1rem 0 0.25rem 0.85rem;
             list-style: none;
+            border-left: 1px solid var(--border-color);
         }}
 
         .nav-section.open .nav-section-items {{
@@ -318,25 +323,28 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
         .nav-item a {{
             display: block;
-            padding: 0.25rem 1rem 0.25rem 1.5rem;
+            padding: 0.2rem 0.5rem 0.2rem 0.75rem;
             color: var(--text-muted);
             text-decoration: none;
             border-left: 2px solid transparent;
-            transition: background 0.1s, color 0.1s;
+            margin-left: -1px;
+            transition: background 0.08s, color 0.08s;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-size: 0.8rem;
+            border-radius: 0 3px 3px 0;
         }}
 
         .nav-item a:hover {{
             color: var(--text-color);
-            background: rgba(130,170,255,0.05);
+            background: rgba(255,255,255,0.04);
         }}
 
         .nav-item.active a {{
             color: var(--accent-color);
             border-left-color: var(--accent-color);
-            background: rgba(130,170,255,0.08);
+            background: rgba(130,170,255,0.1);
             font-weight: 600;
         }}
 
@@ -1931,6 +1939,15 @@ def sync_to_destination(weekly_dest: Path, compute_dest: Path, force: bool = Fal
     weeks = discover_all_weeks()
     additional_meta = discover_additional_pages()
     nav_tree = build_nav_tree(weeks, additional_meta)
+
+    # if any source week is missing from destination, force-rebuild all
+    # so sidebars on existing files include the new week
+    if not force:
+        existing = {f.stem for f in weekly_dest.glob("*.html") if f.stem.startswith("20")}
+        new_weeks = set(weeks) - existing
+        if new_weeks:
+            print(f"  detected {len(new_weeks)} new week(s) ({', '.join(sorted(new_weeks))}) — forcing rebuild to refresh sidebars")
+            force = True
 
     print(f"syncing weekly to: {weekly_dest}")
     results = export_all_weeks(weekly_dest, force=force, nav_tree=nav_tree)
