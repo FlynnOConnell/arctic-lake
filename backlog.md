@@ -1,5 +1,6 @@
 # Backlog
 
+- [ ] Consolidate MATLAB-CaImAn analysis on 1m+ neuron dataset
 - [ ] Cellpose with time as a stitching dimension (W15)
 - [ ] Update GUI documentation, clean/review mbo_utilities documentation remaining (W15)
 - [ ] Pipeline BDV registration -> Fusion through python (W15)
