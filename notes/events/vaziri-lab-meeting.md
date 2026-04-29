@@ -93,3 +93,7 @@ Robust BEAST in-vivo imaging
 - didn't factor in improvement from GCaMP6s to GCaMP8s 
 
 
+## Christian 2026-04-11: Updates 
+
+- Opto
+- 

@@ -129,3 +129,24 @@ apptainer overlay create --size 2048 matlab_r2022a_overlay_nofakeroot.img
 apptainer shell --overlay matlab_r2022a_overlay_nofakeroot.img \
 --bind /rugpfs/fs0/vzri_lab/scratch:/vzri_scratch matlab_r2022a.sif
 ```
+
+## Some helpful commands
+
+Check dir contents and delete:
+
+```
+Administrator in ~\repos\mbo_utilities on  tool-torch [*!13] is 󰏗 v2.7.7 via  v3.12.9 took 3m3s
+󰍲 ❯ ssh mbo_data@dtn02-hpc.rockefeller.edu "ls -lh /lustre/fs4/mbo/scratch/mbo_data/"
+total 4.6G
+-rw-r--r-- 1 mbo_data mbo 4.6G Apr 24 14:26 mk355_07-27-2025_00001.tif
+drwx------ 2 mbo_data mbo 4.0K Apr 24 14:27 single_hemisphere
+
+Administrator in ~\repos\mbo_utilities on  tool-torch [*!13] is 󰏗 v2.7.7 via  v3.12.9
+󰍲 ❯ ssh mbo_data@dtn02-hpc.rockefeller.edu "rm -rf /lustre/fs4/mbo/scratch/mbo_data/single_hemisphere"
+
+Administrator in ~\repos\mbo_utilities on  tool-torch [*!13] is 󰏗 v2.7.7 via  v3.12.9
+󰍲 ❯ ssh mbo_data@dtn02-hpc.rockefeller.edu "ls -lh /lustre/fs4/mbo/scratch/mbo_data/"
+total 4.6G
+-rw-r--r-- 1 mbo_data mbo 4.6G Apr 24 14:26 mk355_07-27-2025_00001.tif
+```
+
