@@ -2532,15 +2532,9 @@ def _is_port_in_use(port: int) -> bool:
 
 
 def _start_server(serve_dir: Path) -> None:
-    """spawn a detached HTTP server process."""
-    cmd = [
-        sys.executable, "-c",
-        f"from http.server import HTTPServer, SimpleHTTPRequestHandler; "
-        f"from functools import partial; "
-        f"h = partial(SimpleHTTPRequestHandler, directory=r'{serve_dir}'); "
-        f"s = HTTPServer(('127.0.0.1', {SERVE_PORT}), h); "
-        f"s.serve_forever()"
-    ]
+    """spawn a detached HTTP server process with no-cache headers."""
+    server_script = Path(__file__).parent / "_serve.py"
+    cmd = [sys.executable, str(server_script), str(serve_dir), str(SERVE_PORT)]
 
     if sys.platform == "win32":
         subprocess.Popen(
