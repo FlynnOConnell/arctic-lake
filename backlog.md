@@ -12,6 +12,13 @@
 - [ ] Publishing to PyPi (W16)
 - [ ] User environments, `uv` and `conda` (W16)
 - [ ] Cellpose-distributed 3D with masking (W16)
+- [ ] Cellpose-SAM, dresophila, cropped z14-24 + time, in 2D for each plane, then extraction (W16)
+- [ ] If Pass, then we go to 3D segmentation on the DME dresophila dataset (W16)
+- [ ] Refactor isoview I/O to `filename.corrected` and `filename.fused` (W20)
+- [ ] Isoview integration with MBO Studio GUI for workshop (W20)
+- [ ] Integrate color channel as "CH" (W20)
+- [ ] Find correct bigstitcher workflow for DME - reproduce registration with mbo studio (W20)
+- [ ] Test isoview pipeline on tiled dataset (W20)
 
 ## Done
 
