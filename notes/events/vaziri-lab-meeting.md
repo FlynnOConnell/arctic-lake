@@ -20,6 +20,9 @@ Discriminablity index (d')
 
 Volate mini2p, looking towards multiplexing (lateral)
 
+## Kalyan 05/19/2026
+
+
 
 ## Arash 09/09/25
 - Memory, working memory in M2
