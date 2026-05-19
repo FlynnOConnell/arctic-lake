@@ -1,3 +1,0 @@
-- Need isotropic, properly oriented PSFs
-- DF/F WIP, imageJ view_dff.ij
-- [ ] Test if regDeconvProject registration can match or exceed bigstitcher
