@@ -1,13 +1,3 @@
----
-id: 2026-05-19
-aliases: []
-tags:
-  - daily-notes
----
-
-- mbo studio has [external users](`https://github.com/MillerBrainObservatory/mbo_utilities/issues/192`)
-- Channel based on wavelength, store per-camera metadata containing wavelength
-- Bake the stage positions in the XML
 
 ### Concepts for Isoview workshop
 
@@ -56,14 +46,3 @@ Z: horizontal (detection/scan axis)
 Y-scan camera (CM02/CM03)
 The scan axis is Y, so in raw data the "slow" axis is Y. To align with the Z-scan camera (CM00/CM01), you need to swap the scan axes.
 
-
-# fps vs vps? 
-
-fps = 1000.0 / exposure_time_ms          # camera frame rate (Hz)
-vps = fps / zplanes                       # volume rate (Hz)
-fs  = vps if "vps" in meta else fps       # what gets exposed
-For your XML:
-
-exposure_time = 4.8 ms → fps = 208.33
-dimensions = "2048x752x79,..." → zplanes = 79
-vps = 208.33 / 79 = 2.64 Hz → fs = 2.64
