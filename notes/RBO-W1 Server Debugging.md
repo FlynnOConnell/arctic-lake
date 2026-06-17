@@ -1,15 +1,20 @@
 RBO-W1 License Debugging
+
 ## Generate Report
+
 1. In Remote Desktop Licensing Manager right-click the license server, click **Create Report**, and then click **CAL Usage**.
     
 2. The report is created and a message appears to confirm that the report was successfully created. Click **OK** to close the message.
 
 ## Notes
+
 From [ms-2019 cal not showing up](https://learn.microsoft.com/en-us/answers/questions/689967/rds-server-2019-cals-not-showing-as-installed)
 - Event Viewer\Applications and Services Logs\Microsoft\Windows\TerminalServices-Licensing for clues 
 
-Phil created:
-Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\RCM\Licensing Core
+Phil created regex:
+
+`Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\RCM\Licensing Core`
+
 - LicensingMode (REG_DWORD): 4
 - LServerName (REG_SZ): RBO-W1
 
@@ -73,6 +78,7 @@ repairs, details are included in the log file provided by the /OFFLOGFILE flag.
 ```
 
 #### Contents of CBS.log
+
 2025-09-19 14:40:05, Info                  CSI    0000012b Hashes for file member [l:23]'tls_branding_config.xml' do not match.
  Expected: {l:32 ml:33 b:045852938e96aa28197993a6efc401407d94185aff8c13172ad3252ff711ba45}.
  Actual: {l:32 b:49c898176d9ad8669bb1761a62e4fddb9da3b98f8cc3a311db7ac374bc4d2c37}.
