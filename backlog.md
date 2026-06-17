@@ -18,10 +18,12 @@
 - [ ] Isoview integration with MBO Studio GUI for workshop (W20)
 - [ ] Integrate color channel as "CH" (W20)
 - [ ] Find correct bigstitcher workflow for DME - reproduce registration with mbo studio (W20)
-- [ ] Test isoview pipeline on tiled dataset (W20)
+- [ ] Verify rotated camera orientation properly applied via GUI (W21)
+- [ ] Bigstitcher spark - reproduce course+fine bigstitcher registration (Dme) (W21)
 
 ## Done
 
+- [x] Test isoview pipeline on tiled dataset (W20)
 - [x] Think about hands-on workshop (W11)
 - [x] (~1 day) Registration solution without requiring manual bigstitcher (compare with NCC, as in regDeconvProject publication) (W12)
 - [x] Work toward Zarr v3 in Fiji (W14)
@@ -96,3 +98,6 @@
 - [x] Remove CHN0N -> View0N (W08)
 - [x] Test/Validate Zarr v3 (W09)
 - [x] Fuse orthogonal 2015-02-28_dresophila with BigStitcher (W11)
+- [x] Iterate on light-sheet workshop materials (W21)
+- [x] "CHN" filename tag for color channels (W21)
+- [x] Debug suite2p mean-img / mean-enhanced img (W21)

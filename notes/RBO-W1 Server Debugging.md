@@ -1,10 +1,12 @@
 RBO-W1 License Debugging
+
 ## Generate Report
 1. In Remote Desktop Licensing Manager right-click the license server, click **Create Report**, and then click **CAL Usage**.
     
 2. The report is created and a message appears to confirm that the report was successfully created. Click **OK** to close the message.
 
 ## Notes
+
 From [ms-2019 cal not showing up](https://learn.microsoft.com/en-us/answers/questions/689967/rds-server-2019-cals-not-showing-as-installed)
 - Event Viewer\Applications and Services Logs\Microsoft\Windows\TerminalServices-Licensing for clues 
 
