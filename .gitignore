@@ -11,3 +11,6 @@ docs/_static/images/
 
 # private notes — separate repo (arctic-lake-private), never committed here
 private/
+
+# rendered HTML exports — generated artifacts, kept local, not pushed
+exports/
