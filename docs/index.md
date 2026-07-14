@@ -1,16 +1,8 @@
 # MBO Docs
 
-documentation for weekly meetings, software tools, and sops.
+documentation for software tools and sops.
 
 ## Contents
-
-```{toctree}
----
-maxdepth: 1
-caption: Weekly
----
-weekly/index
-```
 
 ```{toctree}
 ---

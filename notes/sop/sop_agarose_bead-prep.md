@@ -26,6 +26,3 @@ id: sop_agarose_bead-prep
 - swirl around, check for undisolved particles
 
 5:1 agarose/bead
-
-Created: `= this.file.ctime`  
-Last Updated: `= this.file.mtime`

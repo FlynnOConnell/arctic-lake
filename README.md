@@ -1,30 +1,25 @@
----
-created_date: 10/07/2025
-updated_date: 10/07/2025
----
-# DASHBOARD
+# docs
 
-```dataview
-table file.link as "Note"
-from "hub"
-where category and !contains(file.path, "hub/literature")
-group by category
-sort category asc
+Personal notes vault (markdown). Editable in Obsidian or VSCode.
+
+## Navigating in VSCode
+
+- **[INDEX.md](INDEX.md)** — generated index of every note, grouped by recency, category, tag, and folder. Ctrl/Cmd+click any link to open.
+- `Ctrl+P` — fuzzy quick-open by filename.
+- `Ctrl+Shift+F` — full-text search across the vault.
+- Install the recommended **Foam** extension (prompted on open, see `.vscode/extensions.json`) to make `[[wikilinks]]` clickable and get backlinks + a graph.
+
+## Regenerating the index
+
+`INDEX.md` is generated — don't edit it by hand.
+
+```bash
+uv run build-index          # rebuild INDEX.md
+uv run build-index --check  # verify it's current (used by the pre-commit hook)
 ```
 
-```dataview
-table file.link as "File"
-from "hub"
-flatten file.tags as tag
-where tag and !contains(file.path, "hub/literature")
-group by tag
-sort tag asc
-```
+A git pre-commit hook regenerates it automatically. Enable hooks once with:
 
-```dataview
-table
-from "src"
-where !contains(file.path, "src/literature")
-sort file.mtime desc
-limit 15
+```bash
+git config core.hooksPath .githooks
 ```

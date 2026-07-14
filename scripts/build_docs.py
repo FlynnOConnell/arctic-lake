@@ -25,8 +25,6 @@ BUILD_DIR = DOCS_DIR / "_build" / "html"
 
 # source directories
 SOURCES = {
-    "weekly": REPO_ROOT / "weekly",
-    "daily": REPO_ROOT / "daily",
     "software": REPO_ROOT / "notes" / "software",
     "sop": REPO_ROOT / "notes" / "sop",
 }
@@ -201,14 +199,13 @@ def stage_content():
 
     # generate section indexes
     print("generating indexes...")
-    generate_section_index(DOCS_DIR / "weekly", "Weekly Notes", "weekly meeting notes and updates.")
     generate_section_index(DOCS_DIR / "software", "Software", "calcium imaging tools, pipelines, and references.")
     generate_section_index(DOCS_DIR / "sop", "SOPs", "standard operating procedures.")
 
 
 def clean_staged():
     """remove staged content (but keep _static/custom.css and conf.py)."""
-    for name in ["weekly", "daily", "software", "sop"]:
+    for name in ["software", "sop"]:
         path = DOCS_DIR / name
         if path.exists():
             shutil.rmtree(path)

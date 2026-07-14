@@ -1,0 +1,29 @@
+{
+  "search.exclude": {
+    "**/.venv": true,
+    "**/.obsidian": true,
+    "**/docs/_build": true,
+    "**/exports": true,
+    "**/*.lock": true,
+    "uv.lock": true
+  },
+  "files.exclude": {
+    "**/__pycache__": true
+  },
+  "explorer.sortOrder": "type",
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  "foam.files.ignore": [
+    ".obsidian/**/*",
+    ".venv/**/*",
+    "docs/_build/**/*",
+    "exports/**/*",
+    "templates/**/*"
+  ]
+}
