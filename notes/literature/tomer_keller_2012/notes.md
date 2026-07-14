@@ -8,5 +8,5 @@ aliases:
 ---
  **Quantitative high-speed imaging of entire developing embryos with simultaneous multiview light-sheet microscopy**
 
-![[Pasted image 20250730102117.png]]
+![Pasted image 20250730102117.png](images/Pasted%20image%2020250730102117.png)
 

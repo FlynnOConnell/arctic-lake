@@ -31,19 +31,19 @@ robust regression-based cell extraction for calcium imaging
 
 **problem with naive averaging**: if two cells overlap, averaging activity inside cells causes the inactive cell to show activity from the active one
 
-![[Pasted image 20250917165439.png]]
+![Pasted image 20250917165439.png](../images/Pasted%20image%2020250917165439.png)
 
 **least-squares regression** fixes this - what CaImAn and Suite2p use
 
-![[Pasted image 20250917165736.png]]
+![Pasted image 20250917165736.png](../images/Pasted%20image%2020250917165736.png)
 
 **robust regression** goes further - handles outliers better
 
-![[Pasted image 20250917165904.png]]
+![Pasted image 20250917165904.png](../images/Pasted%20image%2020250917165904.png)
 
 results superior to CNMF in their benchmarks:
 
-![[Pasted image 20250917170033.png]]
+![Pasted image 20250917170033.png](../images/Pasted%20image%2020250917170033.png)
 
 ---
 
@@ -51,7 +51,7 @@ results superior to CNMF in their benchmarks:
 
 companion tool for active learning-based cell sorting
 
-![[Pasted image 20250917170303.png]]
+![Pasted image 20250917170303.png](../images/Pasted%20image%2020250917170303.png)
 
 - pick a cell, computer suggests which cells to review next
 - achieves good results by sorting ~1% of the dataset
@@ -167,6 +167,6 @@ runEXTRACT('/data/session1', true, cfg)
 
 ## Links
 
-- [[calcium-imaging]] - main index
-- [[caiman]] - alternative with CNMF
-- [[suite2p]] - alternative pipeline
+- [calcium-imaging](../tags/calcium-imaging.md) - main index
+- [caiman](caiman.md) - alternative with CNMF
+- [suite2p](suite2p.md) - alternative pipeline

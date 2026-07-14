@@ -32,7 +32,7 @@ extends Suite2p to 3D - same FFT-based registration algorithm
 1. reduced noise
 2. improved estimates of brain motion
 
-![[Pasted image 20250918100132.png]]
+![Pasted image 20250918100132.png](../images/Pasted%20image%2020250918100132.png)
 
 ---
 
@@ -49,7 +49,7 @@ Suite3D removal strategy:
 2. **Excitation** - multiple fluorophores excited
 3. **Emission** - overlapping output wavelengths
 
-![[Pasted image 20250917181651.png|500]]  ![[Pasted image 20250917181722.png|500]]
+![500](../images/Pasted%20image%2020250917181651.png)  ![500](../images/Pasted%20image%2020250917181722.png)
 
 Sources:
 - [Huygens](https://svi.nl/CrossTalk)

@@ -29,7 +29,7 @@ uploaded with automatic conversion (`convert_to_wkw` job):
 - OME-TIFF, TIFF, PNG, JPEG, CZI, DM3, DM4, NIfTI, raw
 - uses [BioFormats](https://www.openmicroscopy.org/bio-formats/) via webknossos-libs for proprietary formats
 
-see [[ome]] for format details and metadata specs.
+see [ome](ome.md) for format details and metadata specs.
 
 ## conversion pipeline
 

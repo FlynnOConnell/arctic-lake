@@ -38,7 +38,7 @@ This representation is **size-invariant and morphology-independent** since it do
 
 IoU (Intersection over Union): Measures overlap between predicted and ground truth masks. Two cells sharing 50% of their combined occupied space have IoU = 0.5.
 
-![[notes/images/Pasted image 20250711194105.png|300]]
+![300](../images/Pasted%20image%2020250711194105.png)
 
 Average Precision (AP): Computed at various IoU thresholds (commonly AP@0.5). Higher is better.
 
@@ -262,5 +262,5 @@ Start with cpsam (Cellpose-SAM)
 
 ## Links
 
-- [[calcium-imaging]] - main index for calcium imaging pipelines
-- [[suite2p]] - from the same lab
+- [calcium-imaging](../tags/calcium-imaging.md) - main index for calcium imaging pipelines
+- [suite2p](suite2p.md) - from the same lab

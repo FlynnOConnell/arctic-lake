@@ -87,6 +87,6 @@ neuronal jitter visible in mean-subtracted timeseries - registration with suite2
 
 ## Links
 
-- [[calcium-imaging]] - main index
-- [[suite2p]] - alternative pipeline
-- [[caiman]] - alternative pipeline
+- [calcium-imaging](../tags/calcium-imaging.md) - main index
+- [suite2p](suite2p.md) - alternative pipeline
+- [caiman](caiman.md) - alternative pipeline

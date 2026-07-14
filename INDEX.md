@@ -2,25 +2,25 @@
 
 # Vault index
 
-35 notes. Ctrl/Cmd+click any link to open it.
+34 notes. Ctrl/Cmd+click any link to open it.
 
 ## Recently updated
 
+- `2026-07-14` — [WEBKNOSSOS](notes/software/webknossos.md)
+- `2026-07-14` — [Suite3D](notes/software/suite3d.md)
+- `2026-07-14` — [MaskNMF](notes/software/maskNMF.md)
+- `2026-07-14` — [Software](notes/software/index.md)
+- `2026-07-14` — [EXTRACT](notes/software/extract.md)
+- `2026-07-14` — [Cellpose](notes/software/cellpose.md)
+- `2026-07-14` — [Calcium Imaging](notes/software/calcium_imaging.md)
+- `2026-07-14` — [notes](notes/literature/tomer_keller_2012/notes.md)
 - `2026-06-17` — [HPC - General](<notes/HPC - General Usage.md>)
-- `2026-06-17` — [Backlog](backlog.md)
 - `2026-06-17` — [Dual RTX A5000 — CUDA enumeration troubleshooting](notes/NVIDIA-CUDA-GPU.md)
 - `2026-03-13` — [Bigstitcher registration](notes/software/bigstitcher.md)
 - `2026-02-24` — [OME](notes/software/ome.md)
-- `2026-02-24` — [Software](notes/software/index.md)
-- `2026-02-24` — [WEBKNOSSOS](notes/software/webknossos.md)
 - `2026-02-24` — [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md)
-- `2026-02-24` — [Calcium Imaging](notes/software/calcium_imaging.md)
 - `2026-01-21` — [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md)
-- `2026-01-21` — [EXTRACT](notes/software/extract.md)
-- `2026-01-20` — [Suite3D](notes/software/suite3d.md)
-- `2026-01-20` — [Cellpose](notes/software/cellpose.md)
 - `2026-01-20` — [Suite2p](notes/software/suite2p.md)
-- `2026-01-20` — [Rastermap](notes/software/rastermap.md)
 
 ## By category
 
@@ -75,10 +75,6 @@
 - **#webknossos** — [WEBKNOSSOS](notes/software/webknossos.md)
 
 ## All notes by folder
-
-### `(root)`
-
-- [Backlog](backlog.md)
 
 ### `notes`
 

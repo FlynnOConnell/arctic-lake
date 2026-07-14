@@ -20,21 +20,20 @@ index for calcium imaging analysis tools and concepts
 
 ## Analysis Pipelines
 
-- [[caiman]] - CNMF-based source extraction, NormCorre motion correction
-- [[suite2p]] - correlation-based ROI detection
-- [[suite3d]] - volumetric extension of suite2p
-- [[extract]] - robust regression segmentation
-- [[maskNMF]] - PMD + NMF approach
+- [caiman](caiman.md) - CNMF-based source extraction, NormCorre motion correction
+- [suite2p](suite2p.md) - correlation-based ROI detection
+- [suite3d](suite3d.md) - volumetric extension of suite2p
+- [extract](extract.md) - robust regression segmentation
+- [maskNMF](maskNMF.md) - PMD + NMF approach
 
 ## Concepts
 
-- [[gcamp_indicators]] - indicator dynamics and tau selection
-- [[rastermap]] - neural activity visualization
+- [gcamp_indicators](gcamp_indicators.md) - indicator dynamics and tau selection
+- [rastermap](rastermap.md) - neural activity visualization
 
 ## Related
 
-- [[cellpose]] - deep learning cell segmentation
-- [[isoview]] - light-sheet multi-view fusion
-- [[ome]] - OME-TIFF, OME-Zarr, BigDataViewer formats
+- [cellpose](cellpose.md) - deep learning cell segmentation
+- [ome](ome.md) - OME-TIFF, OME-Zarr, BigDataViewer formats
 
-for full package list see [[index|software index]]
+for full package list see [software index](index.md)
