@@ -482,42 +482,42 @@ debug output from `matlab/debug_blending.m` - visualizing multiFuse geometric bl
 ### overview
 raw cam0, cam1 inputs vs fused output and masks
 
-![](../static/images/2026-01-21-11-05-06_Overview.png)
+![](./images/2026-01-21-11-05-06_Overview.png)
 *fig 1: top row: cam0 raw, cam1 raw, matlab fused at z=40. bottom row: fusionMask (Y,X) with value=Z transition, cam0 mask2D, cam1 transformed mask2D*
 
 ### xz blending view
 shows Z-axis transition at y=1024 (middle of volume)
 
-![](../static/images/2026-01-21-11-05-06_XZ_Blending_View.png)
+![](./images/2026-01-21-11-05-06_XZ_Blending_View.png)
 *fig 2: top left: cam0 XZ slice, top right: cam1 XZ slice, bottom left: fused XZ with red line showing fusionMask transition Z values, bottom right: nonzero mask*
 
 ### pixel values through z
 z-profile at a single (x,y) location showing how cam0/cam1 intensities combine
 
-![](../static/images/2026-01-21-11-05-06_Pixel_Values_Through_Z.png)
+![](./images/2026-01-21-11-05-06_Pixel_Values_Through_Z.png)
 *fig 3: top: intensity profiles for cam0 (blue), cam1 (red), fused (black dashed) with green transition line at z=70. bottom: table of raw pixel values around the transition zone*
 
 ### fused z slices
 output at different Z depths through the volume
 
-![](../static/images/2026-01-21-11-05-06_Fused_Z_Slices.png)
+![](./images/2026-01-21-11-05-06_Fused_Z_Slices.png)
 *fig 4: fused output at z=10,30,50,66,70,74 showing coverage and intensity at different depths*
 
 ### camera comparison
 side-by-side cam0, cam1, fused at z=40 (below transition) and z=70 (at transition)
 
-![](../static/images/2026-01-21-11-05-06_Camera_Comparison.png)
+![](./images/2026-01-21-11-05-06_Camera_Comparison.png)
 *fig 5: top row: z=40 (below transition, should be ~100% cam0). bottom row: z=70 (at transition, 50/50 blend). columns: cam0-bg, cam1-bg, fused*
 
 ### mask coverage
 spatial coverage of each camera and their overlap
 
-![](../static/images/2026-01-21-11-05-06_Mask_Coverage.png)
+![](./images/2026-01-21-11-05-06_Mask_Coverage.png)
 *fig 6: left: RGB overlay (green=cam0, red=cam1, yellow=overlap). middle: fusionMask values. right: histogram of Z transition values. coverage: cam0=68.7%, cam1=73.2%, overlap=65.7%, union=76.2%*
 
 ### intensity correction
 background subtraction and intensity matching parameters
 
-![](../static/images/2026-01-21-11-05-06_Intensity_Correction.png)
+![](./images/2026-01-21-11-05-06_Intensity_Correction.png)
 *fig 7: intensity correction parameters - background=98, factor=1.234 applied to cam1*
 

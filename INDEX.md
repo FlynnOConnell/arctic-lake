@@ -6,6 +6,7 @@
 
 ## Recently updated
 
+- `2026-07-14` — [IsoView Processing](notes/software/isoview.md)
 - `2026-07-14` — [Dendrites and dendridic computation](dendrites.md)
 - `2026-07-14` — [docs repo usage](usage.md)
 - `2026-07-14` — [Agarose Protocol](notes/sop/sop_agarose_bead-prep.md)
@@ -20,7 +21,6 @@
 - `2026-03-30` — [Lemon et al. 2015](<notes/literature/lemon_keller_2015/2015 Lemon Keller.md>)
 - `2026-03-30` — [drosophila dual-view deconvolution: PSF configurations](notes/software/2026-03-19_drosophila-deconv-psf.md)
 - `2026-03-13` — [diSPIMFusion vs regDeconProject: Pipeline Comparison](notes/software/diSPIM_regDeconv.md)
-- `2026-03-13` — [IsoView Processing](notes/software/isoview.md)
 
 ## By category
 
