@@ -8,3 +8,6 @@ docs/daily/
 docs/software/
 docs/sop/
 docs/_static/images/
+
+# private notes — separate repo (arctic-lake-private), never committed here
+private/

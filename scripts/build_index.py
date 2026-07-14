@@ -25,6 +25,7 @@ INDEX_PATH = REPO_ROOT / "INDEX.md"
 EXCLUDE_DIRS = {
     ".git", ".obsidian", ".venv", ".claude", "__pycache__", "node_modules",
     "docs", "exports", "processing", "static", "templates", "scripts",
+    "private",
 }
 
 # files that are not notes / would be self-referential
