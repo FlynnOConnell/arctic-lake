@@ -1,4 +1,6 @@
-# docs
+# arctic-lake
+
+arctic-lake is just a badass name for a place to keep my notes, literature and stuff.
 
 Personal notes vault (markdown). Editable in Obsidian or VSCode.
 
