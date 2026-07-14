@@ -2,16 +2,7 @@
 
 arctic-lake is just a badass name for a place to keep my notes, literature and stuff.
 
-Personal notes vault (markdown). Editable in Obsidian or VSCode. Private daily/weekly
-meeting notes and MBO/OBI work live in the separate **arctic-lake-private** repo, nested
-at `private/` (gitignored here, so it's never pushed to the public vault).
-
-## Navigating
-
-- **[INDEX.md](INDEX.md)** — generated index of every note, grouped by recency, category, tag, and folder. Ctrl/Cmd+click any link to open.
-- `Ctrl+P` — fuzzy quick-open by filename.
-- `Ctrl+Shift+F` — full-text search across the vault.
-- Install the recommended **Foam** extension (see `.vscode/extensions.json`) to make `[[wikilinks]]` clickable and get backlinks + a graph.
+Personal notes vault (markdown). Editable in Obsidian or VSCode. Private notes live elsewhere but may be referenced.
 
 ## Regenerating the index
 
@@ -126,10 +117,3 @@ arctic-lake/
 ├── INDEX.md        # generated vault index
 └── references.bib
 ```
-
-## Notebook naming convention
-
-Processing notebooks use the format `YYYY-MM-DD_author_title_YYYYMMDD.html`.
-
-Example: `2025-12-03_wsnyder_behavior-averaging_20260107.html`
-→ displays as "Behavior Averaging (wsnyder, 2025-12-03)".
