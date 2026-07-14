@@ -2,11 +2,10 @@
 
 # Vault index
 
-36 notes. Ctrl/Cmd+click any link to open it.
+35 notes. Ctrl/Cmd+click any link to open it.
 
 ## Recently updated
 
-- `2026-07-14` — [docs repo usage](usage.md)
 - `2026-06-17` — [HPC - General](<notes/HPC - General Usage.md>)
 - `2026-06-17` — [Backlog](backlog.md)
 - `2026-06-17` — [Dual RTX A5000 — CUDA enumeration troubleshooting](notes/NVIDIA-CUDA-GPU.md)
@@ -21,6 +20,7 @@
 - `2026-01-20` — [Suite3D](notes/software/suite3d.md)
 - `2026-01-20` — [Cellpose](notes/software/cellpose.md)
 - `2026-01-20` — [Suite2p](notes/software/suite2p.md)
+- `2026-01-20` — [Rastermap](notes/software/rastermap.md)
 
 ## By category
 
@@ -79,7 +79,6 @@
 ### `(root)`
 
 - [Backlog](backlog.md)
-- [docs repo usage](usage.md)
 
 ### `notes`
 
