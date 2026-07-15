@@ -14,3 +14,12 @@ private/
 
 # rendered HTML exports — generated artifacts, kept local, not pushed
 exports/
+
+# obsidian: regenerable plugin/theme binaries and per-device UI state — reinstall per device
+.obsidian/plugins/
+.obsidian/themes/
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# large research media — kept local, too heavy to sync to mobile
+static/videos/
