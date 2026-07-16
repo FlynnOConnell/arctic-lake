@@ -23,3 +23,6 @@ exports/
 
 # large research media — kept local, too heavy to sync to mobile
 static/videos/
+
+# large paper supplementary movies — kept local, too heavy to sync to mobile
+notes/literature/**/figures/*.mov

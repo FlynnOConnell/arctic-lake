@@ -2,37 +2,52 @@
 
 # Vault index
 
-34 notes. Ctrl/Cmd+click any link to open it.
+38 notes. Ctrl/Cmd+click any link to open it.
 
 ## Recently updated
 
-- `2026-07-14` — [WEBKNOSSOS](notes/software/webknossos.md)
-- `2026-07-14` — [Suite3D](notes/software/suite3d.md)
-- `2026-07-14` — [MaskNMF](notes/software/maskNMF.md)
-- `2026-07-14` — [Software](notes/software/index.md)
-- `2026-07-14` — [EXTRACT](notes/software/extract.md)
-- `2026-07-14` — [Cellpose](notes/software/cellpose.md)
-- `2026-07-14` — [Calcium Imaging](notes/software/calcium_imaging.md)
-- `2026-07-14` — [notes](notes/literature/tomer_keller_2012/notes.md)
-- `2026-06-17` — [HPC - General](<notes/HPC - General Usage.md>)
-- `2026-06-17` — [Dual RTX A5000 — CUDA enumeration troubleshooting](notes/NVIDIA-CUDA-GPU.md)
-- `2026-03-13` — [Bigstitcher registration](notes/software/bigstitcher.md)
-- `2026-02-24` — [OME](notes/software/ome.md)
-- `2026-02-24` — [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md)
-- `2026-01-21` — [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md)
-- `2026-01-20` — [Suite2p](notes/software/suite2p.md)
+- `2026-07-15` — [Literature](notes/literature/index.md)
+- `2026-07-15` — [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md)
+- `2026-07-15` — [Cellpose](notes/software/cellpose.md)
+- `2026-07-15` — [Stringer et al. 2021 — Cellpose: a generalist algorithm for cellular segmentation](notes/literature/cellpose_2021/cellpose_2021.md)
+- `2026-07-15` — [Linux and Networking Reference](<notes/software/Linux and Networking.md>)
+- `2026-07-15` — [Numpy](notes/software/Numpy.md)
+- `2026-07-15` — [Dual RTX A5000 — CUDA enumeration troubleshooting](notes/software/NVIDIA-CUDA-GPU.md)
+- `2026-07-15` — [Calcium Imaging](notes/software/calcium_imaging.md)
+- `2026-07-15` — [Suite2p](notes/software/suite2p.md)
+- `2026-07-15` — [Rastermap](notes/software/rastermap.md)
+- `2026-07-15` — [Pachitariu et al. 2017 — Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p_2017/suite2p_2017.md)
+- `2026-07-15` — [Stringer & Pachitariu 2024 — Rastermap: a discovery method for neural population recordings](notes/literature/rastermap_2024/rastermap_2024.md)
+- `2026-07-15` — [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
+- `2026-07-15` — [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md)
+- `2026-07-15` — [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md)
 
 ## By category
 
 ### index
 
 - [Calcium Imaging](notes/software/calcium_imaging.md)
+- [Literature](notes/literature/index.md)
+
+### literature
+
+- [Amat et al. 2015 — Efficient processing and analysis of large-scale light-sheet microscopy data](notes/literature/amat_keller_2015/amat_keller_2015.md)
+- [Chhetri et al. 2015 — Whole-animal functional and developmental imaging with isotropic spatial resolution](notes/literature/chhetri_keller_2015/chhetri_keller_2015.md)
+- [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md)
+- [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
+- [Guo et al. 2020 — Rapid image deconvolution and multiview fusion for optical microscopy](notes/literature/guo_shroff_2020/guo_shroff_2020.md)
+- [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md)
+- [Pachitariu et al. 2017 — Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p_2017/suite2p_2017.md)
+- [Stringer & Pachitariu 2024 — Rastermap: a discovery method for neural population recordings](notes/literature/rastermap_2024/rastermap_2024.md)
+- [Stringer et al. 2021 — Cellpose: a generalist algorithm for cellular segmentation](notes/literature/cellpose_2021/cellpose_2021.md)
+- [Tomer et al. 2012 — Quantitative high-speed imaging of entire developing embryos with SiMView](notes/literature/tomer_keller_2012/tomer_keller_2012.md)
 
 ### software
 
 - [CaImAn](notes/software/caiman.md)
 - [Cellpose](notes/software/cellpose.md)
 - [EXTRACT](notes/software/extract.md)
+- [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md)
 - [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md)
 - [OME](notes/software/ome.md)
 - [Rastermap](notes/software/rastermap.md)
@@ -40,71 +55,144 @@
 - [Suite3D](notes/software/suite3d.md)
 - [WEBKNOSSOS](notes/software/webknossos.md)
 
+## By cluster
+
+_papers and the tool/code notes they connect to_
+
+### calcium-imaging
+
+- [Pachitariu et al. 2017 — Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p_2017/suite2p_2017.md) · paper
+- [Stringer & Pachitariu 2024 — Rastermap: a discovery method for neural population recordings](notes/literature/rastermap_2024/rastermap_2024.md) · paper
+- [Stringer et al. 2021 — Cellpose: a generalist algorithm for cellular segmentation](notes/literature/cellpose_2021/cellpose_2021.md) · paper
+- [Cellpose](notes/software/cellpose.md)
+- [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md)
+- [Rastermap](notes/software/rastermap.md)
+- [Suite2p](notes/software/suite2p.md)
+
+### dendrites-voltage
+
+- [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md) · paper
+- [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md) · paper
+
+### light-sheet
+
+- [Amat et al. 2015 — Efficient processing and analysis of large-scale light-sheet microscopy data](notes/literature/amat_keller_2015/amat_keller_2015.md) · paper
+- [Chhetri et al. 2015 — Whole-animal functional and developmental imaging with isotropic spatial resolution](notes/literature/chhetri_keller_2015/chhetri_keller_2015.md) · paper
+- [Guo et al. 2020 — Rapid image deconvolution and multiview fusion for optical microscopy](notes/literature/guo_shroff_2020/guo_shroff_2020.md) · paper
+- [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md) · paper
+- [Tomer et al. 2012 — Quantitative high-speed imaging of entire developing embryos with SiMView](notes/literature/tomer_keller_2012/tomer_keller_2012.md) · paper
+
 ## By tag
 
+- **#3D-RTMC** — [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
+- **#backpropagation** — [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
 - **#bioformats** — [OME](notes/software/ome.md)
+- **#BTSP** — [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md)
+- **#CA1** — [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md), [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
 - **#caiman** — [CaImAn](notes/software/caiman.md)
-- **#calcium-imaging** — [CaImAn](notes/software/caiman.md), [Calcium Imaging](notes/software/calcium_imaging.md), [Cellpose](notes/software/cellpose.md), [EXTRACT](notes/software/extract.md), [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md), [MaskNMF](notes/software/maskNMF.md), [Rastermap](notes/software/rastermap.md), [Suite2p](notes/software/suite2p.md), [Suite3D](notes/software/suite3d.md), [WEBKNOSSOS](notes/software/webknossos.md)
-- **#cellpose** — [Cellpose](notes/software/cellpose.md)
-- **#clustering** — [Rastermap](notes/software/rastermap.md)
+- **#calcium-imaging** — [CaImAn](notes/software/caiman.md), [Calcium Imaging](notes/software/calcium_imaging.md), [Cellpose](notes/software/cellpose.md), [EXTRACT](notes/software/extract.md), [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md), [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md), [MaskNMF](notes/software/maskNMF.md), [Rastermap](notes/software/rastermap.md), [Suite2p](notes/software/suite2p.md), [Suite3D](notes/software/suite3d.md), [WEBKNOSSOS](notes/software/webknossos.md)
+- **#catmaid** — [Amat et al. 2015 — Efficient processing and analysis of large-scale light-sheet microscopy data](notes/literature/amat_keller_2015/amat_keller_2015.md)
+- **#cellpose** — [Cellpose](notes/software/cellpose.md), [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md), [Stringer et al. 2021 — Cellpose: a generalist algorithm for cellular segmentation](notes/literature/cellpose_2021/cellpose_2021.md)
+- **#clustering** — [Rastermap](notes/software/rastermap.md), [Stringer & Pachitariu 2024 — Rastermap: a discovery method for neural population recordings](notes/literature/rastermap_2024/rastermap_2024.md)
 - **#cnmf** — [CaImAn](notes/software/caiman.md)
 - **#data-format** — [OME](notes/software/ome.md), [WEBKNOSSOS](notes/software/webknossos.md)
-- **#deconvolution** — [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md)
-- **#deep-learning** — [Cellpose](notes/software/cellpose.md)
+- **#deconvolution** — [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md), [Guo et al. 2020 — Rapid image deconvolution and multiview fusion for optical microscopy](notes/literature/guo_shroff_2020/guo_shroff_2020.md)
+- **#deep-learning** — [Cellpose](notes/software/cellpose.md), [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md), [Stringer et al. 2021 — Cellpose: a generalist algorithm for cellular segmentation](notes/literature/cellpose_2021/cellpose_2021.md)
+- **#dendrites** — [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md), [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
 - **#denoising** — [MaskNMF](notes/software/maskNMF.md)
+- **#dimensionality-reduction** — [Stringer & Pachitariu 2024 — Rastermap: a discovery method for neural population recordings](notes/literature/rastermap_2024/rastermap_2024.md)
+- **#drosophila** — [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md)
 - **#extract** — [EXTRACT](notes/software/extract.md)
 - **#gcamp** — [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md)
+- **#image-fusion** — [Amat et al. 2015 — Efficient processing and analysis of large-scale light-sheet microscopy data](notes/literature/amat_keller_2015/amat_keller_2015.md), [Chhetri et al. 2015 — Whole-animal functional and developmental imaging with isotropic spatial resolution](notes/literature/chhetri_keller_2015/chhetri_keller_2015.md), [Guo et al. 2020 — Rapid image deconvolution and multiview fusion for optical microscopy](notes/literature/guo_shroff_2020/guo_shroff_2020.md), [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md)
 - **#indicators** — [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md)
-- **#isoview** — [notes](notes/literature/tomer_keller_2012/notes.md)
-- **#light-sheet-microscopy** — [notes](notes/literature/tomer_keller_2012/notes.md)
+- **#isoview** — [Chhetri et al. 2015 — Whole-animal functional and developmental imaging with isotropic spatial resolution](notes/literature/chhetri_keller_2015/chhetri_keller_2015.md), [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md), [Tomer et al. 2012 — Quantitative high-speed imaging of entire developing embryos with SiMView](notes/literature/tomer_keller_2012/tomer_keller_2012.md)
+- **#klb** — [Amat et al. 2015 — Efficient processing and analysis of large-scale light-sheet microscopy data](notes/literature/amat_keller_2015/amat_keller_2015.md)
+- **#light-sheet-microscopy** — [Amat et al. 2015 — Efficient processing and analysis of large-scale light-sheet microscopy data](notes/literature/amat_keller_2015/amat_keller_2015.md), [Chhetri et al. 2015 — Whole-animal functional and developmental imaging with isotropic spatial resolution](notes/literature/chhetri_keller_2015/chhetri_keller_2015.md), [Guo et al. 2020 — Rapid image deconvolution and multiview fusion for optical microscopy](notes/literature/guo_shroff_2020/guo_shroff_2020.md), [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md), [Tomer et al. 2012 — Quantitative high-speed imaging of entire developing embryos with SiMView](notes/literature/tomer_keller_2012/tomer_keller_2012.md)
+- **#literature** — [Literature](notes/literature/index.md)
 - **#masknmf** — [MaskNMF](notes/software/maskNMF.md)
 - **#matlab** — [EXTRACT](notes/software/extract.md)
+- **#methods** — [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
+- **#moc** — [Literature](notes/literature/index.md)
 - **#motion-correction** — [CaImAn](notes/software/caiman.md)
+- **#multiview** — [Tomer et al. 2012 — Quantitative high-speed imaging of entire developing embryos with SiMView](notes/literature/tomer_keller_2012/tomer_keller_2012.md)
+- **#multiview-deconvolution** — [Chhetri et al. 2015 — Whole-animal functional and developmental imaging with isotropic spatial resolution](notes/literature/chhetri_keller_2015/chhetri_keller_2015.md)
 - **#ngff** — [OME](notes/software/ome.md), [WEBKNOSSOS](notes/software/webknossos.md)
 - **#normcorre** — [CaImAn](notes/software/caiman.md)
 - **#ome-tiff** — [OME](notes/software/ome.md)
 - **#ome-zarr** — [OME](notes/software/ome.md), [WEBKNOSSOS](notes/software/webknossos.md)
 - **#overview** — [Calcium Imaging](notes/software/calcium_imaging.md)
 - **#pipelines** — [Calcium Imaging](notes/software/calcium_imaging.md)
-- **#rastermap** — [Rastermap](notes/software/rastermap.md)
-- **#segmentation** — [Cellpose](notes/software/cellpose.md), [EXTRACT](notes/software/extract.md), [Suite2p](notes/software/suite2p.md), [Suite3D](notes/software/suite3d.md)
-- **#suite2p** — [Suite2p](notes/software/suite2p.md), [Suite3D](notes/software/suite3d.md)
+- **#place-cells** — [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md)
+- **#plasticity** — [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md)
+- **#rastermap** — [Rastermap](notes/software/rastermap.md), [Stringer & Pachitariu 2024 — Rastermap: a discovery method for neural population recordings](notes/literature/rastermap_2024/rastermap_2024.md)
+- **#registration** — [Pachitariu et al. 2017 — Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p_2017/suite2p_2017.md)
+- **#richardson-lucy** — [Guo et al. 2020 — Rapid image deconvolution and multiview fusion for optical microscopy](notes/literature/guo_shroff_2020/guo_shroff_2020.md)
+- **#segmentation** — [Cellpose](notes/software/cellpose.md), [EXTRACT](notes/software/extract.md), [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md), [Pachitariu et al. 2017 — Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p_2017/suite2p_2017.md), [Stringer et al. 2021 — Cellpose: a generalist algorithm for cellular segmentation](notes/literature/cellpose_2021/cellpose_2021.md), [Suite2p](notes/software/suite2p.md), [Suite3D](notes/software/suite3d.md)
+- **#simview** — [Tomer et al. 2012 — Quantitative high-speed imaging of entire developing embryos with SiMView](notes/literature/tomer_keller_2012/tomer_keller_2012.md)
+- **#suite2p** — [Pachitariu et al. 2017 — Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p_2017/suite2p_2017.md), [Suite2p](notes/software/suite2p.md), [Suite3D](notes/software/suite3d.md)
 - **#suite3d** — [Suite3D](notes/software/suite3d.md)
-- **#two-photon** — [Suite2p](notes/software/suite2p.md), [Suite3D](notes/software/suite3d.md)
-- **#visualization** — [Rastermap](notes/software/rastermap.md), [WEBKNOSSOS](notes/software/webknossos.md)
+- **#two-photon** — [Pachitariu et al. 2017 — Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p_2017/suite2p_2017.md), [Suite2p](notes/software/suite2p.md), [Suite3D](notes/software/suite3d.md)
+- **#visualization** — [Rastermap](notes/software/rastermap.md), [Stringer & Pachitariu 2024 — Rastermap: a discovery method for neural population recordings](notes/literature/rastermap_2024/rastermap_2024.md), [WEBKNOSSOS](notes/software/webknossos.md)
+- **#voltage-imaging** — [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
 - **#webknossos** — [WEBKNOSSOS](notes/software/webknossos.md)
 
 ## All notes by folder
 
-### `notes`
+### `(root)`
 
-- [Dual RTX A5000 — CUDA enumeration troubleshooting](notes/NVIDIA-CUDA-GPU.md)
-- [HPC - General](<notes/HPC - General Usage.md>)
+- [Self-contained scripts with uv (PEP 723)](uv.md)
 
 ### `notes/events`
 
 - [Py NWB hackathon](<notes/events/Py-NWB hackathon.md>)
 
-### `notes/literature/rastermap`
+### `notes/literature`
 
-- [Rastermap](notes/literature/rastermap/2024_Stringer_Pachitariu_Rastermap.md)
-- [Rastermap](notes/literature/rastermap/notes.md)
-- [Rastermap: a discovery method for neural population recordings | Nature Neuroscience](notes/literature/rastermap/rastermap.md)
+- [Literature](notes/literature/index.md)
 
-### `notes/literature/suite2p`
+### `notes/literature/amat_keller_2015`
 
-- [Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p/notes.md)
-- [Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p/2017_Stringer_Harris_suite2p.md)
+- [Amat et al. 2015 — Efficient processing and analysis of large-scale light-sheet microscopy data](notes/literature/amat_keller_2015/amat_keller_2015.md)
+
+### `notes/literature/cellpose_2021`
+
+- [Stringer et al. 2021 — Cellpose: a generalist algorithm for cellular segmentation](notes/literature/cellpose_2021/cellpose_2021.md)
+
+### `notes/literature/chhetri_keller_2015`
+
+- [Chhetri et al. 2015 — Whole-animal functional and developmental imaging with isotropic spatial resolution](notes/literature/chhetri_keller_2015/chhetri_keller_2015.md)
+
+### `notes/literature/gonzalez_nature_2024`
+
+- [Gonzalez et al. 2024 — Synaptic basis of feature selectivity in hippocampal neurons](notes/literature/gonzalez_nature_2024/gonzalez_nature_2024.md)
+
+### `notes/literature/gonzalez_neuron_2026`
+
+- [Gonzalez et al. 2026 — Movement-stabilized 3D optical recordings of voltage + calcium in CA1 dendrites](notes/literature/gonzalez_neuron_2026/gonzalez_neuron_2026.md)
+
+### `notes/literature/guo_shroff_2020`
+
+- [Guo et al. 2020 — Rapid image deconvolution and multiview fusion for optical microscopy](notes/literature/guo_shroff_2020/guo_shroff_2020.md)
+
+### `notes/literature/lemon_keller_2015`
+
+- [Lemon et al. 2015 — Whole-central nervous system functional imaging of larval Drosophila](notes/literature/lemon_keller_2015/lemon_keller_2015.md)
+
+### `notes/literature/rastermap_2024`
+
+- [Stringer & Pachitariu 2024 — Rastermap: a discovery method for neural population recordings](notes/literature/rastermap_2024/rastermap_2024.md)
+
+### `notes/literature/suite2p_2017`
+
+- [Pachitariu et al. 2017 — Suite2p: beyond 10,000 neurons with standard two-photon microscopy](notes/literature/suite2p_2017/suite2p_2017.md)
 
 ### `notes/literature/tomer_keller_2012`
 
-- [notes](notes/literature/tomer_keller_2012/notes.md)
-- [Quantitative high-speed imaging of entire developing embryos with simultaneous multiview light-sheet microscopy | Nature Methods](<notes/literature/tomer_keller_2012/Quantitative high-speed imaging of entire developing embryos with simultaneous multiview light-sheet microscopy  Nature Methods.md>)
+- [Tomer et al. 2012 — Quantitative high-speed imaging of entire developing embryos with SiMView](notes/literature/tomer_keller_2012/tomer_keller_2012.md)
 
 ### `notes/personal`
 
-- [Linux and Networking Reference](<notes/personal/Linux and Networking.md>)
-- [Numpy](notes/personal/Numpy.md)
 - [Shower thoughts](<notes/personal/Shower Thoughts.md>)
 
 ### `notes/software`
@@ -113,10 +201,13 @@
 - [CaImAn](notes/software/caiman.md)
 - [Calcium Imaging](notes/software/calcium_imaging.md)
 - [Cellpose](notes/software/cellpose.md)
+- [Dual RTX A5000 — CUDA enumeration troubleshooting](notes/software/NVIDIA-CUDA-GPU.md)
 - [EXTRACT](notes/software/extract.md)
 - [From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation](notes/software/cellpose_versions.md)
 - [GCaMP Indicators and Deconvolution Kernel Selection](notes/software/gcamp_indicators.md)
+- [Linux and Networking Reference](<notes/software/Linux and Networking.md>)
 - [MaskNMF](notes/software/maskNMF.md)
+- [Numpy](notes/software/Numpy.md)
 - [OME](notes/software/ome.md)
 - [Rastermap](notes/software/rastermap.md)
 - [Software](notes/software/index.md)

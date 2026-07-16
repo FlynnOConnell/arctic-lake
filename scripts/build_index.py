@@ -29,7 +29,8 @@ EXCLUDE_DIRS = {
 }
 
 # files that are not notes / would be self-referential
-EXCLUDE_FILES = {"INDEX.md", "README.md"}
+# source.md = archived full-text scrape kept beside each literature note, not a note itself
+EXCLUDE_FILES = {"INDEX.md", "README.md", "source.md"}
 
 RECENT_LIMIT = 15
 
@@ -83,11 +84,15 @@ def load_note(path: Path) -> dict:
     category = fm.get("category")
     category = str(category) if category else None
 
+    cluster = fm.get("cluster")
+    cluster = str(cluster) if cluster else None
+
     return {
         "path": rel,
         "link": rel.as_posix(),
         "title": str(title).strip(),
         "category": category,
+        "cluster": cluster,
         "tags": tags,
         "folder": rel.parent.as_posix() if rel.parent != Path(".") else "(root)",
         "mtime": path.stat().st_mtime,
@@ -124,6 +129,32 @@ def section_by_category(notes: list[dict]) -> list[str]:
         lines.append(f"### {cat}")
         lines.append("")
         for n in sorted(by_cat[cat], key=lambda x: x["title"].lower()):
+            lines.append(f"- {md_link(n)}")
+        lines.append("")
+    return lines
+
+
+def section_by_cluster(notes: list[dict]) -> list[str]:
+    """group papers and the tool/code notes they connect to, by research cluster."""
+    clustered = [n for n in notes if n["cluster"]]
+    if not clustered:
+        return []
+    lines = ["## By cluster", "",
+             "_papers and the tool/code notes they connect to_", ""]
+    by_cluster: dict[str, list[dict]] = {}
+    for n in clustered:
+        by_cluster.setdefault(n["cluster"], []).append(n)
+    for cluster in sorted(by_cluster, key=str.lower):
+        lines.append(f"### {cluster}")
+        lines.append("")
+        group = by_cluster[cluster]
+        papers = sorted((n for n in group if n["category"] == "literature"),
+                        key=lambda x: x["title"].lower())
+        others = sorted((n for n in group if n["category"] != "literature"),
+                        key=lambda x: x["title"].lower())
+        for n in papers:
+            lines.append(f"- {md_link(n)} · paper")
+        for n in others:
             lines.append(f"- {md_link(n)}")
         lines.append("")
     return lines
@@ -172,6 +203,7 @@ def build() -> str:
     ]
     lines += section_recent(notes)
     lines += section_by_category(notes)
+    lines += section_by_cluster(notes)
     lines += section_by_tag(notes)
     lines += section_by_folder(notes)
 

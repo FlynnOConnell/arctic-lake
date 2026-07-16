@@ -72,6 +72,17 @@ Store images in an `images/` folder next to the note and reference them relative
 ![](./images/example.png)
 ```
 
+### Literature notes
+
+One folder per paper under `notes/literature/<citekey>/` — folder name = bibtex citekey = `[[wikilink]]` target:
+
+- `<citekey>.md` — the note (start from `templates/literature.md`)
+- `paper.pdf` — the source PDF, when available
+- `figures/` — paper figures as `figN.<ext>`; generate with `uv run extract-figures notes/literature/<citekey>`
+- `source.md` — optional archived full-text (excluded from the index)
+
+Citekey = tool name for tools (`rastermap`, `suite2p`), else `firstauthor_year`. Cross-link the tool note with `paper:` / `papers:` frontmatter; browse everything via [notes/literature/index.md](notes/literature/index.md). Notes on **published** papers live here (public); unpublished/in-press papers and grants stay in the private repo (separate process).
+
 ### Collapsible callouts
 
 Use Obsidian callouts for hidden/collapsible content with anchors.
