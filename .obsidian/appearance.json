@@ -3,7 +3,9 @@
   "interfaceFontFamily": "JetBrainsMono Nerd Font Mono,Arial",
   "monospaceFontFamily": "JetBrainsMono Nerd Font Mono,Bars",
   "translucency": true,
-  "enabledCssSnippets": [],
+  "enabledCssSnippets": [
+    "readable"
+  ],
   "cssTheme": "Catppuccin",
   "baseFontSize": 23,
   "showViewHeader": false,

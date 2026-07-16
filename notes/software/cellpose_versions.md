@@ -1,4 +1,15 @@
+---
+title: "From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation"
+category: software
+cluster: calcium-imaging
+paper: cellpose_2021
+tags: [cellpose, segmentation, deep-learning]
+created: 2026-02-24
+---
+
 # From U-Net to Cellpose-SAM: Architectural Evolution in Cell Segmentation
+
+Paper: [Cellpose — Stringer et al. 2021](../literature/cellpose_2021/cellpose_2021.md) · usage: [Cellpose](cellpose.md)
 
 An overview of the deep learning architectures underlying modern cellular segmentation, tracing the lineage from the original U-Net through Cellpose and its integration with Meta's Segment Anything Model.
 
@@ -6,7 +17,7 @@ An overview of the deep learning architectures underlying modern cellular segmen
 
 **Paper:** [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597) — Ronneberger, Fischer & Brox
 
-![U-Net Architecture](https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/u-net-architecture.png)
+![U-Net Architecture](./images/unet_architecture.png)
 *The original U-Net architecture. The contracting path (left) captures context via repeated convolution and downsampling. The expanding path (right) enables precise localization via upsampling and skip connections from the encoder.*
 
 The U-Net is an encoder-decoder convolutional neural network designed for biomedical image segmentation. Its two defining features are:
@@ -23,7 +34,7 @@ The output is a dense, per-pixel classification map. For cell segmentation speci
 
 **Code:** [github.com/MouseLand/cellpose](https://github.com/MouseLand/cellpose)
 
-![Cellpose Flow Fields](https://media.springernature.com/m312/springer-static/image/art%3A10.1038%2Fs41592-020-01018-x/MediaObjects/41592_2020_1018_Fig1_HTML.png)
+![Cellpose Flow Fields](./images/cellpose_flow_fields.png)
 *Cellpose model architecture showing the modified U-Net predicting horizontal and vertical gradient flows plus cell probability. Gradient tracking groups pixels into individual cell masks.*
 
 Cellpose retains the U-Net encoder-decoder skeleton but makes three specific architectural modifications (each individually ablated in Extended Data Fig. 2 of the paper):
@@ -86,7 +97,7 @@ This is where the architecture changes fundamentally. The residual U-Net is repl
 
 **Paper:** [Segment Anything](https://arxiv.org/abs/2304.02643) — Kirillov et al. (Meta AI, 2023)
 
-![SAM Architecture](https://images.ctfassets.net/xjan103pcp94/3GJFq3xEeSuCg91b5Mtezj/b4e9d4f89572f24dac66ed167ccb6e22/image8.png)
+_SAM architecture diagram — original hotlink is dead (404); see [Segment Anything (Kirillov et al. 2023)](https://arxiv.org/abs/2304.02643)._
 *The Segment Anything Model. A ViT image encoder produces dense embeddings. Prompt and mask decoders enable interactive segmentation via points, boxes, or text prompts. Cellpose-SAM discards everything except the image encoder.*
 
 SAM consists of three components:

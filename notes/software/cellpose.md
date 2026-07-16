@@ -5,10 +5,14 @@ tags:
   - deep-learning
   - calcium-imaging
 category: software
+cluster: calcium-imaging
+paper: cellpose_2021
 created: 2025-07-11
 ---
 
 # Cellpose
+
+Paper: [Cellpose — Stringer et al. 2021](../literature/cellpose_2021/cellpose_2021.md)
 
 Cellpose is a deep learning-based segmentation algorithm for cells and nuclei.
 - developed at HHMI Janelia Research Campus by Carsen Stringer and Marius Pachitariu

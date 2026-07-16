@@ -5,10 +5,14 @@ tags:
   - segmentation
   - two-photon
 category: software
+cluster: calcium-imaging
+paper: suite2p_2017
 created: 2025-09-18
 ---
 
 # Suite2p
+
+Paper: [Suite2p — Pachitariu et al. 2017](../literature/suite2p_2017/suite2p_2017.md)
 
 Suite2p is a pipeline for processing two-photon calcium imaging data.
 

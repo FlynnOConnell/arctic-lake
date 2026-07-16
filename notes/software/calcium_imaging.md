@@ -21,7 +21,7 @@ index for calcium imaging analysis tools and concepts
 ## Analysis Pipelines
 
 - [caiman](caiman.md) - CNMF-based source extraction, NormCorre motion correction
-- [suite2p](suite2p.md) - correlation-based ROI detection
+- [suite2p](suite2p.md) - correlation-based ROI detection · paper: [Suite2p 2017](../literature/suite2p_2017/suite2p_2017.md)
 - [suite3d](suite3d.md) - volumetric extension of suite2p
 - [extract](extract.md) - robust regression segmentation
 - [maskNMF](maskNMF.md) - PMD + NMF approach
@@ -29,7 +29,7 @@ index for calcium imaging analysis tools and concepts
 ## Concepts
 
 - [gcamp_indicators](gcamp_indicators.md) - indicator dynamics and tau selection
-- [rastermap](rastermap.md) - neural activity visualization
+- [rastermap](rastermap.md) - neural activity visualization · paper: [Rastermap 2024](../literature/rastermap_2024/rastermap_2024.md)
 
 ## Related
 
